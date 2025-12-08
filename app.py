@@ -331,6 +331,7 @@ def init_db():
             
             c.execute('PRAGMA foreign_keys=ON')
             
+            # Tabla de usuarios
             c.execute('''
                 CREATE TABLE IF NOT EXISTS usuarios (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -346,6 +347,7 @@ def init_db():
                 )
             ''')
             
+            # Tabla de horarios
             c.execute('''
                 CREATE TABLE IF NOT EXISTS horarios (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -367,10 +369,12 @@ def init_db():
                 )
             ''')
             
+            # Índices para horarios
             c.execute('CREATE INDEX IF NOT EXISTS idx_horarios_usuario ON horarios(usuario_id)')
             c.execute('CREATE INDEX IF NOT EXISTS idx_horarios_estado ON horarios(estado)')
             c.execute('CREATE INDEX IF NOT EXISTS idx_usuarios_rol ON usuarios(rol, activo)')
             
+            # Tabla de observaciones
             c.execute('''
                 CREATE TABLE IF NOT EXISTS observaciones (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -387,6 +391,7 @@ def init_db():
             
             c.execute('CREATE INDEX IF NOT EXISTS idx_observaciones_horario ON observaciones(horario_id)')
             
+            # Tabla de observaciones específicas
             c.execute('''
                 CREATE TABLE IF NOT EXISTS observaciones_especificas (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -398,6 +403,7 @@ def init_db():
                 )
             ''')
             
+            # Tabla de asignación de actividades
             c.execute('''
                 CREATE TABLE IF NOT EXISTS asignacion_actividades (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -414,6 +420,7 @@ def init_db():
             
             c.execute('CREATE INDEX IF NOT EXISTS idx_asignacion_usuario ON asignacion_actividades(usuario_id)')
             
+            # Tabla de configuración
             c.execute('''
                 CREATE TABLE IF NOT EXISTS configuracion (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -423,6 +430,7 @@ def init_db():
                 )
             ''')
             
+            # Tabla de actividades complementarias
             c.execute('''
                 CREATE TABLE IF NOT EXISTS actividades_complementarias (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -434,12 +442,14 @@ def init_db():
                 )
             ''')
             
+            # Configuración inicial del ciclo académico
             c.execute('''
                 INSERT OR IGNORE INTO configuracion (clave, valor)
                 VALUES ('ciclo_academico', 'Abril 2025 - Septiembre 2025')
             ''')
             
-            # Crear actividades complementarias por defecto
+            # ===== CREAR ACTIVIDADES COMPLEMENTARIAS POR DEFECTO =====
+            # Estas SÍ se mantienen porque son datos de catálogo, no usuarios
             actividades_default = [
                 ('T/AES', 'TUTORIAS/ACOMPAÑAMIENTO ESTUDIANTIL'),
                 ('T/PPP', 'TUTORIAS/PRÁCTICAS PREPROFESIONALES'),
@@ -465,23 +475,10 @@ def init_db():
                                f'Actividad complementaria por defecto creada: {codigo}',
                                extra_data={'codigo': codigo, 'descripcion': descripcion})
             
-            usuarios_default = [
-                ('Italo', '123456', 'Italo Lara', 'Docente', 'docente'),
-                ('Patricio', '123456', 'Patricio Bonifaz', 'Coordinadora de Carrera', 'coordinador'),
-                ('rectorado', '123456', 'Dr. Carlos Mendoza', 'Rectorado', 'rectorado')
-            ]
-            
-            for usuario, password, nombre, cargo, rol in usuarios_default:
-                c.execute('SELECT * FROM usuarios WHERE usuario = ?', (usuario,))
-                if c.fetchone() is None:
-                    password_hash = hashlib.sha256(password.encode()).hexdigest()
-                    c.execute('''
-                        INSERT INTO usuarios (usuario, password, nombre, cargo, rol)
-                        VALUES (?, ?, ?, ?, ?)
-                    ''', (usuario, password_hash, nombre, cargo, rol))
-                    log_action('admin', 'USUARIO_CREADO_INICIAL', 
-                               f'Usuario predeterminado creado: {usuario}',
-                               extra_data={'usuario': usuario, 'rol': rol})
+            # ===== NO SE CREAN USUARIOS AQUÍ =====
+            # Los usuarios se crean mediante setup_usuarios.py
+            log_action('general', 'BD_ESTRUCTURA_CREADA', 
+                       'Estructura de base de datos creada (sin usuarios por defecto)')
     
     try:
         execute_with_retry(_init)
@@ -2871,34 +2868,14 @@ def auto_init_db():
                 print("Reinicializando base de datos...")
                 init_db()
         
-        # ===== NUEVA PARTE: INICIALIZAR USUARIOS SI NO EXISTEN =====
+        # Inicializar usuarios de forma silenciosa
         try:
             from setup_usuarios import inicializar_usuarios_sistema, verificar_sistema_inicializado
             
             if not verificar_sistema_inicializado(db_path):
-                print("\n" + "=" * 80)
-                print("SISTEMA SIN USUARIOS - INICIANDO CREACIÓN AUTOMÁTICA")
-                print("=" * 80)
-                
-                credenciales = inicializar_usuarios_sistema(db_path)
-                
-                if credenciales:
-                    # Registrar en logs
-                    log_action('general', 'USUARIOS_INICIALES_CREADOS', 
-                               'Usuarios iniciales del sistema creados automáticamente',
-                               extra_data={
-                                   'usuarios_creados': len(credenciales),
-                                   'roles': ','.join([c['rol'] for c in credenciales.values()])
-                               })
-            else:
-                print("✓ Sistema ya tiene usuarios configurados.")
-        except ImportError:
-            print("⚠️  Advertencia: No se pudo importar setup_usuarios.py")
-            print("   El sistema funcionará pero sin usuarios iniciales.")
-        except Exception as e:
-            print(f"⚠️  Advertencia al inicializar usuarios: {e}")
-            print("   El sistema funcionará pero verifica los usuarios manualmente.")
-        # ===== FIN DE LA NUEVA PARTE =====
+                inicializar_usuarios_sistema(db_path)
+        except:
+            pass
                 
     except Exception as e:
         print(f"ERROR en auto-inicialización: {e}")
