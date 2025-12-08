@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Horario - ISTT</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #F5F7FA;
+            padding: 20px;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .controls h2 {
+            color: #263238;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            word-break: break-word;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .controls h2 svg {
+            flex-shrink: 0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn svg {
+            flex-shrink: 0;
+        }
+
+        .btn-download {
+            background: #1976D2;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #1565C0;
+        }
+
+        .btn-download:active {
+            background: #0D47A1;
+        }
+
+        .btn-download:disabled {
+            background: #E0E0E0;
+            color: #9E9E9E;
+            cursor: not-allowed;
+        }
+
+        .btn-download-hored {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-download-hored:hover {
+            background: #388E3C;
+        }
+
+        .btn-close {
+            background: #616161;
+            color: white;
+        }
+
+        .btn-close:hover {
+            background: #424242;
+        }
+
+        .preview-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+        }
+
+        .horario-page {
+            page-break-after: always;
+            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            width: 100%;
+            min-height: 950px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .horario-page:last-child {
+            page-break-after: auto;
+        }
+
+        .document-header {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0097A7;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-info {
+            text-align: center;
+            flex: 1;
+        }
+
+        .institution-name {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0097A7;
+            margin-bottom: 5px;
+        }
+
+        .teacher-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #263238;
+            margin-bottom: 3px;
+        }
+
+        .teacher-role {
+            font-size: 16px;
+            color: #78909C;
+            margin-bottom: 3px;
+        }
+
+        .ciclo-academico {
+            font-size: 14px;
+            color: #0097A7;
+            font-weight: 600;
+            background: #E0F7FA;
+            padding: 4px 12px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .schedule-table {
+            width: 100%;
+            flex: 1;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-bottom: 10px;
+        }
+
+        .schedule-table thead th {
+            border: 2px solid #000;
+            padding: 3px 2px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 900;
+            color: #000 !important;
+            vertical-align: middle;
+            height: 40px;
+        }
+        
+        .schedule-table thead th * {
+            color: #000 !important;
+        }
+
+        .schedule-table thead th:first-child {
+            background: white;
+            border: 2px solid #000;
+            width: 6%;
+        }
+
+        .schedule-table thead th:not(:first-child) {
+            width: 6.3%;
+        }
+
+        .schedule-table thead th.header-green {
+            background: #00695C;
+        }
+
+        .schedule-table thead th.header-yellow {
+            background: #FFFF00;
+        }
+
+        .schedule-table thead th .period-num {
+            display: block;
+            font-size: 13px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .schedule-table thead th .period-time {
+            display: block;
+            font-size: 7px;
+            font-weight: normal;
+            margin-top: 2px;
+            line-height: 1.0;
+        }
+
+        .schedule-table tbody tr {
+            height: 55px;
+            min-height: 40px;
+        }
+
+        .schedule-table tbody th {
+            border: 2px solid #000;
+            padding: 4px 3px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 900;
+            width: 6%;
+            color: #000 !important;
+            vertical-align: middle;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .schedule-table tbody th * {
+            color: #000 !important;
+        }
+
+        .schedule-table tbody th.day-green {
+            background: #00695C;
+        }
+
+        .schedule-table tbody th.day-yellow {
+            background: #FFFF00;
+        }
+
+        .schedule-table td {
+            border: 1px solid #000;
+            padding: 3px 2px;
+            text-align: center;
+            vertical-align: middle;
+            background: white;
+            font-size: 10px;
+            line-height: 1.1;
+            height: auto;
+            min-height: 40px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            color: #000 !important;
+        }
+        
+        .schedule-table td * {
+            color: #000 !important;
+        }
+
+        .lesson-class {
+            font-weight: normal;
+            color: #000 !important;
+            display: block;
+            font-size: 7px;
+            margin-bottom: 1px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .lesson-subject {
+            color: #000 !important;
+            font-size: 10px;
+            font-weight: 900;
+            display: block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .activity-description {
+            font-weight: normal;
+            color: #000 !important;
+            display: block;
+            font-size: 7px;
+            margin-top: 1px;
+            line-height: 1.0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Colores para clases regulares */
+        .color-1 { background-color: #FFF9CC !important; }
+        .color-2 { background-color: #E6F4EA !important; }
+        .color-3 { background-color: #FFE6F0 !important; }
+        .color-4 { background-color: #E6F2FF !important; }
+        .color-5 { background-color: #FFF0E6 !important; }
+        .color-6 { background-color: #F0E6FF !important; }
+        .color-7 { background-color: #E6FFF9 !important; }
+        .color-8 { background-color: #FFFFE6 !important; }
+
+        /* Colores diferenciados para actividades complementarias */
+        .activity-color-1 { background-color: #FFE0B2 !important; }
+        .activity-color-2 { background-color: #F8BBD0 !important; }
+        .activity-color-3 { background-color: #D1C4E9 !important; }
+        .activity-color-4 { background-color: #BBDEFB !important; }
+        .activity-color-5 { background-color: #B2DFDB !important; }
+        .activity-color-6 { background-color: #DCEDC8 !important; }
+        .activity-color-7 { background-color: #FFF9C4 !important; }
+        .activity-color-8 { background-color: #FFCCBC !important; }
+        .activity-color-9 { background-color: #E1BEE7 !important; }
+        .activity-color-10 { background-color: #C5CAE9 !important; }
+        .activity-color-11 { background-color: #B3E5FC !important; }
+        .activity-color-12 { background-color: #B2EBF2 !important; }
+        .activity-color-13 { background-color: #C8E6C9 !important; }
+        .activity-color-14 { background-color: #F0F4C3 !important; }
+        .activity-color-15 { background-color: #FFECB3 !important; }
+
+        /* SECCIÓN DE FIRMAS */
+        .firmas-section {
+            margin-top: 120px;
+            page-break-inside: avoid;
+        }
+
+        .firmas-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            gap: 80px;
+        }
+
+        .firma-box {
+            flex: 1;
+            text-align: center;
+            max-width: 350px;
+        }
+
+        .firma-linea {
+            border-top: 2px solid #000;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .firma-nombre {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+        .firma-cargo {
+            font-size: 12px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .controls {
+                display: none !important;
+            }
+
+            .horario-page {
+                page-break-after: always;
+                width: 100%;
+                height: 100vh;
+                padding: 15px;
+                margin: 0;
+            }
+
+            .schedule-table {
+                width: 100%;
+                height: calc(100vh - 300px);
+            }
+            
+            .schedule-table thead th,
+            .schedule-table thead th *,
+            .schedule-table tbody th,
+            .schedule-table tbody th *,
+            .schedule-table td,
+            .schedule-table td * {
+                color: #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .schedule-table thead th.header-green,
+            .schedule-table tbody th.day-green {
+                background: #00695C !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .schedule-table thead th.header-yellow,
+            .schedule-table tbody th.day-yellow {
+                background: #FFFF00 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .color-1, .color-2, .color-3, .color-4, 
+            .color-5, .color-6, .color-7, .color-8,
+            .activity-color-1, .activity-color-2, .activity-color-3, .activity-color-4,
+            .activity-color-5, .activity-color-6, .activity-color-7, .activity-color-8,
+            .activity-color-9, .activity-color-10, .activity-color-11, .activity-color-12,
+            .activity-color-13, .activity-color-14, .activity-color-15 {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .firmas-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .error-message {
+            background: #FFEBEE;
+            color: #C62828;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 350px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid #0097A7;
+        }
+
+        .toast.success {
+            border-left-color: #4CAF50;
+        }
+
+        .toast.error {
+            border-left-color: #EF5350;
+        }
+
+        .toast.warning {
+            border-left-color: #FF9800;
+        }
+
+        .toast.info {
+            border-left-color: #2196F3;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        .toast.hiding {
+            animation: slideOut 0.3s ease;
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast-message {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 19px;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .toast-close:hover {
+            color: #333;
+        }
+
+        /* ========== MEDIA QUERIES - RESPONSIVIDAD ========== */
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .controls {
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .controls h2 {
+                font-size: 16px;
+                width: 100%;
+            }
+
+            .btn-group {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            .preview-container {
+                padding: 15px;
+            }
+
+            .horario-page {
+                padding: 15px;
+                min-height: auto;
+            }
+
+            .document-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .header-logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .institution-name {
+                font-size: 18px;
+            }
+
+            .teacher-name {
+                font-size: 16px;
+            }
+
+            .teacher-role {
+                font-size: 14px;
+            }
+
+            .schedule-table {
+                font-size: 9px;
+            }
+
+            .firmas-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .toast-container {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .controls {
+                padding: 12px;
+            }
+
+            .controls h2 {
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            .preview-container {
+                padding: 12px;
+                max-height: calc(100vh - 180px);
+            }
+
+            .horario-page {
+                padding: 12px;
+            }
+
+            .header-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .institution-name {
+                font-size: 16px;
+            }
+
+            .teacher-name {
+                font-size: 14px;
+            }
+
+            .teacher-role {
+                font-size: 12px;
+            }
+
+            .ciclo-academico {
+                font-size: 12px;
+            }
+
+            .schedule-table {
+                font-size: 8px;
+            }
+
+            .lesson-subject {
+                font-size: 9px;
+            }
+
+            .firmas-section {
+                margin-top: 60px;
+            }
+
+            .firma-nombre {
+                font-size: 12px;
+            }
+
+            .firma-cargo {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body data-horario-id="{{ horario_id }}" data-nombre-archivo="{{ nombre_archivo }}">
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h3 id="loadingText">Cargando horario...</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Horario: {{ nombre_archivo }}
+        </h2>
+        <div class="btn-group">
+            <button class="btn btn-download" id="btnDownload" disabled>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Descargar PDF
+            </button>
+            <button class="btn btn-download-hored" id="btnDownloadHored">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                Descargar .hored
+            </button>
+            <button class="btn btn-close" id="btnClose">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <div class="preview-container" id="previewContainer">
+        <!-- Los horarios se cargarán aquí dinámicamente -->
+    </div>
+
+    <script>
+        // Obtener datos desde atributos data
+        const horarioId = document.body.getAttribute('data-horario-id');
+        const nombreArchivo = document.body.getAttribute('data-nombre-archivo');
+        let horarioData = null;
+        let activityDescriptions = {};
+
+        // ========== CARGAR ACTIVIDADES ==========
+        async function cargarActividadesDisponibles() {
+            try {
+                const response = await fetch('/api/actividades_complementarias');
+                if (response.ok) {
+                    const data = await response.json();
+                    data.actividades.forEach(function(act) {
+                        activityDescriptions[act.codigo] = act.descripcion;
+                    });
+                }
+            } catch (error) {
+                console.error('Error al cargar actividades:', error);
+            }
+        }
+
+        // ============= SISTEMA DE NOTIFICACIONES TOAST =============
+        function showToast(message, type, duration) {
+            type = type || 'info';
+            duration = duration || 3000;
+            
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            
+            const icons = {
+                success: '<svg viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+                error: '<svg viewBox="0 0 24 24" fill="none" stroke="#EF5350" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',
+                warning: '<svg viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+                info: '<svg viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>'
+            };
+            
+            toast.innerHTML = '<div class="toast-icon">' + icons[type] + '</div><div class="toast-message">' + message + '</div><button class="toast-close" onclick="closeToast(this)">×</button>';
+            
+            container.appendChild(toast);
+            
+            setTimeout(function() {
+                closeToast(toast.querySelector('.toast-close'));
+            }, duration);
+        }
+
+        function closeToast(button) {
+            const toast = button.parentElement;
+            toast.classList.add('hiding');
+            setTimeout(function() {
+                toast.remove();
+            }, 300);
+        }
+
+        function updateProgress(percent, text) {
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('loadingText').textContent = text;
+        }
+
+        // ========== CARGAR HORARIO ==========
+        async function cargarHorario() {
+            try {
+                updateProgress(10, 'Cargando actividades complementarias...');
+                await cargarActividadesDisponibles();
+                
+                updateProgress(30, 'Obteniendo datos del servidor...');
+                
+                const response = await fetch('/api/horario/' + horarioId + '/data');
+                if (!response.ok) {
+                    throw new Error('Error al cargar el horario');
+                }
+                
+                horarioData = await response.json();
+                
+                updateProgress(60, 'Procesando horario...');
+                
+                renderizarHorario();
+                
+                updateProgress(85, 'Preparando vista previa...');
+                
+                await new Promise(function(resolve) { setTimeout(resolve, 500); });
+                
+                updateProgress(100, '¡Listo!');
+                
+                setTimeout(function() {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    document.getElementById('btnDownload').disabled = false;
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingScreen').innerHTML = '<div class="error-message"><h3>❌ Error al cargar el horario</h3><p>' + error.message + '</p><button class="btn btn-close" onclick="window.close()" style="margin-top: 15px;">Cerrar</button></div>';
+            }
+        }
+
+        // ========== RENDERIZAR HORARIO ==========
+        function renderizarHorario() {
+            const container = document.getElementById('previewContainer');
+            container.innerHTML = '';
+            
+            const classColors = {};
+            const activityColors = {};
+            let colorIndex = 1;
+            let activityColorIndex = 1;
+            
+            const docenteNombre = horarioData.docente_nombre || 'Docente';
+            const docenteCargo = horarioData.docente_cargo || '';
+            const cicloAcademico = horarioData.ciclo_academico || 'Ciclo Académico';
+            
+            const coordinadorNombre = horarioData.coordinador_nombre || 'Coordinador de Carrera';
+            const coordinadorCargo = horarioData.coordinador_cargo || 'Coordinador';
+            const rectoradoNombre = horarioData.rectorado_nombre || 'Rectorado';
+            const rectoradoCargo = horarioData.rectorado_cargo || 'Rector/a';
+            
+            horarioData.profesores.forEach(function(profesor) {
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'horario-page';
+                pageDiv.id = 'horario-' + profesor.nombre.replace(/\s+/g, '-');
+                
+                let html = '<div class="document-header"><div class="header-logo"><img src="/static/icono.png" alt="Logo ISTT"></div><div class="header-info"><div class="institution-name">' + (horarioData.institucion || 'Instituto Superior Tecnológico Tena') + '</div><div class="teacher-name">' + docenteNombre + '</div><div class="teacher-role">' + docenteCargo + '</div><div class="ciclo-academico">' + cicloAcademico + '</div></div></div><table class="schedule-table"><thead><tr><th></th>';
+                
+                horarioData.periodos.forEach(function(periodo, idx) {
+                    const colorClass = idx % 2 === 0 ? 'header-green' : 'header-yellow';
+                    html += '<th class="' + colorClass + '"><span class="period-num">' + periodo.name + '</span>';
+                    if (periodo.starttime && periodo.endtime) {
+                        html += '<span class="period-time">' + periodo.starttime + ' - ' + periodo.endtime + '</span>';
+                    }
+                    html += '</th>';
+                });
+                
+                html += '</tr></thead><tbody>';
+                
+                profesor.matriz_procesada.forEach(function(fila, dayIdx) {
+                    const dayColorClass = dayIdx % 2 === 0 ? 'day-green' : 'day-yellow';
+                    html += '<tr><th class="' + dayColorClass + '">' + (fila.dia.name || fila.dia.short) + '</th>';
+                    
+                    const celdasPorPeriodo = new Map();
+                    fila.celdas.forEach(function(celda) {
+                        const periodoIdx = horarioData.periodos.findIndex(function(p) { return p.id === celda.periodo_id; });
+                        if (periodoIdx !== -1) {
+                            celdasPorPeriodo.set(periodoIdx, celda);
+                        }
+                    });
+                    
+                    for (let periodoIdx = 0; periodoIdx < horarioData.periodos.length; periodoIdx++) {
+                        let yaRenderizado = false;
+                        celdasPorPeriodo.forEach(function(celda, idx) {
+                            if (idx < periodoIdx && idx + (celda.colspan || 1) > periodoIdx) {
+                                yaRenderizado = true;
+                            }
+                        });
+                        
+                        if (yaRenderizado) continue;
+                        
+                        const celda = celdasPorPeriodo.get(periodoIdx);
+                        
+                        if (celda && celda.tipo === 'clase') {
+                            const claseNombre = celda.clase || '';
+                            
+                            if (claseNombre && !classColors[claseNombre]) {
+                                classColors[claseNombre] = 'color-' + colorIndex;
+                                colorIndex = (colorIndex % 8) + 1;
+                            }
+                            
+                            const colorClass = classColors[claseNombre] || 'color-1';
+                            const colspan = celda.colspan || 1;
+                            
+                            html += '<td class="' + colorClass + '" colspan="' + colspan + '"><span class="lesson-subject">' + (celda.materia || '') + '</span>';
+                            
+                            if (celda.clase) {
+                                html += '<span class="lesson-class">' + celda.clase + '</span>';
+                            }
+                            
+                            html += '</td>';
+                            
+                        } else if (celda && celda.tipo === 'actividad') {
+                            const codigoActividad = celda.codigo || '';
+                            
+                            if (codigoActividad && !activityColors[codigoActividad]) {
+                                activityColors[codigoActividad] = 'activity-color-' + activityColorIndex;
+                                activityColorIndex = (activityColorIndex % 15) + 1;
+                            }
+                            
+                            const descripcion = activityDescriptions[codigoActividad] || '';
+                            const colspan = celda.colspan || 1;
+                            const colorClass = activityColors[codigoActividad] || 'activity-color-1';
+                            
+                            html += '<td class="' + colorClass + '" colspan="' + colspan + '"><span class="lesson-subject">' + codigoActividad + '</span>';
+                            
+                            if (descripcion) {
+                                html += '<span class="activity-description">' + descripcion + '</span>';
+                            }
+                            
+                            html += '</td>';
+                        } else {
+                            html += '<td></td>';
+                        }
+                    }
+                    
+                    html += '</tr>';
+                });
+                
+                html += '</tbody></table><div class="firmas-section"><div class="firmas-container"><div class="firma-box"><div class="firma-linea"></div><div class="firma-nombre">' + docenteNombre + '</div><div class="firma-cargo">' + docenteCargo + '</div></div><div class="firma-box"><div class="firma-linea"></div><div class="firma-nombre">' + coordinadorNombre + '</div><div class="firma-cargo">' + coordinadorCargo + '</div></div><div class="firma-box"><div class="firma-linea"></div><div class="firma-nombre">' + rectoradoNombre + '</div><div class="firma-cargo">' + rectoradoCargo + '</div></div></div></div>';
+                
+                pageDiv.innerHTML = html;
+                container.appendChild(pageDiv);
+            });
+        }
+
+        // ========== DESCARGAR PDF - FORZAR FORMATO ESCRITORIO ==========
+        async function descargarPDF() {
+            const btnDownload = document.getElementById('btnDownload');
+            btnDownload.disabled = true;
+            btnDownload.innerHTML = '<div style="width: 20px; height: 20px; border: 2px solid white; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>Generando PDF...';
+            
+            try {
+                showToast('Preparando documento...', 'info', 2000);
+                
+                // PASO 1: GUARDAR ESTILOS ORIGINALES Y FORZAR LAYOUT DE ESCRITORIO
+                const previewContainer = document.getElementById('previewContainer');
+                const pages = document.querySelectorAll('.horario-page');
+                
+                // Guardar estilos originales
+                const originalBodyStyle = document.body.getAttribute('style') || '';
+                const originalContainerStyle = previewContainer.getAttribute('style') || '';
+                const originalPageStyles = [];
+                
+                pages.forEach(function(page, index) {
+                    originalPageStyles[index] = page.getAttribute('style') || '';
+                });
+                
+                // FORZAR VISTA DE ESCRITORIO (1400px de ancho)
+                document.body.style.cssText = 'width: 1400px !important; overflow: visible !important; background: #F5F7FA; padding: 0 !important;';
+                previewContainer.style.cssText = 'width: 1400px !important; max-width: none !important; padding: 20px !important; overflow: visible !important; background: white !important;';
+                
+                pages.forEach(function(page) {
+                    // Forzar dimensiones de escritorio CON ALTURA SUFICIENTE PARA FIRMAS ABAJO
+                    page.style.cssText = 'width: 1360px !important; min-width: 1360px !important; max-width: 1360px !important; padding: 20px !important; min-height: 950px !important; display: flex !important; flex-direction: column !important; margin-bottom: 40px !important; background: white !important;';
+                    
+                    // Forzar header en modo escritorio
+                    const header = page.querySelector('.document-header');
+                    if (header) {
+                        header.style.cssText = 'display: flex !important; flex-direction: row !important; align-items: flex-start !important; gap: 15px !important; text-align: left !important;';
+                    }
+                    
+                    const headerInfo = page.querySelector('.header-info');
+                    if (headerInfo) {
+                        headerInfo.style.cssText = 'text-align: center !important; flex: 1 !important;';
+                    }
+                    
+                    const logo = page.querySelector('.header-logo');
+                    if (logo) {
+                        logo.style.cssText = 'width: 80px !important; height: 80px !important; flex-shrink: 0 !important;';
+                    }
+                    
+                    // Forzar tabla en modo escritorio
+                    const table = page.querySelector('.schedule-table');
+                    if (table) {
+                        table.style.cssText = 'width: 100% !important; font-size: 10px !important;';
+                    }
+                    
+                    // Forzar firmas BIEN ABAJO con margin suficiente
+                    const firmasSection = page.querySelector('.firmas-section');
+                    if (firmasSection) {
+                        firmasSection.style.cssText = 'margin-top: 120px !important; page-break-inside: avoid !important;';
+                    }
+                    
+                    const firmasContainer = page.querySelector('.firmas-container');
+                    if (firmasContainer) {
+                        firmasContainer.style.cssText = 'display: flex !important; flex-direction: row !important; justify-content: space-around !important; gap: 80px !important; align-items: flex-end !important;';
+                    }
+                });
+                
+                // PASO 2: ESPERAR A QUE SE APLIQUEN LOS ESTILOS
+                await new Promise(function(resolve) { setTimeout(resolve, 500); });
+                
+                // PASO 3: GENERAR EL PDF
+                showToast('Generando PDF...', 'info', 2000);
+                
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                const pdfWidth = 297;
+                const pdfHeight = 210;
+                
+                for (let i = 0; i < pages.length; i++) {
+                    if (i > 0) {
+                        showToast('Procesando página ' + (i + 1) + ' de ' + pages.length + '...', 'info', 1000);
+                    }
+                    
+                    if (i > 0) {
+                        pdf.addPage();
+                    }
+                    
+                    // Capturar con dimensiones fijas de escritorio
+                    const canvas = await html2canvas(pages[i], {
+                        scale: 3,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#ffffff',
+                        width: 1360,
+                        height: 950,
+                        windowWidth: 1360,
+                        windowHeight: 950
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png', 1.0);
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, '', 'FAST');
+                }
+                
+                // PASO 4: RESTAURAR ESTILOS ORIGINALES
+                document.body.style.cssText = originalBodyStyle;
+                previewContainer.style.cssText = originalContainerStyle;
+                
+                pages.forEach(function(page, index) {
+                    page.style.cssText = originalPageStyles[index];
+                    
+                    // Limpiar estilos inline forzados
+                    const header = page.querySelector('.document-header');
+                    if (header && header.getAttribute('style')) header.removeAttribute('style');
+                    
+                    const headerInfo = page.querySelector('.header-info');
+                    if (headerInfo && headerInfo.getAttribute('style')) headerInfo.removeAttribute('style');
+                    
+                    const logo = page.querySelector('.header-logo');
+                    if (logo && logo.getAttribute('style')) logo.removeAttribute('style');
+                    
+                    const table = page.querySelector('.schedule-table');
+                    if (table && table.getAttribute('style')) table.removeAttribute('style');
+                    
+                    const firmasContainer = page.querySelector('.firmas-container');
+                    if (firmasContainer && firmasContainer.getAttribute('style')) firmasContainer.removeAttribute('style');
+                    
+                    const firmasSection = page.querySelector('.firmas-section');
+                    if (firmasSection && firmasSection.getAttribute('style')) firmasSection.removeAttribute('style');
+                });
+                
+                // PASO 5: GUARDAR EL PDF
+                pdf.save('Horario_' + nombreArchivo + '_' + new Date().toISOString().slice(0,10) + '.pdf');
+                
+                btnDownload.disabled = false;
+                btnDownload.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Descargar PDF';
+                
+                showToast('✓ PDF descargado correctamente', 'success', 3000);
+                
+            } catch (error) {
+                console.error('Error al generar PDF:', error);
+                showToast('❌ Error al generar el PDF', 'error', 3000);
+                
+                // Restaurar estilos en caso de error
+                document.body.removeAttribute('style');
+                const previewContainer = document.getElementById('previewContainer');
+                if (previewContainer) previewContainer.removeAttribute('style');
+                
+                const pages = document.querySelectorAll('.horario-page');
+                pages.forEach(function(page) {
+                    page.removeAttribute('style');
+                });
+                
+                btnDownload.disabled = false;
+                btnDownload.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Descargar PDF';
+            }
+        }
+
+        function descargarHored() {
+            window.location.href = '/descargar_hored/' + horarioId;
+            showToast('Descargando archivo .hored...', 'info', 2000);
+        }
+
+        // ========== EVENT LISTENERS ==========
+        document.getElementById('btnDownload').addEventListener('click', descargarPDF);
+        document.getElementById('btnDownloadHored').addEventListener('click', descargarHored);
+        document.getElementById('btnClose').addEventListener('click', function() {
+            window.close();
+        });
+
+        // ========== INICIAR CARGA ==========
+        cargarHorario();
+    </script>
+</body>
+</html>
