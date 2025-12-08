@@ -2833,6 +2833,51 @@ def configure_for_production():
         app.logger.setLevel(logging.INFO)
         app.logger.info('Aplicación iniciada en modo producción')
 
+# Auto-inicializar la base de datos cuando se importe la app (para Gunicorn/Waitress)
+def auto_init_db():
+    """Inicializa la base de datos automáticamente si no existe"""
+    try:
+        db_path = app.config['DATABASE']
+        
+        # Si la base de datos no existe, crearla
+        if not os.path.exists(db_path):
+            print("=" * 60)
+            print("AUTO-INICIALIZANDO BASE DE DATOS")
+            print("=" * 60)
+            init_db()
+            print("✓ Base de datos creada exitosamente")
+            print("=" * 60)
+        else:
+            # Verificar que las tablas existan
+            try:
+                with get_db_connection() as conn:
+                    c = conn.cursor()
+                    c.execute("SELECT name FROM sqlite_master WHERE type='table'")
+                    tables = [row[0] for row in c.fetchall()]
+                    
+                    required_tables = ['usuarios', 'horarios', 'observaciones', 
+                                      'observaciones_especificas', 'asignacion_actividades',
+                                      'configuracion', 'actividades_complementarias']
+                    
+                    missing_tables = [t for t in required_tables if t not in tables]
+                    
+                    if missing_tables:
+                        print(f"Tablas faltantes detectadas: {missing_tables}")
+                        print("Reinicializando base de datos...")
+                        init_db()
+            except Exception as e:
+                print(f"Error verificando base de datos: {e}")
+                print("Reinicializando base de datos...")
+                init_db()
+                
+    except Exception as e:
+        print(f"ERROR en auto-inicialización: {e}")
+        import traceback
+        traceback.print_exc()
+
+# Ejecutar auto-inicialización cuando se importe el módulo
+auto_init_db()
+
 # ============================================================================
 # INICIO DE LA APLICACIÓN
 # ============================================================================
