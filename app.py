@@ -2842,12 +2842,12 @@ def auto_init_db():
         
         # Si la base de datos no existe, crearla
         if not os.path.exists(db_path):
-            print("=" * 60)
+            print("=" * 80)
             print("AUTO-INICIALIZANDO BASE DE DATOS")
-            print("=" * 60)
+            print("=" * 80)
             init_db()
             print("✓ Base de datos creada exitosamente")
-            print("=" * 60)
+            print("=" * 80)
         else:
             # Verificar que las tablas existan
             try:
@@ -2870,6 +2870,35 @@ def auto_init_db():
                 print(f"Error verificando base de datos: {e}")
                 print("Reinicializando base de datos...")
                 init_db()
+        
+        # ===== NUEVA PARTE: INICIALIZAR USUARIOS SI NO EXISTEN =====
+        try:
+            from setup_usuarios import inicializar_usuarios_sistema, verificar_sistema_inicializado
+            
+            if not verificar_sistema_inicializado(db_path):
+                print("\n" + "=" * 80)
+                print("SISTEMA SIN USUARIOS - INICIANDO CREACIÓN AUTOMÁTICA")
+                print("=" * 80)
+                
+                credenciales = inicializar_usuarios_sistema(db_path)
+                
+                if credenciales:
+                    # Registrar en logs
+                    log_action('general', 'USUARIOS_INICIALES_CREADOS', 
+                               'Usuarios iniciales del sistema creados automáticamente',
+                               extra_data={
+                                   'usuarios_creados': len(credenciales),
+                                   'roles': ','.join([c['rol'] for c in credenciales.values()])
+                               })
+            else:
+                print("✓ Sistema ya tiene usuarios configurados.")
+        except ImportError:
+            print("⚠️  Advertencia: No se pudo importar setup_usuarios.py")
+            print("   El sistema funcionará pero sin usuarios iniciales.")
+        except Exception as e:
+            print(f"⚠️  Advertencia al inicializar usuarios: {e}")
+            print("   El sistema funcionará pero verifica los usuarios manualmente.")
+        # ===== FIN DE LA NUEVA PARTE =====
                 
     except Exception as e:
         print(f"ERROR en auto-inicialización: {e}")
