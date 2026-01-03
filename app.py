@@ -1,10 +1,3 @@
-"""
-Sistema de Gestión de Horarios - ISTT
-VERSIÓN OPTIMIZADA PARA PRODUCCIÓN CON SOPORTE MULTI-USUARIO
-Compatible con Windows y Linux
-PARTE 1 DE 3: Configuración, Base de Datos y Funciones Auxiliares
-"""
-
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, send_file, make_response
 from werkzeug.utils import secure_filename
 import os
@@ -420,15 +413,48 @@ def init_db():
             
             c.execute('CREATE INDEX IF NOT EXISTS idx_asignacion_usuario ON asignacion_actividades(usuario_id)')
             
-            # Tabla de configuración
+            # ═══════════════════════════════════════════════════════════════
+            # CORRECCIÓN: Tabla de configuración AHORA CON RELACIONES
+            # ═══════════════════════════════════════════════════════════════
             c.execute('''
                 CREATE TABLE IF NOT EXISTS configuracion (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     clave TEXT UNIQUE NOT NULL,
                     valor TEXT NOT NULL,
-                    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    descripcion TEXT,
+                    creado_por INTEGER,
+                    modificado_por INTEGER,
+                    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (creado_por) REFERENCES usuarios(id),
+                    FOREIGN KEY (modificado_por) REFERENCES usuarios(id)
                 )
             ''')
+            
+            c.execute('CREATE INDEX IF NOT EXISTS idx_configuracion_clave ON configuracion(clave)')
+            c.execute('CREATE INDEX IF NOT EXISTS idx_configuracion_modificado ON configuracion(modificado_por)')
+            
+            # ═══════════════════════════════════════════════════════════════
+            # NUEVA TABLA: Historial de configuración para auditoría
+            # ═══════════════════════════════════════════════════════════════
+            c.execute('''
+                CREATE TABLE IF NOT EXISTS configuracion_historial (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    configuracion_id INTEGER NOT NULL,
+                    clave TEXT NOT NULL,
+                    valor_anterior TEXT,
+                    valor_nuevo TEXT NOT NULL,
+                    modificado_por INTEGER NOT NULL,
+                    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    motivo TEXT,
+                    FOREIGN KEY (configuracion_id) REFERENCES configuracion(id) ON DELETE CASCADE,
+                    FOREIGN KEY (modificado_por) REFERENCES usuarios(id)
+                )
+            ''')
+            
+            c.execute('CREATE INDEX IF NOT EXISTS idx_config_historial_config ON configuracion_historial(configuracion_id)')
+            c.execute('CREATE INDEX IF NOT EXISTS idx_config_historial_usuario ON configuracion_historial(modificado_por)')
+            c.execute('CREATE INDEX IF NOT EXISTS idx_config_historial_fecha ON configuracion_historial(fecha_modificacion)')
             
             # Tabla de actividades complementarias
             c.execute('''
@@ -442,14 +468,71 @@ def init_db():
                 )
             ''')
             
-            # Configuración inicial del ciclo académico
-            c.execute('''
-                INSERT OR IGNORE INTO configuracion (clave, valor)
-                VALUES ('ciclo_academico', 'Abril 2025 - Septiembre 2025')
-            ''')
+            # ═══════════════════════════════════════════════════════════════
+            # Migración de datos existentes de configuración
+            # ═══════════════════════════════════════════════════════════════
+            # Verificar si hay datos antiguos sin las nuevas columnas
+            c.execute("PRAGMA table_info(configuracion)")
+            columnas = [col[1] for col in c.fetchall()]
             
-            # ===== CREAR ACTIVIDADES COMPLEMENTARIAS POR DEFECTO =====
-            # Estas SÍ se mantienen porque son datos de catálogo, no usuarios
+            # Si las nuevas columnas no existen, necesitamos migrar
+            if 'creado_por' not in columnas or 'modificado_por' not in columnas:
+                log_action('general', 'MIGRACION_CONFIG', 
+                           'Detectada estructura antigua de configuracion, migrando...')
+                
+                # Guardar datos existentes
+                c.execute('SELECT * FROM configuracion')
+                datos_antiguos = c.fetchall()
+                
+                # Eliminar tabla antigua
+                c.execute('DROP TABLE IF EXISTS configuracion')
+                c.execute('DROP INDEX IF EXISTS idx_configuracion_clave')
+                c.execute('DROP INDEX IF EXISTS idx_configuracion_modificado')
+                
+                # Recrear tabla con nueva estructura
+                c.execute('''
+                    CREATE TABLE configuracion (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        clave TEXT UNIQUE NOT NULL,
+                        valor TEXT NOT NULL,
+                        descripcion TEXT,
+                        creado_por INTEGER,
+                        modificado_por INTEGER,
+                        fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (creado_por) REFERENCES usuarios(id),
+                        FOREIGN KEY (modificado_por) REFERENCES usuarios(id)
+                    )
+                ''')
+                
+                c.execute('CREATE INDEX idx_configuracion_clave ON configuracion(clave)')
+                c.execute('CREATE INDEX idx_configuracion_modificado ON configuracion(modificado_por)')
+                
+                # Restaurar datos (creado_por y modificado_por serán NULL para datos antiguos)
+                for dato in datos_antiguos:
+                    c.execute('''
+                        INSERT INTO configuracion (clave, valor, fecha_creacion, fecha_modificacion)
+                        VALUES (?, ?, ?, ?)
+                    ''', (dato['clave'], dato['valor'], 
+                          dato.get('fecha_creacion'), dato.get('fecha_modificacion')))
+                
+                log_action('general', 'MIGRACION_COMPLETADA', 
+                           f'Migración completada: {len(datos_antiguos)} registros migrados')
+            
+            # ═══════════════════════════════════════════════════════════════
+            # Configuración inicial del ciclo académico
+            # ═══════════════════════════════════════════════════════════════
+            c.execute('SELECT id FROM configuracion WHERE clave = ?', ('ciclo_academico',))
+            if not c.fetchone():
+                c.execute('''
+                    INSERT INTO configuracion (clave, valor, descripcion)
+                    VALUES ('ciclo_academico', 'Abril 2025 - Septiembre 2025', 
+                            'Ciclo académico actual del sistema')
+                ''')
+            
+            # ═══════════════════════════════════════════════════════════════
+            # CREAR ACTIVIDADES COMPLEMENTARIAS POR DEFECTO
+            # ═══════════════════════════════════════════════════════════════
             actividades_default = [
                 ('T/AES', 'TUTORIAS/ACOMPAÑAMIENTO ESTUDIANTIL'),
                 ('T/PPP', 'TUTORIAS/PRÁCTICAS PREPROFESIONALES'),
@@ -475,10 +558,8 @@ def init_db():
                                f'Actividad complementaria por defecto creada: {codigo}',
                                extra_data={'codigo': codigo, 'descripcion': descripcion})
             
-            # ===== NO SE CREAN USUARIOS AQUÍ =====
-            # Los usuarios se crean mediante setup_usuarios.py
             log_action('general', 'BD_ESTRUCTURA_CREADA', 
-                       'Estructura de base de datos creada (sin usuarios por defecto)')
+                       'Estructura de base de datos creada con todas las relaciones correctas')
     
     try:
         execute_with_retry(_init)
@@ -590,13 +671,147 @@ def validar_horas_actividades(horario_data, usuario_id):
     
     return errores
 
+# ═══════════════════════════════════════════════════════════════
+# FUNCIONES MEJORADAS DE CONFIGURACIÓN CON RELACIONES Y AUDITORÍA
+# ═══════════════════════════════════════════════════════════════
+
 def obtener_ciclo_academico():
+    """Obtiene el ciclo académico actual del sistema"""
     def _obtener():
         with get_db_connection() as conn:
             c = conn.cursor()
             c.execute('SELECT valor FROM configuracion WHERE clave = ?', ('ciclo_academico',))
             row = c.fetchone()
             return row['valor'] if row else 'Sin definir'
+    
+    return execute_with_retry(_obtener)
+
+def obtener_configuracion(clave):
+    """Obtiene una configuración específica con su metadata"""
+    def _obtener():
+        with get_db_connection() as conn:
+            c = conn.cursor()
+            c.execute('''
+                SELECT c.*, 
+                       uc.nombre as creado_por_nombre, 
+                       um.nombre as modificado_por_nombre
+                FROM configuracion c
+                LEFT JOIN usuarios uc ON c.creado_por = uc.id
+                LEFT JOIN usuarios um ON c.modificado_por = um.id
+                WHERE c.clave = ?
+            ''', (clave,))
+            return c.fetchone()
+    
+    return execute_with_retry(_obtener)
+
+def actualizar_configuracion(clave, valor, descripcion=None, motivo=None):
+    """
+    Actualiza una configuración y guarda el historial
+    
+    Args:
+        clave: Clave de configuración
+        valor: Nuevo valor
+        descripcion: Descripción opcional de la configuración
+        motivo: Motivo del cambio (para auditoría)
+    """
+    def _actualizar():
+        usuario_id = session.get('usuario_id')
+        
+        with get_db_connection(write_mode=True) as conn:
+            c = conn.cursor()
+            
+            # Obtener valor anterior
+            c.execute('SELECT id, valor FROM configuracion WHERE clave = ?', (clave,))
+            config_actual = c.fetchone()
+            
+            if config_actual:
+                # Actualizar configuración existente
+                config_id = config_actual['id']
+                valor_anterior = config_actual['valor']
+                
+                c.execute('''
+                    UPDATE configuracion 
+                    SET valor = ?, 
+                        descripcion = COALESCE(?, descripcion),
+                        modificado_por = ?,
+                        fecha_modificacion = CURRENT_TIMESTAMP
+                    WHERE clave = ?
+                ''', (valor, descripcion, usuario_id, clave))
+                
+                # Guardar en historial
+                c.execute('''
+                    INSERT INTO configuracion_historial 
+                    (configuracion_id, clave, valor_anterior, valor_nuevo, modificado_por, motivo)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                ''', (config_id, clave, valor_anterior, valor, usuario_id, motivo))
+                
+                log_action('admin', 'CONFIGURACION_ACTUALIZADA',
+                           f'Configuración "{clave}" actualizada',
+                           extra_data={
+                               'clave': clave,
+                               'valor_anterior': valor_anterior,
+                               'valor_nuevo': valor,
+                               'motivo': motivo
+                           })
+            else:
+                # Crear nueva configuración
+                c.execute('''
+                    INSERT INTO configuracion (clave, valor, descripcion, creado_por, modificado_por)
+                    VALUES (?, ?, ?, ?, ?)
+                ''', (clave, valor, descripcion, usuario_id, usuario_id))
+                
+                config_id = c.lastrowid
+                
+                # Guardar en historial
+                c.execute('''
+                    INSERT INTO configuracion_historial 
+                    (configuracion_id, clave, valor_anterior, valor_nuevo, modificado_por, motivo)
+                    VALUES (?, ?, NULL, ?, ?, ?)
+                ''', (config_id, clave, valor, usuario_id, motivo or 'Creación inicial'))
+                
+                log_action('admin', 'CONFIGURACION_CREADA',
+                           f'Nueva configuración "{clave}" creada',
+                           extra_data={
+                               'clave': clave,
+                               'valor': valor,
+                               'motivo': motivo
+                           })
+            
+            return config_id
+    
+    return execute_with_retry(_actualizar)
+
+def obtener_historial_configuracion(clave=None, limite=50):
+    """
+    Obtiene el historial de cambios de configuración
+    
+    Args:
+        clave: Si se especifica, filtra por esta clave
+        limite: Número máximo de registros a retornar
+    """
+    def _obtener():
+        with get_db_connection() as conn:
+            c = conn.cursor()
+            
+            if clave:
+                c.execute('''
+                    SELECT ch.*, u.nombre as modificado_por_nombre
+                    FROM configuracion_historial ch
+                    JOIN usuarios u ON ch.modificado_por = u.id
+                    WHERE ch.clave = ?
+                    ORDER BY ch.fecha_modificacion DESC
+                    LIMIT ?
+                ''', (clave, limite))
+            else:
+                c.execute('''
+                    SELECT ch.*, u.nombre as modificado_por_nombre
+                    FROM configuracion_historial ch
+                    JOIN usuarios u ON ch.modificado_por = u.id
+                    ORDER BY ch.fecha_modificacion DESC
+                    LIMIT ?
+                ''', (limite,))
+            
+            return c.fetchall()
     
     return execute_with_retry(_obtener)
 
@@ -1294,7 +1509,6 @@ def eliminar_horario(horario_id):
                        'nombre_archivo': resultado['nombre']
                    })
         
-        # Sin mensaje - solo éxito
         return jsonify({'success': True})
     except Exception as e:
         log_error_with_traceback('horarios', 'ERROR_ELIMINAR_HORARIO', e)
@@ -1778,49 +1992,52 @@ def obtener_docentes_asignaciones():
             'error': f'Error al obtener docentes: {str(e)}'
         }), 500
 
+# ═══════════════════════════════════════════════════════════════
+# RUTA MEJORADA DE CONFIGURACIÓN DE CICLO CON AUDITORÍA
+# ═══════════════════════════════════════════════════════════════
+
 @app.route('/coordinador/configurar_ciclo', methods=['GET', 'POST'])
 @role_required(['coordinador'])
 def configurar_ciclo():
     if request.method == 'POST':
         data = request.get_json()
-        ciclo = data.get('ciclo_academico', '')
+        ciclo = data.get('ciclo_academico', '').strip()
         
         if not ciclo:
             return jsonify({'error': 'El ciclo académico no puede estar vacío'}), 400
         
-        def _guardar():
-            with get_db_connection(write_mode=True) as conn:
-                c = conn.cursor()
-                
-                c.execute('SELECT valor FROM configuracion WHERE clave = ?', ('ciclo_academico',))
-                ciclo_anterior = c.fetchone()
-                ciclo_anterior_valor = ciclo_anterior['valor'] if ciclo_anterior else 'Sin definir'
-                
-                c.execute('''
-                    INSERT OR REPLACE INTO configuracion (clave, valor, fecha_modificacion)
-                    VALUES ('ciclo_academico', ?, CURRENT_TIMESTAMP)
-                ''', (ciclo,))
-                
-                return ciclo_anterior_valor
-        
         try:
-            ciclo_anterior = execute_with_retry(_guardar)
+            actualizar_configuracion(
+                clave='ciclo_academico',
+                valor=ciclo,
+                descripcion='Ciclo académico actual del sistema',
+                motivo='Actualización manual por coordinador'
+            )
             
-            log_action('admin', 'CICLO_ACTUALIZADO', 
-                       f'Ciclo académico actualizado',
-                       extra_data={'anterior': ciclo_anterior, 'nuevo': ciclo})
-            
-            return jsonify({'success': True, 'message': 'Ciclo académico actualizado'})
+            return jsonify({
+                'success': True,
+                'message': 'Ciclo académico actualizado correctamente'
+            })
         except Exception as e:
             log_error_with_traceback('admin', 'ERROR_ACTUALIZAR_CICLO', e)
             return jsonify({'error': 'Error al actualizar ciclo'}), 500
     
-    ciclo_actual = obtener_ciclo_academico()
-    return render_template('configurar_ciclo.html',
-                         ciclo_actual=ciclo_actual,
-                         nombre=session.get('nombre'),
-                         cargo=session.get('cargo'),
-                         rol=session.get('rol'))
+    try:
+        ciclo_actual = obtener_ciclo_academico()
+        
+        # Obtener historial de cambios
+        historial = obtener_historial_configuracion(clave='ciclo_academico', limite=10)
+        
+        return render_template('configurar_ciclo.html',
+                             ciclo_actual=ciclo_actual,
+                             historial=historial,
+                             nombre=session.get('nombre'),
+                             cargo=session.get('cargo'),
+                             rol=session.get('rol'))
+    except Exception as e:
+        log_error_with_traceback('admin', 'ERROR_CONFIGURAR_CICLO', e)
+        flash('Error al cargar configuración', 'error')
+        return redirect(url_for('coordinador_dashboard'))
 
 @app.route('/coordinador/revisar/<int:horario_id>')
 @role_required(['coordinador'])
@@ -2855,7 +3072,8 @@ def auto_init_db():
                     
                     required_tables = ['usuarios', 'horarios', 'observaciones', 
                                       'observaciones_especificas', 'asignacion_actividades',
-                                      'configuracion', 'actividades_complementarias']
+                                      'configuracion', 'configuracion_historial',
+                                      'actividades_complementarias']
                     
                     missing_tables = [t for t in required_tables if t not in tables]
                     
@@ -2890,6 +3108,11 @@ auto_init_db()
 # ============================================================================
 
 if __name__ == '__main__':
+    print("=" * 80)
+    print("SISTEMA DE GESTIÓN DE HORARIOS - ISTT")
+    print("VERSIÓN CORREGIDA: Todas las tablas con relaciones correctas")
+    print("=" * 80)
+    
     log_action('general', 'APLICACION_INICIADA', 
                f'Sistema de Gestión de Horarios - ISTT iniciado en {platform.system()}')
     
@@ -2921,6 +3144,13 @@ if __name__ == '__main__':
         print("=" * 60)
         print("Para producción, configura: export FLASK_ENV=production")
         print("=" * 60)
+    
+    print("\n✓ CORRECCIÓN APLICADA:")
+    print("  - Tabla 'configuracion' ahora con FKs: creado_por, modificado_por")
+    print("  - Nueva tabla 'configuracion_historial' para auditoría")
+    print("  - Todas las tablas correctamente relacionadas")
+    print("  - Sistema de auditoría completo para cambios de configuración")
+    print("=" * 80)
     
     app.run(
         debug=not is_production,
