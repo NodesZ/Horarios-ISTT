@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Docentes - ISTT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5F7FA;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0097A7 0%, #00838F 100%);
+            border-radius: 10px;
+            border: 2px solid #F5F7FA;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #F5F7FA;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0097A7 0%, #00838F 100%);
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            min-height: 40px;
+            flex-shrink: 0;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 300px;
+            max-width: 85vw;
+            height: 100vh;
+            background: #FFFFFF;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            padding: 24px 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header h2 {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+            min-height: 0;
+        }
+
+        .menu-item {
+            padding: 14px 20px;
+            color: #263238;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 4px 12px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background: #F0F4F8;
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .user-section {
+            border-top: 1px solid #E1E8ED;
+            background: #FAFBFC;
+            flex-shrink: 0;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .user-info {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            min-height: 76px;
+        }
+
+        .user-info:hover {
+            background: #F0F4F8;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border: 3px solid #E1F5FE;
+            box-shadow: 0 2px 8px rgba(0,188,212,0.25);
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            color: #263238;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            color: #78909C;
+            font-size: 12px;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-arrow {
+            color: #90A4AE;
+            font-size: 12px;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .user-arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .user-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #F5F8FA;
+        }
+
+        .user-dropdown.active {
+            max-height: 250px;
+        }
+
+        .dropdown-item {
+            padding: 14px 20px;
+            color: #263238;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+            background: #E3F2FD;
+        }
+
+        .dropdown-item.logout {
+            color: #FFFFFF;
+            background: #EF5350;
+            margin-top: 8px;
+        }
+
+        .dropdown-item.logout:hover {
+            background: #E53935;
+        }
+
+        .logout-icon {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .container {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 24px;
+            color: #263238;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #263238;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0097A7;
+        }
+
+        .hint-text {
+            font-size: 12px;
+            color: #78909C;
+            margin-top: 5px;
+        }
+
+        .security-notice {
+            background: #E3F2FD;
+            border: 1px solid #90CAF9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #1565C0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .security-notice svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-crear {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-crear:hover {
+            background: #388E3C;
+        }
+
+        .btn-cambiar-password {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-cambiar-password:hover {
+            background: #1976D2;
+        }
+
+        .btn-primary {
+            background: #0097A7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-primary:hover {
+            background: #00838F;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background: #B0BEC5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .docentes-list {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .list-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .docente-item {
+            background: #F5F7FA;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .docente-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .docente-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .docente-nombre {
+            font-size: 15px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .docente-meta {
+            font-size: 13px;
+            color: #78909C;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .estado-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .estado-activo {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .estado-inactivo {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .docente-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        @media (min-width: 769px) {
+            .docente-actions {
+                width: auto;
+                flex-wrap: nowrap;
+            }
+        }
+
+        .btn-action {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        @media (min-width: 481px) {
+            .btn-action {
+                flex: initial;
+            }
+        }
+
+        .btn-password {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-password:hover {
+            background: #1976D2;
+        }
+
+        .btn-eliminar {
+            background: #EF5350;
+            color: white;
+        }
+
+        .btn-eliminar:hover {
+            background: #E53935;
+        }
+
+        .icon-small {
+            width: 14px;
+            height: 14px;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.3s ease;
+            word-break: break-word;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.active {
+            display: block;
+        }
+
+        .alert-success {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #66BB6A;
+        }
+
+        .alert-error {
+            background: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #EF5350;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 15px;
+        }
+
+        .modal-message {
+            font-size: 14px;
+            color: #78909C;
+            margin-bottom: 20px;
+            word-break: break-word;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #0097A7;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-modal {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        @media (min-width: 481px) {
+            .btn-modal {
+                flex: initial;
+            }
+        }
+
+        .btn-confirmar {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-confirmar-eliminar {
+            background: #EF5350;
+            color: white;
+        }
+
+        .btn-cancelar {
+            background: #E0E0E0;
+            color: #263238;
+        }
+
+        .divider {
+            height: 1px;
+            background: #E0E0E0;
+            margin: 30px 0;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== MEDIA QUERIES - RESPONSIVIDAD ========== */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .page-title {
+                font-size: 20px;
+            }
+
+            .form-card, .docentes-list {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .menu-btn {
+                font-size: 20px;
+                min-width: 36px;
+                min-height: 36px;
+            }
+
+            .logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .header-title h1 {
+                font-size: 14px;
+            }
+
+            .header-title p {
+                font-size: 10px;
+            }
+
+            .container {
+                padding: 15px 12px;
+            }
+
+            .page-title {
+                font-size: 18px;
+            }
+
+            .form-card, .docentes-list {
+                padding: 15px;
+            }
+
+            .form-title, .list-title {
+                font-size: 16px;
+            }
+
+            .btn-crear, .btn-cambiar-password, .btn-primary {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .docente-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .docente-nome {
+                font-size: 14px;
+            }
+
+            .docente-meta {
+                font-size: 12px;
+            }
+
+            .btn-action {
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .sidebar {
+                width: 260px;
+            }
+
+            .user-info {
+                padding: 14px 16px;
+                min-height: 70px;
+            }
+
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 15px;
+            }
+
+            .user-name {
+                font-size: 13px;
+            }
+
+            .user-role {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header-title h1 {
+                font-size: 12px;
+            }
+
+            .header-title p {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icono.png') }}" alt="ISTT Logo">
+            </div>
+            <div class="header-title">
+                <h1>INSTITUTO SUPERIOR TECNOLÓGICO TENA</h1>
+                <p>Gestión de Docentes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menú Principal</h2>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="/coordinador" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Panel Principal</span>
+            </a>
+            <a href="/coordinador/crear_docente" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                    <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+                <span>Gestionar Docentes</span>
+            </a>
+            <a href="/coordinador/gestionar_actividades" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Asignar Actividades</span>
+            </a>
+            <a href="/coordinador/configurar_ciclo" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path>
+                </svg>
+                <span>Configurar Ciclo</span>
+            </a>
+        </div>
+
+        <div class="user-section">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">{{ nombre[0] if nombre else 'U' }}</div>
+                <div class="user-details">
+                    <div class="user-name">{{ nombre }}</div>
+                    <div class="user-role">{{ cargo }}</div>
+                </div>
+                <span class="user-arrow" id="userArrow">▼</span>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <a href="/logout" class="dropdown-item logout">
+                    <svg class="logout-icon" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar sesión</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <h2 class="page-title">Gestión de Docentes y Configuración Personal</h2>
+
+        <div id="alertContainer"></div>
+
+        <!-- SECCIÓN 1: Actualizar Perfil del Coordinador -->
+        <div class="form-card">
+            <h3 class="form-title">
+                <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Mi Perfil - Actualizar Información
+            </h3>
+
+            <div class="security-notice">
+                <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <div>
+                    <strong>Importante:</strong> Necesitas ingresar tu contraseña actual para confirmar cualquier cambio en tu perfil.
+                </div>
+            </div>
+
+            <form id="formActualizarPerfil">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Usuario (Login)</label>
+                        <input type="text" name="usuario" class="form-input" value="{{ usuario }}" placeholder="Nuevo usuario" required>
+                        <div class="hint-text">Mínimo 3 caracteres. Este será tu nombre de usuario para iniciar sesión.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" name="nombre" class="form-input" value="{{ nombre }}" placeholder="Tu nombre completo" required>
+                        <div class="hint-text">Tu nombre completo tal como debe aparecer en los documentos.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Cargo Institucional</label>
+                        <input type="text" name="cargo" class="form-input" value="{{ cargo }}" placeholder="Tu cargo" required>
+                        <div class="hint-text">Tu cargo o posición en la institución.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Contraseña Actual (para confirmar)</label>
+                        <input type="password" name="password_actual" class="form-input" placeholder="Tu contraseña actual" required>
+                        <div class="hint-text">Por seguridad, necesitamos verificar tu identidad.</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnActualizarPerfil">
+                    Guardar Cambios de Perfil
+                </button>
+            </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SECCIÓN 2: Cambiar Contraseña del Coordinador -->
+        <div class="form-card">
+            <h3 class="form-title">
+                <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                Cambiar Mi Contraseña
+            </h3>
+
+            <div class="security-notice">
+                <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <div>
+                    <strong>Recomendación de seguridad:</strong> Usa una contraseña fuerte con al menos 6 caracteres.
+                </div>
+            </div>
+
+            <form id="formCambiarPasswordCoordinador">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Contraseña Actual</label>
+                        <input type="password" name="password_actual" class="form-input" required placeholder="Tu contraseña actual">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nueva Contraseña</label>
+                        <input type="password" name="password_nueva" class="form-input" required placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirmar Nueva Contraseña</label>
+                        <input type="password" name="password_confirmar" class="form-input" required placeholder="Repite la nueva contraseña">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-cambiar-password" id="btnCambiarPassword">
+                    Cambiar Contraseña
+                </button>
+            </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SECCIÓN 3: Crear Nuevo Docente -->
+        <div class="form-card">
+            <h3 class="form-title">
+                <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                    <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+                Crear Nuevo Docente
+            </h3>
+
+            <form id="formDocente">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Usuario</label>
+                        <input type="text" name="usuario" class="form-input" required placeholder="Ej: jperez">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" name="password" class="form-input" required placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" name="nombre" class="form-input" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cargo</label>
+                        <input type="text" name="cargo" class="form-input" required placeholder="Ej: Docente de Sistemas">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-crear">
+                    Crear Docente
+                </button>
+            </form>
+        </div>
+
+        <!-- SECCIÓN 4: Lista de Docentes -->
+        <div class="docentes-list">
+            <h3 class="list-title">
+                <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Docentes Registrados
+            </h3>
+
+            {% if docentes %}
+                {% for docente in docentes %}
+                <div class="docente-item">
+                    <div class="docente-avatar">{{ docente.nombre[0] }}</div>
+                    <div class="docente-info">
+                        <div class="docente-nombre">{{ docente.nombre }}</div>
+                        <div class="docente-meta">
+                            <span>Usuario: {{ docente.usuario }}</span>
+                            <span>{{ docente.cargo }}</span>
+                            <span class="fecha-creacion" data-fecha="{{ docente.fecha_creacion }}">Creado: {{ docente.fecha_creacion[:10] }}</span>
+                        </div>
+                    </div>
+                    <span class="estado-badge {% if docente.activo %}estado-activo{% else %}estado-inactivo{% endif %}">
+                        {% if docente.activo %}Activo{% else %}Inactivo{% endif %}
+                    </span>
+                    <div class="docente-actions">
+                        <button class="btn-action btn-password" 
+                                data-docente-id="{{ docente.id }}" 
+                                data-docente-nombre="{{ docente.nombre }}">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            Cambiar Contraseña
+                        </button>
+                        <button class="btn-action btn-eliminar" 
+                                data-docente-id="{{ docente.id }}" 
+                                data-docente-nombre="{{ docente.nombre }}">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #78909C; padding: 40px;">No hay docentes registrados</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Modal Cambiar Contraseña Docente -->
+    <div class="modal" id="modalPassword">
+        <div class="modal-content">
+            <h3 class="modal-title">Cambiar Contraseña</h3>
+            <p class="modal-message" id="mensajePassword"></p>
+            <input type="password" id="nuevaPassword" class="modal-input" placeholder="Nueva contraseña (mínimo 6 caracteres)">
+            <input type="password" id="confirmarPassword" class="modal-input" placeholder="Confirmar contraseña">
+            <div class="modal-actions">
+                <button class="btn-modal btn-confirmar" id="btnCambiarPasswordModal">Cambiar</button>
+                <button class="btn-modal btn-cancelar" id="btnCancelarPasswordModal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar -->
+    <div class="modal" id="modalEliminar">
+        <div class="modal-content">
+            <h3 class="modal-title">¿Eliminar Docente?</h3>
+            <p class="modal-message" id="mensajeEliminar"></p>
+            <p style="font-size: 13px; color: #EF5350; margin: 15px 0;">
+                ⚠️ Se eliminarán todos los horarios asociados a este docente. Esta acción es irreversible.
+            </p>
+            <div class="modal-actions">
+                <button class="btn-modal btn-confirmar-eliminar" id="btnEliminarModal">Eliminar</button>
+                <button class="btn-modal btn-cancelar" id="btnCancelarEliminarModal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== MENÚ Y NAVEGACIÓN ==========
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            const userDropdown = document.getElementById('userDropdown');
+            const userArrow = document.getElementById('userArrow');
+            if (userDropdown) userDropdown.classList.remove('active');
+            if (userArrow) userArrow.classList.remove('rotated');
+        });
+
+        const userInfo = document.getElementById('userInfo');
+        const userDropdown = document.getElementById('userDropdown');
+        const userArrow = document.getElementById('userArrow');
+
+        if (userInfo && userDropdown && userArrow) {
+            userInfo.addEventListener('click', function() {
+                userDropdown.classList.toggle('active');
+                userArrow.classList.toggle('rotated');
+            });
+        }
+
+        // ========== CONVERSIÓN DE FECHAS A LOCAL ==========
+        function convertirFechasALocal() {
+            const elementosFecha = document.querySelectorAll('.fecha-creacion');
+            
+            elementosFecha.forEach(function(elemento) {
+                const fechaUTC = elemento.getAttribute('data-fecha');
+                if (fechaUTC) {
+                    try {
+                        const fecha = new Date(fechaUTC);
+                        const fechaLocal = fecha.toLocaleString('es-EC', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        });
+                        elemento.textContent = 'Creado: ' + fechaLocal;
+                    } catch (error) {
+                        console.error('Error al convertir fecha:', error);
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            convertirFechasALocal();
+            
+            // Event listeners para botones de docentes
+            document.querySelectorAll('.btn-password').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-docente-id');
+                    const nombre = this.getAttribute('data-docente-nombre');
+                    abrirModalPassword(id, nombre);
+                });
+            });
+
+            document.querySelectorAll('.btn-eliminar').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-docente-id');
+                    const nombre = this.getAttribute('data-docente-nombre');
+                    confirmarEliminar(id, nombre);
+                });
+            });
+
+            // Event listeners para modales
+            document.getElementById('btnCambiarPasswordModal').addEventListener('click', cambiarPassword);
+            document.getElementById('btnCancelarPasswordModal').addEventListener('click', cerrarModalPassword);
+            document.getElementById('btnEliminarModal').addEventListener('click', eliminarDocente);
+            document.getElementById('btnCancelarEliminarModal').addEventListener('click', cerrarModalEliminar);
+        });
+
+        // =================================================================
+        // ACTUALIZAR PERFIL DEL COORDINADOR
+        // =================================================================
+        document.getElementById('formActualizarPerfil').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const btnActualizar = document.getElementById('btnActualizarPerfil');
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // Validaciones
+            if (!data.usuario || !data.nombre || !data.cargo || !data.password_actual) {
+                showAlert('error', '⚠ Completa todos los campos');
+                return;
+            }
+
+            if (data.usuario.length < 3) {
+                showAlert('error', '⚠ El usuario debe tener al menos 3 caracteres');
+                return;
+            }
+
+            if (data.nombre.length < 3) {
+                showAlert('error', '⚠ El nombre debe tener al menos 3 caracteres');
+                return;
+            }
+
+            // Deshabilitar botón
+            const textoOriginal = btnActualizar.innerHTML;
+            btnActualizar.disabled = true;
+            btnActualizar.innerHTML = '<div class="loading"></div> Guardando...';
+
+            try {
+                const response = await fetch('/coordinador/actualizar_perfil', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showAlert('success', '✓ ' + result.message);
+                    
+                    // Actualizar sidebar
+                    document.querySelector('.user-name').textContent = result.nuevo_nombre;
+                    document.querySelector('.user-role').textContent = result.nuevo_cargo;
+                    document.querySelector('.user-avatar').textContent = result.nuevo_nombre[0];
+                    
+                    // Limpiar contraseña
+                    e.target.querySelector('[name="password_actual"]').value = '';
+                    
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    showAlert('error', '✕ ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('error', '✕ Error de conexión. Intenta nuevamente.');
+            } finally {
+                btnActualizar.disabled = false;
+                btnActualizar.innerHTML = textoOriginal;
+            }
+        });
+
+        // =================================================================
+        // CAMBIAR CONTRASEÑA DEL COORDINADOR
+        // =================================================================
+        document.getElementById('formCambiarPasswordCoordinador').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const btnCambiar = document.getElementById('btnCambiarPassword');
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // Validaciones
+            if (!data.password_actual || !data.password_nueva || !data.password_confirmar) {
+                showAlert('error', '⚠ Completa todos los campos');
+                return;
+            }
+
+            if (data.password_nueva.length < 6) {
+                showAlert('error', '⚠ La nueva contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+
+            if (data.password_nueva !== data.password_confirmar) {
+                showAlert('error', '⚠ Las contraseñas nuevas no coinciden');
+                return;
+            }
+
+            if (data.password_actual === data.password_nueva) {
+                showAlert('error', '⚠ La nueva contraseña debe ser diferente a la actual');
+                return;
+            }
+
+            // Deshabilitar botón
+            const textoOriginal = btnCambiar.innerHTML;
+            btnCambiar.disabled = true;
+            btnCambiar.innerHTML = '<div class="loading"></div> Cambiando...';
+
+            try {
+                const response = await fetch('/cambiar_password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showAlert('success', '✓ Contraseña actualizada correctamente');
+                    e.target.reset();
+                    
+                    setTimeout(function() {
+                        showAlert('success', 'Por seguridad, serás redirigido al login...');
+                        setTimeout(function() {
+                            window.location.href = '/logout';
+                        }, 2000);
+                    }, 1500);
+                } else {
+                    showAlert('error', '✕ ' + result.error);
+                    btnCambiar.disabled = false;
+                    btnCambiar.innerHTML = textoOriginal;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('error', '✕ Error de conexión. Intenta nuevamente.');
+                btnCambiar.disabled = false;
+                btnCambiar.innerHTML = textoOriginal;
+            }
+        });
+
+        // =================================================================
+        // CREAR DOCENTE
+        // =================================================================
+        document.getElementById('formDocente').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // Validaciones
+            if (!data.usuario.trim()) {
+                showAlert('error', '⚠ El usuario es requerido');
+                return;
+            }
+
+            if (data.usuario.length < 3) {
+                showAlert('error', '⚠ El usuario debe tener al menos 3 caracteres');
+                return;
+            }
+
+            if (data.password.length < 6) {
+                showAlert('error', '⚠ La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+
+            if (!data.nombre.trim()) {
+                showAlert('error', '⚠ El nombre completo es requerido');
+                return;
+            }
+
+            if (!data.cargo.trim()) {
+                showAlert('error', '⚠ El cargo es requerido');
+                return;
+            }
+
+            try {
+                const response = await fetch('/coordinador/crear_docente', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showAlert('success', '✓ ' + result.message);
+                    e.target.reset();
+                    setTimeout(function() { window.location.reload(); }, 1500);
+                } else {
+                    showAlert('error', '✕ ' + result.error);
+                }
+            } catch (error) {
+                showAlert('error', '✕ Error de conexión. Intenta nuevamente.');
+            }
+        });
+
+        // =================================================================
+        // CAMBIAR CONTRASEÑA DOCENTE
+        // =================================================================
+        let docenteIdActual = null;
+
+        function abrirModalPassword(id, nombre) {
+            docenteIdActual = id;
+            document.getElementById('mensajePassword').textContent = 'Cambiar contraseña de ' + nombre;
+            document.getElementById('nuevaPassword').value = '';
+            document.getElementById('confirmarPassword').value = '';
+            document.getElementById('modalPassword').classList.add('active');
+        }
+
+        function cerrarModalPassword() {
+            document.getElementById('modalPassword').classList.remove('active');
+            docenteIdActual = null;
+        }
+
+        async function cambiarPassword() {
+            const nueva = document.getElementById('nuevaPassword').value;
+            const confirmar = document.getElementById('confirmarPassword').value;
+
+            if (!nueva || !confirmar) {
+                showAlert('error', '⚠ Completa todos los campos');
+                return;
+            }
+
+            if (nueva !== confirmar) {
+                showAlert('error', '⚠ Las contraseñas no coinciden');
+                return;
+            }
+
+            if (nueva.length < 6) {
+                showAlert('error', '⚠ La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+
+            try {
+                const response = await fetch('/coordinador/cambiar_password_docente/' + docenteIdActual, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password_nueva: nueva })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert('success', '✓ ' + data.message);
+                    cerrarModalPassword();
+                } else {
+                    showAlert('error', '✕ ' + data.error);
+                }
+            } catch (error) {
+                showAlert('error', '✕ Error de conexión');
+            }
+        }
+
+        // =================================================================
+        // ELIMINAR DOCENTE
+        // =================================================================
+        function confirmarEliminar(id, nombre) {
+            docenteIdActual = id;
+            document.getElementById('mensajeEliminar').textContent = 
+                '¿Estás seguro de eliminar a ' + nombre + '?';
+            document.getElementById('modalEliminar').classList.add('active');
+        }
+
+        function cerrarModalEliminar() {
+            document.getElementById('modalEliminar').classList.remove('active');
+            docenteIdActual = null;
+        }
+
+        async function eliminarDocente() {
+            try {
+                const response = await fetch('/coordinador/eliminar_docente/' + docenteIdActual, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert('success', '✓ ' + data.message);
+                    cerrarModalEliminar();
+                    setTimeout(function() { window.location.reload(); }, 1500);
+                } else {
+                    showAlert('error', '✕ ' + data.error);
+                }
+            } catch (error) {
+                showAlert('error', '✕ Error de conexión');
+            }
+        }
+
+        // =================================================================
+        // UTILIDADES
+        // =================================================================
+        function showAlert(type, message) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-' + type + ' active';
+            alert.textContent = message;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(function() {
+                alert.classList.remove('active');
+            }, 5000);
+        }
+
+        // ========== CIERRE DE MENÚ AL HACER CLIC EN UN ENLACE ==========
+        document.querySelectorAll('.menu-item, .dropdown-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                if (window.innerWidth < 768) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // ========== PREVENIR ZOOM EN DOBLE TAP (iOS) ==========
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
