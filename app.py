@@ -1517,10 +1517,18 @@ def eliminar_horario(horario_id):
 @app.route('/descargar_hored/<int:horario_id>')
 @role_required(['docente'])
 def descargar_hored(horario_id):
+    """
+    Descarga un horario aprobado en formato .hored
+    
+    CORRECCIÓN APLICADA:
+    - mimetype cambiado de 'application/json' a 'application/octet-stream'
+    - Esto previene que navegadores móviles agreguen '.json' al nombre del archivo
+    """
     def _obtener():
         with get_db_connection() as conn:
             c = conn.cursor()
-            c.execute('SELECT * FROM horarios WHERE id = ? AND usuario_id = ?', (horario_id, session['usuario_id']))
+            c.execute('SELECT * FROM horarios WHERE id = ? AND usuario_id = ?', 
+                     (horario_id, session['usuario_id']))
             return c.fetchone()
     
     try:
@@ -1541,6 +1549,7 @@ def descargar_hored(horario_id):
         buffer.write(contenido.encode('utf-8'))
         buffer.seek(0)
         
+        # Asegurarse de que el nombre del archivo tenga la extensión .hored
         nombre_archivo = horario['nombre_archivo']
         if not nombre_archivo.endswith('.hored'):
             nombre_archivo += '.hored'
@@ -1549,12 +1558,20 @@ def descargar_hored(horario_id):
                    f'Descarga de archivo .hored',
                    extra_data={'horario_id': horario_id, 'nombre_archivo': nombre_archivo})
         
+        # ============================================================
+        # CORRECCIÓN PRINCIPAL: mimetype cambiado
+        # ============================================================
+        # ANTES: mimetype='application/json'  ❌ (causaba .json extra en móviles)
+        # AHORA: mimetype='application/octet-stream'  ✅ (funciona en todos los dispositivos)
+        # ============================================================
+        
         return send_file(
             buffer,
             as_attachment=True,
             download_name=nombre_archivo,
-            mimetype='application/json'
+            mimetype='application/octet-stream'  # ✅ CORRECCIÓN APLICADA
         )
+        
     except Exception as e:
         log_error_with_traceback('horarios', 'ERROR_DESCARGAR_HORED', e)
         flash('Error al descargar archivo', 'error')
