@@ -3110,7 +3110,6 @@ auto_init_db()
 if __name__ == '__main__':
     print("=" * 80)
     print("SISTEMA DE GESTIÓN DE HORARIOS - ISTT")
-    print("VERSIÓN CORREGIDA: Todas las tablas con relaciones correctas")
     print("=" * 80)
     
     log_action('general', 'APLICACION_INICIADA', 
@@ -3145,16 +3144,9 @@ if __name__ == '__main__':
         print("Para producción, configura: export FLASK_ENV=production")
         print("=" * 60)
     
-    print("\n✓ CORRECCIÓN APLICADA:")
-    print("  - Tabla 'configuracion' ahora con FKs: creado_por, modificado_por")
-    print("  - Nueva tabla 'configuracion_historial' para auditoría")
-    print("  - Todas las tablas correctamente relacionadas")
-    print("  - Sistema de auditoría completo para cambios de configuración")
-    print("=" * 80)
-    
     app.run(
         debug=not is_production,
         host='0.0.0.0',
-        port=int(os.environ.get('PORT', 5050)),
+        port=int(os.environ.get('PORT', 5500)),
         threaded=True
     )
