@@ -526,7 +526,7 @@ def init_db():
             if not c.fetchone():
                 c.execute('''
                     INSERT INTO configuracion (clave, valor, descripcion)
-                    VALUES ('ciclo_academico', 'Abril 2025 - Septiembre 2025', 
+                    VALUES ('ciclo_academico', 'IS 2026', 
                             'Ciclo académico actual del sistema')
                 ''')
             
