@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Actividades - ISTT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5F7FA;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0097A7 0%, #00838F 100%);
+            border-radius: 10px;
+            border: 2px solid #F5F7FA;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00838F 0%, #006064 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #F5F7FA;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0097A7 0%, #00838F 100%);
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-title h1 {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-back {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-back:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            min-height: 40px;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 280px;
+            max-width: 85vw;
+            height: 100vh;
+            background: #FFFFFF;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header h2 {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+            min-height: 0;
+        }
+
+        .menu-item {
+            padding: 14px 20px;
+            color: #263238;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 4px 12px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background: #F0F4F8;
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        /* MENÚ DE USUARIO - SIEMPRE VISIBLE */
+        .user-section {
+            border-top: 1px solid #E1E8ED;
+            background: #FAFBFC;
+            flex-shrink: 0;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .user-info {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            min-height: 76px;
+        }
+
+        .user-info:hover {
+            background: #F0F4F8;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border: 3px solid #E1F5FE;
+            box-shadow: 0 2px 8px rgba(0,188,212,0.25);
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            color: #263238;
+            font-size: 14px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .user-role {
+            color: #78909C;
+            font-size: 12px;
+            margin-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .user-arrow {
+            color: #90A4AE;
+            font-size: 12px;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .user-arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .user-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #F5F8FA;
+        }
+
+        .user-dropdown.active {
+            max-height: 250px;
+        }
+
+        .dropdown-item {
+            padding: 14px 20px;
+            color: #263238;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+            background: #E3F2FD;
+        }
+
+        .dropdown-item.logout {
+            color: #FFFFFF;
+            background: #EF5350;
+            margin-top: 8px;
+        }
+
+        .dropdown-item.logout:hover {
+            background: #E53935;
+        }
+
+        .logout-icon {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .container {
+            padding: 20px 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 22px;
+            color: #263238;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .page-subtitle {
+            font-size: 13px;
+            color: #78909C;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #E0E0E0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .tabs::-webkit-scrollbar-thumb {
+            display: none;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #78909C;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            margin-bottom: -2px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab:hover {
+            color: #0097A7;
+            background: rgba(0,151,167,0.05);
+        }
+
+        .tab.active {
+            color: #0097A7;
+            border-bottom-color: #0097A7;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-actividades {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .section-header h3 {
+            font-size: 18px;
+            color: #263238;
+        }
+
+        .btn-add {
+            background: #1976D2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn-add:hover {
+            background: #1565C0;
+            transform: translateY(-1px);
+        }
+
+        .actividades-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .actividad-card {
+            background: #F5F7FA;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.2s;
+        }
+
+        .actividad-card:hover {
+            border-color: #0097A7;
+            box-shadow: 0 2px 8px rgba(0,151,167,0.15);
+        }
+
+        .actividad-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+
+        .actividad-codigo {
+            background: #0097A7;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .actividad-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background: rgba(0,0,0,0.1);
+        }
+
+        .btn-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .actividad-descripcion {
+            font-size: 13px;
+            color: #263238;
+            font-weight: 500;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .docente-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .docente-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .docente-info h3 {
+            font-size: 17px;
+            color: #263238;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .docente-info p {
+            font-size: 12px;
+            color: #78909C;
+            word-break: break-word;
+        }
+
+        .btn-guardar {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn-guardar:hover {
+            background: #388E3C;
+            transform: translateY(-1px);
+        }
+
+        .actividades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .actividad-item {
+            background: #F5F7FA;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 14px;
+            transition: all 0.2s;
+        }
+
+        .actividad-item:hover {
+            border-color: #0097A7;
+            box-shadow: 0 2px 8px rgba(0,151,167,0.15);
+        }
+
+        .actividad-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .actividad-codigo-small {
+            background: #0097A7;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .actividad-nombre {
+            font-size: 12px;
+            color: #263238;
+            font-weight: 500;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .horas-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .horas-input-group label {
+            font-size: 12px;
+            color: #78909C;
+            font-weight: 500;
+            min-width: 45px;
+        }
+
+        .horas-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .horas-input:focus {
+            outline: none;
+            border-color: #0097A7;
+        }
+
+        .horas-input[value="0"] {
+            background: #FFEBEE;
+            border-color: #EF5350;
+        }
+
+        .total-horas {
+            background: #E8F5E9;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .total-horas-label {
+            font-size: 12px;
+            color: #2E7D32;
+            margin-bottom: 6px;
+        }
+
+        .total-horas-valor {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2E7D32;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #263238;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0097A7;
+        }
+
+        .form-input:disabled {
+            background: #F5F5F5;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .btn-modal {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn-modal:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: #1976D2;
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #1565C0;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background: #388E3C;
+        }
+
+        .btn-danger {
+            background: #EF5350;
+            color: white;
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background: #E53935;
+        }
+
+        .btn-cancel {
+            background: #E0E0E0;
+            color: #263238;
+        }
+
+        .btn-cancel:hover {
+            background: #BDBDBD;
+        }
+
+        .alert {
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            line-height: 1.4;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.active {
+            display: flex;
+        }
+
+        .alert-success {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #66BB6A;
+        }
+
+        .alert-error {
+            background: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #EF5350;
+        }
+
+        .alert-warning {
+            background: #FFF3E0;
+            color: #E65100;
+            border: 1px solid #FFB74D;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #78909C;
+        }
+
+        .empty-state svg {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state small {
+            font-size: 12px;
+        }
+
+        .modal-message {
+            margin-bottom: 20px;
+            color: #78909C;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .modal-error-message {
+            background: #FFEBEE;
+            border: 1px solid #EF5350;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 20px;
+            color: #C62828;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        .modal-error-icon {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .modal-info-message {
+            background: #E3F2FD;
+            border: 1px solid #2196F3;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 20px;
+            color: #1565C0;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        .loading {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Media Queries para Desktop */
+        @media (min-width: 768px) {
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .header-title h1 {
+                font-size: 18px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 30px;
+            }
+
+            .section-actividades {
+                padding: 24px;
+            }
+
+            .section-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .btn-add {
+                width: auto;
+            }
+
+            .actividades-list {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+
+            .docente-card {
+                padding: 24px;
+            }
+
+            .docente-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .btn-guardar {
+                width: auto;
+            }
+
+            .actividades-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .modal-actions {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+
+            .btn-modal {
+                width: auto;
+            }
+
+            .modal-actions .btn-cancel {
+                order: 2;
+            }
+
+            .modal-actions .btn-primary,
+            .modal-actions .btn-success,
+            .modal-actions .btn-danger {
+                order: 1;
+            }
+
+            .total-horas-valor {
+                font-size: 32px;
+            }
+
+            .btn-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        /* Ajustes para pantallas muy pequeñas */
+        @media (max-width: 360px) {
+            .header {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .header-title h1 {
+                font-size: 14px;
+            }
+
+            .header-title p {
+                font-size: 10px;
+            }
+
+            .btn-back {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .actividades-list {
+                grid-template-columns: 1fr;
+            }
+
+            .actividades-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Ocultar texto del botón volver en móviles muy pequeños */
+        @media (max-width: 480px) {
+            .btn-back span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icono.png') }}" alt="ISTT Logo">
+            </div>
+            <div class="header-title">
+                <h1>INSTITUTO SUPERIOR TECNOLÓGICO TENA</h1>
+                <p>Gestión de Actividades Complementarias</p>
+            </div>
+        </div>
+        <a href="/coordinador" class="btn-back">←<span> Volver</span></a>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menú Principal</h2>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="/coordinador" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Panel Principal</span>
+            </a>
+            <a href="/coordinador/crear_docente" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                    <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+                <span>Gestionar Docentes y Mi Perfil</span>
+            </a>
+            <a href="/coordinador/gestionar_actividades" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Asignar Actividades</span>
+            </a>
+            <a href="/coordinador/configurar_ciclo" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path>
+                </svg>
+                <span>Configurar Ciclo</span>
+            </a>
+        </div>
+
+        <div class="user-section">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">C</div>
+                <div class="user-details">
+                    <div class="user-name">Coordinador</div>
+                    <div class="user-role">Coordinador de Carrera</div>
+                </div>
+                <span class="user-arrow" id="userArrow">▼</span>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <a href="/logout" class="dropdown-item logout">
+                    <svg class="logout-icon" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar sesión</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <h2 class="page-title">Gestión de Actividades Complementarias</h2>
+        <p class="page-subtitle">Administra las actividades disponibles y asigna horas a cada docente</p>
+
+        <div id="alertContainer"></div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="actividades">Actividades Disponibles</button>
+            <button class="tab" data-tab="asignaciones">Asignar Horas por Docente</button>
+        </div>
+
+        <div id="tab-actividades" class="tab-content active">
+            <div class="section-actividades">
+                <div class="section-header">
+                    <h3>Actividades Complementarias</h3>
+                    <button class="btn-add" id="btnNuevaActividad">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Nueva Actividad
+                    </button>
+                </div>
+
+                <div class="actividades-list" id="actividadesList"></div>
+            </div>
+        </div>
+
+        <div id="tab-asignaciones" class="tab-content">
+            {% for docente in docentes %}
+            <div class="docente-card" data-docente-id="{{ docente.id }}">
+                <div class="docente-header">
+                    <div class="docente-info">
+                        <h3>{{ docente.nombre }}</h3>
+                        <p>{{ docente.cargo }} • Usuario: {{ docente.usuario }}</p>
+                    </div>
+                    <button class="btn-guardar btn-guardar-asignaciones" data-docente-id="{{ docente.id }}">
+                        Guardar Asignaciones
+                    </button>
+                </div>
+
+                <div class="actividades-grid" id="grid-{{ docente.id }}"></div>
+
+                <div class="total-horas">
+                    <div class="total-horas-label">Total de Horas Asignadas</div>
+                    <div class="total-horas-valor" id="total-{{ docente.id }}">
+                        {% set total = docente.asignaciones.values()|sum %}
+                        {{ total if total else 0 }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Modal Crear/Editar Actividad -->
+    <div class="modal" id="actividadModal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalTitle">Nueva Actividad</h3>
+            <div class="form-group">
+                <label class="form-label">Código *</label>
+                <input type="text" id="inputCodigo" class="form-input" placeholder="Ej: T/AES" maxlength="15">
+                <small style="color: #78909C; font-size: 12px; display: block; margin-top: 4px;">
+                    Máximo 15 caracteres. Se convertirá automáticamente a mayúsculas.
+                </small>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Descripción *</label>
+                <input type="text" id="inputDescripcion" class="form-input" placeholder="Ej: Tutorías y Acompañamiento Estudiantil">
+            </div>
+            <div id="modalAlertContainer"></div>
+            <div class="modal-actions">
+                <button class="btn-modal btn-primary" id="btnGuardarActividad">
+                    <span id="btnGuardarTexto">Guardar</span>
+                </button>
+                <button class="btn-modal btn-cancel" id="btnCancelarModal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmar Eliminación -->
+    <div class="modal" id="confirmDeleteModal">
+        <div class="modal-content">
+            <h3 class="modal-title">¿Eliminar actividad?</h3>
+            <div id="deleteMessageContainer">
+                <p class="modal-message">Esta acción no se puede deshacer. La actividad será eliminada completamente de la base de datos.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal btn-danger" id="btnConfirmarEliminar">
+                    <span id="btnEliminarTexto">Eliminar Permanentemente</span>
+                </button>
+                <button class="btn-modal btn-cancel" id="btnCancelarConfirm">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let actividadesDisponibles = {};
+        let actividadEditando = null;
+        let codigoOriginalEditando = null;
+        let actividadEliminando = null;
+        let docentesData = [];
+
+        // ========== MENÚ Y NAVEGACIÓN ==========
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            const userDropdown = document.getElementById('userDropdown');
+            const userArrow = document.getElementById('userArrow');
+            if (userDropdown) userDropdown.classList.remove('active');
+            if (userArrow) userArrow.classList.remove('rotated');
+        });
+
+        // Dropdown de usuario
+        const userInfo = document.getElementById('userInfo');
+        const userDropdown = document.getElementById('userDropdown');
+        const userArrow = document.getElementById('userArrow');
+
+        if (userInfo && userDropdown && userArrow) {
+            userInfo.addEventListener('click', function() {
+                userDropdown.classList.toggle('active');
+                userArrow.classList.toggle('rotated');
+            });
+        }
+
+        // ========== TABS ==========
+        document.querySelectorAll('.tab').forEach(function(tab) {
+            tab.addEventListener('click', async function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                document.querySelectorAll('.tab').forEach(function(t) {
+                    t.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(function(c) {
+                    c.classList.remove('active');
+                });
+                
+                this.classList.add('active');
+                document.getElementById('tab-' + tabName).classList.add('active');
+                
+                if (tabName === 'asignaciones') {
+                    await cargarDocentes();
+                    actualizarGridsAsignaciones();
+                }
+                
+                if (tabName === 'actividades') {
+                    await cargarActividades();
+                }
+            });
+        });
+
+        // ========== CARGAR DATOS ==========
+        async function cargarDocentes() {
+            try {
+                const response = await fetch('/coordinador/obtener_docentes_asignaciones');
+                const data = await response.json();
+                
+                if (data.success) {
+                    docentesData = data.docentes;
+                    return true;
+                } else {
+                    console.error('Error al cargar docentes:', data.error);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error al cargar docentes:', error);
+                return false;
+            }
+        }
+
+        async function cargarActividades() {
+            try {
+                const response = await fetch('/coordinador/actividades_complementarias');
+                const data = await response.json();
+                
+                actividadesDisponibles = {};
+                
+                data.actividades.forEach(function(act) {
+                    actividadesDisponibles[act.codigo] = act.descripcion;
+                });
+                
+                renderizarActividades(data.actividades);
+                actualizarGridsAsignaciones();
+                
+            } catch (error) {
+                console.error('Error al cargar actividades:', error);
+                showAlert('error', 'Error al cargar las actividades');
+            }
+        }
+
+        // ========== RENDERIZAR ==========
+        function renderizarActividades(actividades) {
+            const container = document.getElementById('actividadesList');
+            
+            if (actividades.length === 0) {
+                container.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg><p>No hay actividades complementarias</p><small>Haz clic en "Nueva Actividad" para crear una</small></div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            actividades.forEach(function(act) {
+                const card = document.createElement('div');
+                card.className = 'actividad-card';
+                card.setAttribute('data-act-id', act.id);
+                card.setAttribute('data-act-codigo', act.codigo);
+                card.setAttribute('data-act-descripcion', act.descripcion);
+                
+                card.innerHTML = '<div class="actividad-card-header"><span class="actividad-codigo">' + act.codigo + '</span><div class="actividad-actions"><button class="btn-icon btn-editar-act" data-act-id="' + act.id + '"><svg viewBox="0 0 24 24" fill="none" stroke="#1976D2" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button><button class="btn-icon btn-eliminar-act" data-act-id="' + act.id + '"><svg viewBox="0 0 24 24" fill="none" stroke="#EF5350" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></div></div><div class="actividad-descripcion">' + act.descripcion + '</div>';
+                
+                container.appendChild(card);
+            });
+            
+            // Event listeners para botones de editar
+            document.querySelectorAll('.btn-editar-act').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const actId = this.getAttribute('data-act-id');
+                    const card = document.querySelector('[data-act-id="' + actId + '"]');
+                    const codigo = card.getAttribute('data-act-codigo');
+                    const descripcion = card.getAttribute('data-act-descripcion');
+                    abrirModalEditar(actId, codigo, descripcion);
+                });
+            });
+            
+            // Event listeners para botones de eliminar
+            document.querySelectorAll('.btn-eliminar-act').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const actId = this.getAttribute('data-act-id');
+                    const card = document.querySelector('[data-act-id="' + actId + '"]');
+                    const codigo = card.getAttribute('data-act-codigo');
+                    confirmarEliminar(actId, codigo);
+                });
+            });
+        }
+
+        function actualizarGridsAsignaciones() {
+            docentesData.forEach(function(docente) {
+                const grid = document.getElementById('grid-' + docente.id);
+                if (!grid) return;
+                
+                grid.innerHTML = '';
+                
+                for (const codigo in actividadesDisponibles) {
+                    const descripcion = actividadesDisponibles[codigo];
+                    const horas = docente.asignaciones[codigo] || 0;
+                    
+                    const item = document.createElement('div');
+                    item.className = 'actividad-item';
+                    item.innerHTML = '<div class="actividad-header"><span class="actividad-codigo-small">' + codigo + '</span></div><div class="actividad-nombre">' + descripcion + '</div><div class="horas-input-group" style="margin-top: 12px;"><label>Horas:</label><input type="number" class="horas-input" data-codigo="' + codigo + '" min="0" max="40" value="' + horas + '"></div>';
+                    
+                    grid.appendChild(item);
+                }
+                
+                // Event listener para actualizar total
+                grid.querySelectorAll('.horas-input').forEach(function(input) {
+                    input.addEventListener('change', function() {
+                        actualizarTotal(docente.id);
+                    });
+                });
+                
+                actualizarTotal(docente.id);
+            });
+        }
+
+        function actualizarTotal(docenteId) {
+            const card = document.querySelector('[data-docente-id="' + docenteId + '"]');
+            if (!card) return;
+            
+            const inputs = card.querySelectorAll('.horas-input');
+            let total = 0;
+            
+            inputs.forEach(function(input) {
+                total += parseInt(input.value) || 0;
+            });
+            
+            const totalElement = document.getElementById('total-' + docenteId);
+            if (totalElement) {
+                totalElement.textContent = total;
+            }
+        }
+
+        // ========== MODALES ==========
+        document.getElementById('btnNuevaActividad').addEventListener('click', abrirModalCrear);
+        document.getElementById('btnCancelarModal').addEventListener('click', cerrarModal);
+        document.getElementById('btnCancelarConfirm').addEventListener('click', cerrarModalConfirm);
+
+        function abrirModalCrear() {
+            actividadEditando = null;
+            codigoOriginalEditando = null;
+            
+            document.getElementById('modalTitle').textContent = 'Nueva Actividad';
+            document.getElementById('inputCodigo').value = '';
+            document.getElementById('inputDescripcion').value = '';
+            document.getElementById('inputCodigo').disabled = false;
+            document.getElementById('modalAlertContainer').innerHTML = '';
+            document.getElementById('btnGuardarTexto').textContent = 'Crear Actividad';
+            
+            document.getElementById('actividadModal').classList.add('active');
+        }
+
+        function abrirModalEditar(id, codigo, descripcion) {
+            actividadEditando = id;
+            codigoOriginalEditando = codigo;
+            
+            document.getElementById('modalTitle').textContent = 'Editar Actividad';
+            document.getElementById('inputCodigo').value = codigo;
+            document.getElementById('inputDescripcion').value = descripcion;
+            document.getElementById('inputCodigo').disabled = false;
+            document.getElementById('modalAlertContainer').innerHTML = '';
+            document.getElementById('btnGuardarTexto').textContent = 'Actualizar Actividad';
+            
+            document.getElementById('actividadModal').classList.add('active');
+        }
+
+        function cerrarModal() {
+            document.getElementById('actividadModal').classList.remove('active');
+            document.getElementById('modalAlertContainer').innerHTML = '';
+            actividadEditando = null;
+            codigoOriginalEditando = null;
+        }
+
+        function confirmarEliminar(id, codigo) {
+            actividadEliminando = id;
+            document.getElementById('deleteMessageContainer').innerHTML = '<p class="modal-message">¿Estás seguro de eliminar la actividad <strong>' + codigo + '</strong>?<br><br>Esta acción no se puede deshacer. La actividad será eliminada completamente de la base de datos.</p>';
+            document.getElementById('confirmDeleteModal').classList.add('active');
+        }
+
+        function cerrarModalConfirm() {
+            document.getElementById('confirmDeleteModal').classList.remove('active');
+            document.getElementById('deleteMessageContainer').innerHTML = '<p class="modal-message">Esta acción no se puede deshacer. La actividad será eliminada completamente de la base de datos.</p>';
+            const btnEliminar = document.getElementById('btnConfirmarEliminar');
+            const btnTexto = document.getElementById('btnEliminarTexto');
+            btnEliminar.disabled = false;
+            btnTexto.textContent = 'Eliminar Permanentemente';
+            actividadEliminando = null;
+        }
+
+        // ========== GUARDAR ACTIVIDAD ==========
+        document.getElementById('btnGuardarActividad').addEventListener('click', async function() {
+            const codigo = document.getElementById('inputCodigo').value.trim().toUpperCase();
+            const descripcion = document.getElementById('inputDescripcion').value.trim();
+            
+            if (!codigo || !descripcion) {
+                showModalAlert('error', 'Por favor completa todos los campos obligatorios (*)');
+                return;
+            }
+            
+            if (codigo.length > 15) {
+                showModalAlert('error', 'El código no puede exceder 15 caracteres');
+                return;
+            }
+            
+            const btnGuardar = document.getElementById('btnGuardarActividad');
+            const btnTexto = document.getElementById('btnGuardarTexto');
+            const textoOriginal = btnTexto.textContent;
+            
+            try {
+                btnGuardar.disabled = true;
+                btnTexto.textContent = 'Guardando...';
+                
+                let url, method, body;
+                
+                if (actividadEditando) {
+                    url = '/coordinador/actividades_complementarias/' + actividadEditando;
+                    method = 'PUT';
+                    body = JSON.stringify({ 
+                        codigo_nuevo: codigo, 
+                        descripcion: descripcion,
+                        codigo_original: codigoOriginalEditando
+                    });
+                } else {
+                    url = '/coordinador/actividades_complementarias/crear';
+                    method = 'POST';
+                    body = JSON.stringify({ codigo: codigo, descripcion: descripcion });
+                }
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: body
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const mensaje = actividadEditando ? 'Actividad actualizada exitosamente' : 'Actividad creada exitosamente';
+                    showAlert('success', mensaje);
+                    cerrarModal();
+                    await cargarActividades();
+                } else {
+                    showModalAlert('error', data.error || 'Error al guardar la actividad');
+                }
+            } catch (error) {
+                showModalAlert('error', 'Error de conexión. Por favor, intenta nuevamente.');
+                console.error('Error:', error);
+            } finally {
+                btnGuardar.disabled = false;
+                btnTexto.textContent = textoOriginal;
+            }
+        });
+
+        // ========== ELIMINAR ACTIVIDAD ==========
+        document.getElementById('btnConfirmarEliminar').addEventListener('click', async function() {
+            if (!actividadEliminando) return;
+            
+            const btnEliminar = document.getElementById('btnConfirmarEliminar');
+            const btnTexto = document.getElementById('btnEliminarTexto');
+            const textoOriginal = btnTexto.textContent;
+            
+            try {
+                btnEliminar.disabled = true;
+                btnTexto.textContent = 'Eliminando...';
+                
+                const response = await fetch('/coordinador/actividades_complementarias/' + actividadEliminando, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showAlert('success', 'Actividad eliminada exitosamente');
+                    cerrarModalConfirm();
+                    await cargarActividades();
+                } else {
+                    const deleteMessageContainer = document.getElementById('deleteMessageContainer');
+                    deleteMessageContainer.innerHTML = '<div class="modal-error-message"><span class="modal-error-icon">⚠</span><strong>No se puede eliminar esta actividad:</strong><br><br>' + (data.error || 'Error desconocido') + '</div>';
+                    btnTexto.textContent = 'No se puede eliminar';
+                }
+            } catch (error) {
+                const deleteMessageContainer = document.getElementById('deleteMessageContainer');
+                deleteMessageContainer.innerHTML = '<div class="modal-error-message"><span class="modal-error-icon">✕</span><strong>Error de conexión.</strong><br>Por favor, verifica tu conexión e intenta nuevamente.</div>';
+                console.error('Error:', error);
+                btnEliminar.disabled = false;
+                btnTexto.textContent = textoOriginal;
+            }
+        });
+
+        // ========== GUARDAR ASIGNACIONES ==========
+        document.querySelectorAll('.btn-guardar-asignaciones').forEach(function(btn) {
+            btn.addEventListener('click', async function() {
+                const docenteId = this.getAttribute('data-docente-id');
+                const card = document.querySelector('[data-docente-id="' + docenteId + '"]');
+                const inputs = card.querySelectorAll('.horas-input');
+                
+                const asignaciones = {};
+                inputs.forEach(function(input) {
+                    const codigo = input.getAttribute('data-codigo');
+                    const horas = parseInt(input.value) || 0;
+                    asignaciones[codigo] = horas;
+                });
+
+                try {
+                    const response = await fetch('/coordinador/gestionar_actividades', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            usuario_id: docenteId,
+                            asignaciones: asignaciones
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showAlert('success', 'Asignaciones guardadas correctamente');
+                        await cargarDocentes();
+                        actualizarTotal(docenteId);
+                    } else {
+                        showAlert('error', data.error || 'Error al guardar las asignaciones');
+                    }
+                } catch (error) {
+                    showAlert('error', 'Error de conexión. Intenta nuevamente.');
+                    console.error('Error:', error);
+                }
+            });
+        });
+
+        // ========== ALERTAS ==========
+        function showModalAlert(type, message, container) {
+            container = container || 'modalAlertContainer';
+            const alertContainer = document.getElementById(container);
+            const alert = document.createElement('div');
+            
+            let bgClass = 'modal-error-message';
+            let icon = '✕';
+            
+            if (type === 'success') {
+                bgClass = 'modal-info-message';
+                icon = '✔';
+            } else if (type === 'warning') {
+                bgClass = 'modal-info-message';
+                icon = '⚠';
+            }
+            
+            alert.className = bgClass;
+            alert.innerHTML = '<span class="modal-error-icon">' + icon + '</span>' + message;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+        }
+
+        function showAlert(type, message) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-' + type + ' active';
+            alert.innerHTML = '<span>' + (type === 'success' ? '✔' : type === 'warning' ? '⚠' : '✕') + '</span><span>' + message + '</span>';
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+
+            // Scroll automático hacia arriba para ver la notificación
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(function() {
+                alert.classList.remove('active');
+                setTimeout(function() { alert.remove(); }, 300);
+            }, 5000);
+        }
+
+        // Auto-convertir código a mayúsculas
+        document.getElementById('inputCodigo').addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+
+        // ========== INICIALIZAR ==========
+        async function inicializar() {
+            await cargarActividades();
+            await cargarDocentes();
+            
+            const tabAsignacionesActiva = document.getElementById('tab-asignaciones').classList.contains('active');
+            if (tabAsignacionesActiva) {
+                actualizarGridsAsignaciones();
+            }
+        }
+
+        // ========== CIERRE DE MENÚ AL NAVEGAR ==========
+        document.querySelectorAll('.menu-item, .dropdown-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                if (window.innerWidth < 768) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // ========== PREVENIR ZOOM EN DOBLE TAP (iOS) ==========
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Cargar datos al iniciar
+        inicializar();
+    </script>
+</body>
+</html>
