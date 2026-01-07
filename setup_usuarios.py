@@ -55,6 +55,20 @@ def inicializar_usuarios_sistema(db_path):
             VALUES (?, ?, ?, ?, 'coordinador', 1, ?)
         ''', (coordinador_user, password_hash, coordinador_nombre, coordinador_cargo, rectorado_id))
         
+        coordinador_id = c.lastrowid
+        
+        # Crear usuario Docente por defecto
+        docente_user = os.getenv('DOCENTE_USER', 'docente')
+        docente_pass = os.getenv('DOCENTE_PASS', 'docente2025')
+        docente_nombre = os.getenv('DOCENTE_NOMBRE', 'Docente Demo')
+        docente_cargo = os.getenv('DOCENTE_CARGO', 'Docente')
+        
+        password_hash = hash_password(docente_pass)
+        c.execute('''
+            INSERT INTO usuarios (usuario, password, nombre, cargo, rol, activo, creado_por)
+            VALUES (?, ?, ?, ?, 'docente', 1, ?)
+        ''', (docente_user, password_hash, docente_nombre, docente_cargo, coordinador_id))
+        
         conn.commit()
         conn.close()
         
