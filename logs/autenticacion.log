@@ -1,0 +1,450 @@
+2025-11-23 21:33:58 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 11508 | Thread: 19632 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 11:09:53 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 24168 | Thread: 11376 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 11:11:59 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 24168 | Thread: 9700 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 11:12:12 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 24168 | Thread: 8864 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 11:32:30 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.49 | PID: 22920 | Thread: 23744 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Patricio  | usuario_intentado=Patricio 
+2025-11-25 11:32:37 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 22920 | Thread: 25300 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 11:50:52 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 5828 | Thread: 8816 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 11:51:02 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 5828 | Thread: 13792 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 11:56:51 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 5828 | Thread: 23160 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 11:56:55 | INFO     | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.49 | PID: 5828 | Thread: 6036 | Acción: LOGOUT | Cierre de sesión | usuario=DESCONOCIDO
+2025-11-25 11:57:12 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 5828 | Thread: 5480 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-25 12:02:02 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 5828 | Thread: 9700 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-25 14:46:46 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 24444 | Thread: 380 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 15:03:40 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 24444 | Thread: 24252 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 15:27:51 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 24444 | Thread: 19896 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 15:27:58 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24444 | Thread: 18736 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 15:35:44 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 24444 | Thread: 2220 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 15:35:53 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 24444 | Thread: 27228 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 15:54:27 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24444 | Thread: 19492 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 15:54:40 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 24444 | Thread: 22188 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-25 15:54:52 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 24444 | Thread: 25252 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-25 15:54:59 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 24444 | Thread: 26608 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 15:55:49 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 24444 | Thread: 18324 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 15:55:55 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 24444 | Thread: 22192 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 16:39:53 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 9936 | Thread: 9188 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 16:40:02 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 9936 | Thread: 22340 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 19:04:25 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 28240 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 19:09:18 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 2680 | Thread: 20212 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-25 19:16:39 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 2680 | Thread: 12260 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-25 19:18:12 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 29792 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 19:18:30 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 16620 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 19:18:40 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 2680 | Thread: 30404 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-25 19:24:41 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 2680 | Thread: 17980 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-25 19:24:50 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 2680 | Thread: 29644 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: italo | usuario_intentado=italo
+2025-11-25 19:24:54 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 2680 | Thread: 22516 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: italo | usuario_intentado=italo
+2025-11-25 19:25:01 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 24348 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 19:28:59 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 2680 | Thread: 23532 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 19:29:09 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 2680 | Thread: 28268 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 19:29:33 | WARNING  | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 2680 | Thread: 11340 | Acción: ACCESO_DENEGADO_ROL | Intento de acceso con rol insuficiente a: bandeja_docente | roles_requeridos=docente
+2025-11-25 19:33:01 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 2680 | Thread: 28308 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 19:33:09 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 2680 | Thread: 12156 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 19:38:15 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 252 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 19:38:26 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 29380 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 19:41:05 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 18728 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 19:41:13 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 27728 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 19:44:49 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 5316 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 19:44:55 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 29544 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 19:45:07 | WARNING  | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 28900 | Acción: ACCESO_DENEGADO_ROL | Intento de acceso con rol insuficiente a: bandeja_docente | roles_requeridos=docente
+2025-11-25 19:47:43 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 2680 | Thread: 30488 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 19:47:52 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 2680 | Thread: 26304 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 19:54:07 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 20008 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 19:54:13 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 27108 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 19:57:50 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 2680 | Thread: 28740 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 19:57:56 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 2680 | Thread: 29456 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 20:05:00 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 15988 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 20:05:07 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 27888 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 20:08:16 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 29972 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 20:08:25 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 30088 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 20:31:07 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 20240 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 20:31:20 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 29600 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 20:33:02 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 15200 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 20:33:17 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 15028 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 20:34:00 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 22684 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 20:34:07 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 19240 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 21:29:54 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 22000 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 21:30:01 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 6776 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 21:35:04 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 28728 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 21:35:14 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 30248 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 21:35:22 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 4572 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 21:35:30 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 2680 | Thread: 10384 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-25 21:53:32 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 2680 | Thread: 20284 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-25 21:53:39 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 27184 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-25 21:54:22 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 12064 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-25 21:54:29 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 23808 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-25 22:20:20 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 2680 | Thread: 22488 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-25 22:20:26 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 2680 | Thread: 24088 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 00:24:08 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 6076 | Thread: 29912 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 00:24:23 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 6076 | Thread: 18712 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 00:24:35 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 6076 | Thread: 12156 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 00:24:43 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 6076 | Thread: 28148 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 01:27:57 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 24084 | Thread: 28464 | Acción: CAMBIO_PASSWORD_EXITOSO | Contraseña cambiada exitosamente por el usuario
+2025-11-26 01:28:15 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 24084 | Thread: 9764 | Acción: CAMBIO_PASSWORD_EXITOSO | Contraseña cambiada exitosamente por el usuario
+2025-11-26 01:28:23 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 24084 | Thread: 28592 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 01:28:36 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 14776 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 01:29:23 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 1208 | Acción: CAMBIO_PASSWORD_EXITOSO | Contraseña cambiada exitosamente por el usuario
+2025-11-26 01:29:27 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 30080 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 01:29:33 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 21368 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 01:29:52 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 22268 | Acción: CAMBIO_PASSWORD_EXITOSO | Contraseña cambiada exitosamente por el usuario
+2025-11-26 01:29:56 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 29900 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 01:30:02 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 19912 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 01:31:40 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 14824 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 01:31:46 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 24084 | Thread: 28440 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 01:31:56 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 24084 | Thread: 22196 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-26 01:32:03 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 21060 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 01:34:04 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 24084 | Thread: 4436 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 01:34:12 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 24084 | Thread: 17476 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 01:48:04 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 24084 | Thread: 22360 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 01:48:11 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 24084 | Thread: 29312 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 01:48:55 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 24084 | Thread: 19720 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 01:49:00 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 24084 | Thread: 28780 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 06:54:08 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 17300 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 06:54:35 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 28708 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 07:03:47 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 21092 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 07:03:56 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 17136 | Thread: 15744 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 07:05:37 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 17136 | Thread: 5108 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-26 07:05:45 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 14188 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 07:12:13 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.49 | PID: 17136 | Thread: 24928 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-11-26 07:12:17 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 11000 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 07:57:34 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 4668 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 07:57:42 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 26964 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 07:57:47 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 15548 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-26 07:58:00 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 25552 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 07:59:02 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 26488 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 07:59:08 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 9744 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 08:00:09 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 26568 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 08:00:16 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 22024 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 08:00:42 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 28700 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 08:00:50 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 20272 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 08:01:51 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 17316 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-26 08:01:57 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.49 | PID: 17136 | Thread: 22888 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-11-26 08:02:01 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 5488 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 08:03:10 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 20584 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 08:03:17 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 23360 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 08:04:37 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 13688 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-26 08:04:43 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 10732 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 08:15:17 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 18584 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 08:15:32 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 25400 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 08:34:08 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 12644 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 08:34:15 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 1856 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 08:34:24 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 29528 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 08:34:30 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 8224 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 08:35:16 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 30324 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 08:35:23 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 19988 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 08:35:38 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 24012 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 08:35:43 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 11464 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 08:44:15 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 23708 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-26 08:44:21 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 23436 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 08:44:27 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 24344 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 08:44:32 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.49 | PID: 17136 | Thread: 26148 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-11-26 08:44:36 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 26724 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 08:45:22 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 16956 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 08:45:28 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 28256 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 09:00:35 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 30296 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 09:00:41 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 17532 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 09:00:51 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 25728 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 09:00:57 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 17136 | Thread: 12988 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-11-26 09:01:00 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 25176 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 09:01:18 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 16168 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 09:01:26 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 2632 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 09:09:40 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 21396 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 09:09:45 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 17136 | Thread: 14920 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 09:26:08 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 17136 | Thread: 18656 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-26 09:26:16 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 13224 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 09:26:26 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 4428 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 09:26:32 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 8824 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 09:27:56 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 8632 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 09:28:04 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 7000 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-26 09:28:52 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 23612 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 09:28:58 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 21624 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 09:30:58 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 17136 | Thread: 17980 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-26 09:31:05 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 15576 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-26 09:31:45 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 172.16.57.49 | PID: 17136 | Thread: 15892 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 09:31:52 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 172.16.57.49 | PID: 17136 | Thread: 15336 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-26 09:32:14 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 17136 | Thread: 8180 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-26 09:32:31 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 17136 | Thread: 13800 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-27 07:42:06 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 26156 | Thread: 24720 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-27 07:42:46 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 172.16.57.49 | PID: 26156 | Thread: 23052 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-27 07:56:36 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 10.253.34.135 | PID: 26692 | Thread: 22316 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-27 08:54:38 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 28012 | Thread: 3792 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: visualizar_horario
+2025-11-27 08:54:45 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 28012 | Thread: 27996 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-27 09:08:02 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 24852 | Thread: 27844 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-27 09:08:07 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 24852 | Thread: 19076 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-27 09:11:39 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 10.253.34.135 | PID: 14128 | Thread: 23332 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-27 09:11:46 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 10.253.34.135 | PID: 14128 | Thread: 8620 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 10:42:09 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14492 | Thread: 26848 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-28 10:42:40 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14492 | Thread: 13696 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-28 10:42:45 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 14492 | Thread: 18132 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 10:43:08 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 14492 | Thread: 19364 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-28 10:43:13 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14492 | Thread: 20188 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-28 12:02:12 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 26528 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-28 12:02:19 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 16580 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 12:04:14 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 8468 | Acción: CAMBIO_PASSWORD_EXITOSO | Contraseña cambiada exitosamente por el usuario
+2025-11-28 12:04:17 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 12212 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-28 12:04:23 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 22876 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 12:04:45 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 5240 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-28 12:04:52 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 13300 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-28 12:05:18 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 6744 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-28 12:05:33 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 23520 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 12:06:10 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 13768 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-28 12:06:14 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 16304 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-28 12:07:09 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 24520 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-28 12:07:14 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 22456 | Thread: 15560 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Patricio | usuario_intentado=Patricio
+2025-11-28 12:07:16 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 10612 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 12:08:24 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 25676 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-28 12:08:29 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 13016 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-28 12:08:59 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 5352 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-28 12:09:03 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 11016 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 12:10:31 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 12072 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-28 12:10:35 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 24912 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-28 12:11:39 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 19856 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-28 12:11:44 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 19744 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-28 12:12:03 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22456 | Thread: 9244 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-28 12:12:10 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22456 | Thread: 13804 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-28 12:13:14 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22456 | Thread: 16180 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-28 12:13:19 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22456 | Thread: 10708 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 11:51:46 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 12200 | Thread: 8620 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 14:20:04 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 12200 | Thread: 16948 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: italo | usuario_intentado=italo
+2025-11-30 14:20:08 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 12200 | Thread: 26356 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: italo | usuario_intentado=italo
+2025-11-30 14:20:12 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 12200 | Thread: 10796 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: italo | usuario_intentado=italo
+2025-11-30 14:20:18 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 12200 | Thread: 9552 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: italo | usuario_intentado=italo
+2025-11-30 14:20:27 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 12200 | Thread: 14476 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 14:24:25 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 12200 | Thread: 24140 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-30 14:24:31 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 12200 | Thread: 13056 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Patricio | usuario_intentado=Patricio
+2025-11-30 14:24:35 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 12200 | Thread: 20988 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-30 14:25:53 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 12200 | Thread: 19080 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-30 14:26:01 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 12200 | Thread: 12320 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-30 14:47:00 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22796 | Thread: 23912 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 14:47:34 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22796 | Thread: 8260 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-30 14:47:40 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 25780 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-30 14:48:29 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 24356 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-30 14:48:35 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22796 | Thread: 24876 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 14:49:28 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22796 | Thread: 3052 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-30 14:49:35 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 11716 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-30 14:50:47 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 24232 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-30 14:50:55 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22796 | Thread: 7052 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 14:51:39 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22796 | Thread: 14204 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-30 14:51:46 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 23368 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-30 14:52:07 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 8748 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-30 14:52:14 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 22796 | Thread: 24840 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-30 14:52:45 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 22796 | Thread: 23632 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-30 14:52:50 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 22796 | Thread: 25460 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Patricio | usuario_intentado=Patricio
+2025-11-30 14:52:54 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 9884 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-30 14:53:23 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 22796 | Thread: 5796 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-30 14:53:31 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 192.168.1.9 | PID: 22796 | Thread: 24356 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: rectorado | usuario_intentado=rectorado
+2025-11-30 14:53:36 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 22796 | Thread: 23724 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-30 14:54:22 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 192.168.1.9 | PID: 22796 | Thread: 12456 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-30 14:54:28 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22796 | Thread: 24536 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 14:54:58 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22796 | Thread: 14184 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 18:09:19 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 4668 | Thread: 24224 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-30 18:09:26 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 4668 | Thread: 6432 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-11-30 18:16:40 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 4668 | Thread: 11800 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-11-30 18:16:43 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 4668 | Thread: 14556 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-11-30 21:53:46 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 4668 | Thread: 21688 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-11-30 21:54:38 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 4668 | Thread: 25620 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Patricio | usuario_intentado=Patricio
+2025-11-30 21:54:43 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 4668 | Thread: 16444 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-11-30 21:59:48 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 4668 | Thread: 11740 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-11-30 21:59:55 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 4668 | Thread: 27012 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-11-30 22:16:06 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 4668 | Thread: 25384 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-11-30 22:16:14 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 4668 | Thread: 11844 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-01 00:16:59 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 4668 | Thread: 26804 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-01 00:17:05 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 4668 | Thread: 25936 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-01 00:17:25 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 4668 | Thread: 20880 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-01 00:17:30 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 4668 | Thread: 3604 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-01 00:33:58 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 4668 | Thread: 24380 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-01 00:34:04 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 4668 | Thread: 25460 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-02 11:50:48 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14036 | Thread: 13912 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-02 11:50:55 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14036 | Thread: 19316 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-02 11:51:01 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14036 | Thread: 20752 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-02 11:51:26 | WARNING  | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14036 | Thread: 17896 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: None | usuario_intentado=None
+2025-12-02 11:51:32 | WARNING  | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 14036 | Thread: 26620 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: None | usuario_intentado=None
+2025-12-03 08:13:45 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 31168 | Thread: 31216 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-03 08:15:03 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 31168 | Thread: 8200 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-03 08:15:12 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 31168 | Thread: 14460 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-03 08:15:26 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 31168 | Thread: 10040 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-03 08:15:31 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 31168 | Thread: 23916 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-03 08:15:58 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 31168 | Thread: 25748 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-03 08:16:04 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 31168 | Thread: 400 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-03 08:16:27 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 31168 | Thread: 24976 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-03 08:19:25 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 31168 | Thread: 13008 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: coordinador | usuario_intentado=coordinador
+2025-12-03 08:19:33 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 31168 | Thread: 3288 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-03 08:25:49 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 10.253.34.135 | PID: 31168 | Thread: 7104 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-03 08:26:16 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 10.253.34.135 | PID: 31168 | Thread: 6288 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-03 08:26:26 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 10.253.34.135 | PID: 31168 | Thread: 15608 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-03 08:27:32 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 10.253.34.135 | PID: 31168 | Thread: 13452 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-03 08:27:40 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 10.253.34.135 | PID: 31168 | Thread: 10176 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-03 08:28:31 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 10.253.34.135 | PID: 31168 | Thread: 5416 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-04 08:38:31 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 7540 | Thread: 11856 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-04 08:38:57 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 7540 | Thread: 7588 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-04 08:39:35 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 7540 | Thread: 16144 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-04 08:40:03 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 7540 | Thread: 1432 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-04 08:40:08 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 7540 | Thread: 3152 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-04 08:42:27 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 7540 | Thread: 11976 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-04 08:42:38 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 7540 | Thread: 15668 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-04 08:46:34 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 7540 | Thread: 8240 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-04 08:46:44 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 7540 | Thread: 25244 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-12-07 13:38:27 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 20072 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 14:17:50 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 10808 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 14:18:03 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 1588 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-07 16:02:45 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 26172 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-07 16:02:55 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 24684 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 16:16:05 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 7048 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 16:19:13 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 27484 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 16:26:28 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 8572 | Acción: CAMBIO_PASSWORD_EXITOSO | Contraseña cambiada exitosamente por el usuario
+2025-12-07 16:29:19 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 27436 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 16:32:28 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 27540 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 17:07:47 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 26768 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 17:07:52 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 18316 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-07 17:08:11 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 22512 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-07 17:08:16 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 22964 | Thread: 15336 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-12-07 17:08:20 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 21212 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 17:09:23 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 18800 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 17:09:29 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 18404 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-07 17:10:07 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 3192 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-07 17:10:12 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 18848 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 17:35:14 | WARNING  | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 2240 | Acción: ACCESO_DENEGADO_ROL | Intento de acceso con rol insuficiente a: crear_docente | roles_requeridos=coordinador
+2025-12-07 17:35:49 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 20968 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 17:35:55 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 19056 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-07 17:36:29 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 6860 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-07 17:36:38 | INFO     | auth | Usuario: Espin (ID:4, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 14620 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=4 | rol=docente
+2025-12-07 17:36:57 | INFO     | auth | Usuario: Espin (ID:4, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 21948 | Acción: LOGOUT | Cierre de sesión | usuario=Espin
+2025-12-07 17:37:04 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 11828 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-07 18:33:17 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 20540 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-07 18:33:23 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 8868 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-12-07 18:37:52 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 8504 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-12-07 18:37:59 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 25376 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-07 18:38:12 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 25652 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-07 18:38:21 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 12284 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-12-07 18:42:39 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 18844 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-12-07 18:42:44 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 22964 | Thread: 23932 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-12-07 18:42:48 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 3480 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 18:43:52 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 1476 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 18:43:58 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 4588 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-12-07 18:44:12 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 3512 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-12-07 18:44:23 | INFO     | auth | Usuario: Espin (ID:4, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 21852 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=4 | rol=docente
+2025-12-07 18:47:14 | INFO     | auth | Usuario: Espin (ID:4, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 27640 | Acción: LOGOUT | Cierre de sesión | usuario=Espin
+2025-12-07 18:47:30 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 9876 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=rectorado
+2025-12-07 18:53:51 | INFO     | auth | Usuario: rectorado (ID:3, Rol:rectorado) | IP: 127.0.0.1 | PID: 22964 | Thread: 15888 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-12-07 18:54:02 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 22964 | Thread: 20804 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-12-07 18:54:06 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 19932 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 18:55:14 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 12732 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-07 18:55:19 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 4264 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-07 18:55:41 | INFO     | auth | Usuario: Patricio (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 22964 | Thread: 27064 | Acción: LOGOUT | Cierre de sesión | usuario=Patricio
+2025-12-07 18:55:47 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 127.0.0.1 | PID: 22964 | Thread: 21996 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-07 18:57:05 | INFO     | auth | Usuario: Italo (ID:1, Rol:docente) | IP: 192.168.1.9 | PID: 22964 | Thread: 21196 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=docente
+2025-12-08 11:59:53 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 24316 | Thread: 10492 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Patricio | usuario_intentado=Patricio
+2025-12-08 12:00:49 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 24316 | Thread: 12364 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2025-12-08 12:06:50 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 25176 | Thread: 11440 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: coordinador | usuario_intentado=coordinador
+2025-12-08 12:06:56 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 25176 | Thread: 14704 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: coordinador | usuario_intentado=coordinador
+2025-12-08 12:07:10 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 25176 | Thread: 7496 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Coordinador | usuario_intentado=Coordinador
+2025-12-08 12:07:49 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 25176 | Thread: 25256 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Coordinador2025 | usuario_intentado=Coordinador2025
+2025-12-08 12:08:08 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 25176 | Thread: 7540 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: coordinador | usuario_intentado=coordinador
+2025-12-08 12:10:16 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 21964 | Thread: 25652 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-08 12:18:10 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 24596 | Thread: 25108 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-08 12:18:23 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 24596 | Thread: 10360 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-11 09:36:40 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 15820 | Thread: 22048 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-12-11 09:36:43 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 15820 | Thread: 23088 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-12-11 09:36:53 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 15820 | Thread: 10160 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-11 09:37:22 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 15820 | Thread: 3316 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-11 09:37:26 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 15820 | Thread: 16100 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-11 09:37:46 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 15820 | Thread: 15772 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-11 09:37:52 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 15820 | Thread: 23284 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-11 09:38:02 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 15820 | Thread: 17728 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-11 09:38:10 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 15820 | Thread: 14072 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2025-12-11 09:38:19 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 15820 | Thread: 24260 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-12-11 09:38:24 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 15820 | Thread: 23804 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-14 19:34:53 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 6792 | Thread: 21728 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-14 19:37:05 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 6792 | Thread: 16496 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-14 19:37:14 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 6792 | Thread: 22732 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-14 19:37:32 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 6792 | Thread: 16060 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-14 19:37:40 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 6792 | Thread: 5912 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-14 21:25:56 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 6792 | Thread: 4708 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-14 21:25:59 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 6792 | Thread: 1204 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-14 21:41:12 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 6792 | Thread: 23328 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-14 21:41:23 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 6792 | Thread: 19308 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-14 21:41:40 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 6792 | Thread: 16856 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-14 21:41:44 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 6792 | Thread: 23904 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-19 08:49:58 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 2376 | Thread: 10544 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-12-19 08:50:01 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 2376 | Thread: 16796 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Italo | usuario_intentado=Italo
+2025-12-19 08:50:18 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 2376 | Thread: 2092 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-19 08:51:02 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 2376 | Thread: 12776 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-19 08:51:09 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 2376 | Thread: 9248 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-19 09:27:28 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 172.16.57.49 | PID: 21188 | Thread: 23868 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-19 10:23:22 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 21188 | Thread: 17676 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: dashboard
+2025-12-19 10:23:29 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 21188 | Thread: 4520 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-19 10:23:57 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 21188 | Thread: 7772 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-19 10:24:02 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 21188 | Thread: 17320 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-19 10:30:17 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 21188 | Thread: 2744 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-19 10:30:24 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 21188 | Thread: 7236 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-19 10:36:36 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 21188 | Thread: 20944 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-19 10:36:47 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 21188 | Thread: 19160 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2025-12-19 10:49:41 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 21188 | Thread: 9420 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2025-12-19 10:49:48 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 21188 | Thread: 19940 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2025-12-19 11:14:36 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 21188 | Thread: 10712 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2025-12-19 11:14:44 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 21188 | Thread: 10580 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2025-12-19 11:45:43 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 21188 | Thread: 14528 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2025-12-19 11:45:49 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 21188 | Thread: 17976 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: rectorado | usuario_intentado=rectorado
+2025-12-19 11:45:56 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 21188 | Thread: 21312 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2026-01-03 01:34:53 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 9068 | Thread: 16608 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-03 01:35:49 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 12692 | Thread: 8500 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: crear_docente
+2026-01-03 01:35:57 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 12692 | Thread: 24284 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-03 01:37:33 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 16840 | Thread: 8560 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: crear_docente
+2026-01-03 01:37:40 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 16840 | Thread: 3380 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-03 01:37:50 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 16840 | Thread: 17852 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-03 01:37:57 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 16840 | Thread: 17592 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-03 02:23:43 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 16840 | Thread: 19316 | Acción: LOGOUT | Cierre de sesión | usuario=Italo
+2026-01-03 02:23:55 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 16840 | Thread: 13088 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-03 02:52:34 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 16840 | Thread: 24020 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-03 02:52:43 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 16840 | Thread: 20784 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2026-01-03 02:58:09 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 16840 | Thread: 1032 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2026-01-03 02:58:15 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 16840 | Thread: 18256 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-04 02:17:09 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 192.168.1.9 | PID: 20024 | Thread: 2740 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-04 20:21:34 | INFO     | auth | Usuario: Italo (ID:3, Rol:docente) | IP: 192.168.1.9 | PID: 7084 | Thread: 15056 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 09:45:20 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 10496 | Thread: 10084 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Docente | usuario_intentado=Docente
+2026-01-07 09:45:47 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10496 | Thread: 22744 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 09:46:28 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10496 | Thread: 27172 | Acción: LOGOUT | Cierre de sesión | usuario=docente
+2026-01-07 09:46:43 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10496 | Thread: 2960 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-07 09:47:02 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10496 | Thread: 20128 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-07 09:47:18 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10496 | Thread: 28212 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 09:55:03 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10496 | Thread: 18144 | Acción: LOGOUT | Cierre de sesión | usuario=docente
+2026-01-07 09:55:10 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10496 | Thread: 796 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-07 09:56:31 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10496 | Thread: 25964 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-07 09:58:17 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 10496 | Thread: 18204 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: Prueba 1 | usuario_intentado=Prueba 1
+2026-01-07 09:58:26 | INFO     | auth | Usuario: Prueba (ID:4, Rol:docente) | IP: 127.0.0.1 | PID: 10496 | Thread: 8480 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=4 | rol=docente
+2026-01-07 09:59:04 | INFO     | auth | Usuario: Prueba (ID:4, Rol:docente) | IP: 127.0.0.1 | PID: 10496 | Thread: 24500 | Acción: LOGOUT | Cierre de sesión | usuario=Prueba
+2026-01-07 09:59:11 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10496 | Thread: 19336 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-07 10:13:13 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10496 | Thread: 3140 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-07 10:15:08 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 10496 | Thread: 14600 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: rectorado | usuario_intentado=rectorado
+2026-01-07 10:15:14 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 10496 | Thread: 20216 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2026-01-07 10:19:17 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 10496 | Thread: 12868 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2026-01-07 10:19:29 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10496 | Thread: 27948 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 10:21:39 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 10416 | Thread: 6208 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: bandeja_docente
+2026-01-07 10:21:50 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10416 | Thread: 18356 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 10:22:22 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10416 | Thread: 6436 | Acción: LOGOUT | Cierre de sesión | usuario=docente
+2026-01-07 10:22:38 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 10416 | Thread: 12792 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2026-01-07 10:22:49 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 10416 | Thread: 10500 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2026-01-07 10:22:59 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10416 | Thread: 14796 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-07 10:24:31 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 127.0.0.1 | PID: 10416 | Thread: 8568 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-07 10:24:40 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 10416 | Thread: 18788 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2026-01-07 10:25:56 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 127.0.0.1 | PID: 10416 | Thread: 17076 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2026-01-07 10:26:16 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10416 | Thread: 23008 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 10:44:04 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 10416 | Thread: 24452 | Acción: LOGOUT | Cierre de sesión | usuario=docente
+2026-01-07 10:44:16 | INFO     | auth | Usuario: Prueba (ID:4, Rol:docente) | IP: 127.0.0.1 | PID: 10416 | Thread: 22084 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=4 | rol=docente
+2026-01-07 14:17:49 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.50 | PID: 27036 | Thread: 18608 | Acción: LOGIN_FALLIDO | Intento de login fallido para usuario: docente | usuario_intentado=docente
+2026-01-07 14:19:01 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 172.16.57.50 | PID: 27036 | Thread: 2848 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 14:19:24 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 127.0.0.1 | PID: 27036 | Thread: 23992 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 14:27:24 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 127.0.0.1 | PID: 13100 | Thread: 17216 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: dashboard
+2026-01-07 14:27:39 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.50 | PID: 13100 | Thread: 10328 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: bandeja_docente
+2026-01-07 14:27:47 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 172.16.57.50 | PID: 13100 | Thread: 10988 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 14:28:22 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 172.16.57.50 | PID: 13100 | Thread: 9748 | Acción: LOGOUT | Cierre de sesión | usuario=docente
+2026-01-07 14:28:32 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 172.16.57.50 | PID: 13100 | Thread: 9336 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-07 14:29:41 | WARNING  | auth | Usuario: ANONIMO (ID:N/A, Rol:N/A) | IP: 172.16.57.50 | PID: 20352 | Thread: 22128 | Acción: ACCESO_DENEGADO | Intento de acceso sin autenticación a: configurar_ciclo
+2026-01-07 14:30:06 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 172.16.57.50 | PID: 20352 | Thread: 26520 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-07 14:30:14 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 172.16.57.50 | PID: 20352 | Thread: 22432 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-07 14:30:22 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 172.16.57.50 | PID: 20352 | Thread: 29100 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
+2026-01-07 14:30:54 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 172.16.57.50 | PID: 20352 | Thread: 18120 | Acción: LOGOUT | Cierre de sesión | usuario=docente
+2026-01-07 14:31:02 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 172.16.57.50 | PID: 20352 | Thread: 29452 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=2 | rol=coordinador
+2026-01-07 14:31:15 | INFO     | auth | Usuario: coordinador (ID:2, Rol:coordinador) | IP: 172.16.57.50 | PID: 20352 | Thread: 8788 | Acción: LOGOUT | Cierre de sesión | usuario=coordinador
+2026-01-07 14:31:27 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 172.16.57.50 | PID: 20352 | Thread: 27248 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=1 | rol=rectorado
+2026-01-07 14:31:46 | INFO     | auth | Usuario: rectorado (ID:1, Rol:rectorado) | IP: 172.16.57.50 | PID: 20352 | Thread: 9748 | Acción: LOGOUT | Cierre de sesión | usuario=rectorado
+2026-01-07 14:33:29 | INFO     | auth | Usuario: docente (ID:3, Rol:docente) | IP: 172.16.57.50 | PID: 20352 | Thread: 29912 | Acción: LOGIN_EXITOSO | Inicio de sesión exitoso | usuario_id=3 | rol=docente
