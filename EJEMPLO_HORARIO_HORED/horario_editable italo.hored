@@ -1,0 +1,544 @@
+{
+  "version": "3.0",
+  "formato": "Horario Editable - aSc TimeTables",
+  "fecha_exportacion": "2025-10-21T06:50:24.966394",
+  "institucion": "Instituto Superior Tecnológico Tena",
+  "periodos": [
+    {
+      "id": "1",
+      "name": "1",
+      "starttime": "7:00",
+      "endtime": "8:00"
+    },
+    {
+      "id": "2",
+      "name": "2",
+      "starttime": "8:00",
+      "endtime": "9:00"
+    },
+    {
+      "id": "3",
+      "name": "3",
+      "starttime": "9:00",
+      "endtime": "10:00"
+    },
+    {
+      "id": "4",
+      "name": "4",
+      "starttime": "10:00",
+      "endtime": "11:00"
+    },
+    {
+      "id": "5",
+      "name": "5",
+      "starttime": "11:00",
+      "endtime": "12:00"
+    },
+    {
+      "id": "6",
+      "name": "6",
+      "starttime": "12:00",
+      "endtime": "13:00"
+    },
+    {
+      "id": "7",
+      "name": "7",
+      "starttime": "13:00",
+      "endtime": "14:00"
+    },
+    {
+      "id": "8",
+      "name": "8",
+      "starttime": "14:00",
+      "endtime": "15:00"
+    },
+    {
+      "id": "9",
+      "name": "9",
+      "starttime": "15:00",
+      "endtime": "16:00"
+    },
+    {
+      "id": "10",
+      "name": "10",
+      "starttime": "16:00",
+      "endtime": "17:00"
+    },
+    {
+      "id": "11",
+      "name": "11",
+      "starttime": "17:00",
+      "endtime": "18:00"
+    },
+    {
+      "id": "12",
+      "name": "12",
+      "starttime": "18:00",
+      "endtime": "19:00"
+    },
+    {
+      "id": "13",
+      "name": "13",
+      "starttime": "19:00",
+      "endtime": "20:00"
+    },
+    {
+      "id": "14",
+      "name": "14",
+      "starttime": "20:00",
+      "endtime": "21:00"
+    },
+    {
+      "id": "15",
+      "name": "15",
+      "starttime": "21:00",
+      "endtime": "22:00"
+    }
+  ],
+  "dias": [
+    {
+      "id": "F6CD802055D69599",
+      "name": "Lunes",
+      "short": "Lunes",
+      "bits": "100000"
+    },
+    {
+      "id": "A77D959B36BD6F00",
+      "name": "Martes",
+      "short": "Martes",
+      "bits": "010000"
+    },
+    {
+      "id": "3D879FF313F097C1",
+      "name": "Miércoles",
+      "short": "Miércoles",
+      "bits": "001000"
+    },
+    {
+      "id": "CC758ABCC351E2BC",
+      "name": "Jueves",
+      "short": "Jueves",
+      "bits": "000100"
+    },
+    {
+      "id": "9A2C38651237222F",
+      "name": "Viernes",
+      "short": "Viernes",
+      "bits": "000010"
+    },
+    {
+      "id": "F591525F57F80350",
+      "name": "Sábado",
+      "short": "Sábado",
+      "bits": "000001"
+    }
+  ],
+  "profesores": [
+    {
+      "id": "0FAC3333A64A8087",
+      "nombre": "LARA PILCO ITALO MARCELO",
+      "nombre_corto": "LARA ITALO",
+      "horario": [
+        {
+          "dia_id": "F6CD802055D69599",
+          "dia_nombre": "Lunes",
+          "periodo_id": "3",
+          "periodo_nombre": "3",
+          "hora_inicio": "9:00",
+          "hora_fin": "10:00",
+          "clase": {
+            "id": "1ED8171CE24BC8A9",
+            "nombre": "TSDSW_Cuarto_A_Matutina",
+            "nombre_corto": "TSDSW_Cuarto_A_Matutina"
+          },
+          "materia": {
+            "id": "FFA39D16151A3369",
+            "nombre": "DESARROLLO DE APLICACIONES MOVILES",
+            "nombre_corto": "Desarrolo de Aplicaciones Móviles"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "F6CD802055D69599",
+          "dia_nombre": "Lunes",
+          "periodo_id": "4",
+          "periodo_nombre": "4",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
+          "clase": {
+            "id": "1ED8171CE24BC8A9",
+            "nombre": "TSDSW_Cuarto_A_Matutina",
+            "nombre_corto": "TSDSW_Cuarto_A_Matutina"
+          },
+          "materia": {
+            "id": "FFA39D16151A3369",
+            "nombre": "DESARROLLO DE APLICACIONES MOVILES",
+            "nombre_corto": "Desarrolo de Aplicaciones Móviles"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "F6CD802055D69599",
+          "dia_nombre": "Lunes",
+          "periodo_id": "13",
+          "periodo_nombre": "13",
+          "hora_inicio": "19:00",
+          "hora_fin": "20:00",
+          "clase": {
+            "id": "A61B12AA49FEAA67",
+            "nombre": "DSW_Primero_A_Nocturna",
+            "nombre_corto": "DSW_Primero_A_Nocturna"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "F6CD802055D69599",
+          "dia_nombre": "Lunes",
+          "periodo_id": "14",
+          "periodo_nombre": "14",
+          "hora_inicio": "20:00",
+          "hora_fin": "21:00",
+          "clase": {
+            "id": "A61B12AA49FEAA67",
+            "nombre": "DSW_Primero_A_Nocturna",
+            "nombre_corto": "DSW_Primero_A_Nocturna"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "F6CD802055D69599",
+          "dia_nombre": "Lunes",
+          "periodo_id": "15",
+          "periodo_nombre": "15",
+          "hora_inicio": "21:00",
+          "hora_fin": "22:00",
+          "clase": {
+            "id": "A61B12AA49FEAA67",
+            "nombre": "DSW_Primero_A_Nocturna",
+            "nombre_corto": "DSW_Primero_A_Nocturna"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "A77D959B36BD6F00",
+          "dia_nombre": "Martes",
+          "periodo_id": "4",
+          "periodo_nombre": "4",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
+          "clase": {
+            "id": "BE489F3110718464",
+            "nombre": "DSW_Primero_A_Matutina",
+            "nombre_corto": "DSW_Primero_A_Matutina"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "A77D959B36BD6F00",
+          "dia_nombre": "Martes",
+          "periodo_id": "5",
+          "periodo_nombre": "5",
+          "hora_inicio": "11:00",
+          "hora_fin": "12:00",
+          "clase": {
+            "id": "BE489F3110718464",
+            "nombre": "DSW_Primero_A_Matutina",
+            "nombre_corto": "DSW_Primero_A_Matutina"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "A77D959B36BD6F00",
+          "dia_nombre": "Martes",
+          "periodo_id": "9",
+          "periodo_nombre": "9",
+          "hora_inicio": "15:00",
+          "hora_fin": "16:00",
+          "clase": {
+            "id": "37A8E159CA032965",
+            "nombre": "Coordinación Estratégica12",
+            "nombre_corto": "CE12"
+          },
+          "materia": {
+            "id": "F374A898AD4D528E",
+            "nombre": "CORDINACIÓN ESTRATÉGICA",
+            "nombre_corto": "CORDINACIÓN ESTRATÉGICA"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "A77D959B36BD6F00",
+          "dia_nombre": "Martes",
+          "periodo_id": "10",
+          "periodo_nombre": "10",
+          "hora_inicio": "16:00",
+          "hora_fin": "17:00",
+          "clase": {
+            "id": "37A8E159CA032965",
+            "nombre": "Coordinación Estratégica12",
+            "nombre_corto": "CE12"
+          },
+          "materia": {
+            "id": "F374A898AD4D528E",
+            "nombre": "CORDINACIÓN ESTRATÉGICA",
+            "nombre_corto": "CORDINACIÓN ESTRATÉGICA"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "A77D959B36BD6F00",
+          "dia_nombre": "Martes",
+          "periodo_id": "14",
+          "periodo_nombre": "14",
+          "hora_inicio": "20:00",
+          "hora_fin": "21:00",
+          "clase": {
+            "id": "A61B12AA49FEAA67",
+            "nombre": "DSW_Primero_A_Nocturna",
+            "nombre_corto": "DSW_Primero_A_Nocturna"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "A77D959B36BD6F00",
+          "dia_nombre": "Martes",
+          "periodo_id": "15",
+          "periodo_nombre": "15",
+          "hora_inicio": "21:00",
+          "hora_fin": "22:00",
+          "clase": {
+            "id": "A61B12AA49FEAA67",
+            "nombre": "DSW_Primero_A_Nocturna",
+            "nombre_corto": "DSW_Primero_A_Nocturna"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "3D879FF313F097C1",
+          "dia_nombre": "Miércoles",
+          "periodo_id": "3",
+          "periodo_nombre": "3",
+          "hora_inicio": "9:00",
+          "hora_fin": "10:00",
+          "clase": {
+            "id": "1ED8171CE24BC8A9",
+            "nombre": "TSDSW_Cuarto_A_Matutina",
+            "nombre_corto": "TSDSW_Cuarto_A_Matutina"
+          },
+          "materia": {
+            "id": "FFA39D16151A3369",
+            "nombre": "DESARROLLO DE APLICACIONES MOVILES",
+            "nombre_corto": "Desarrolo de Aplicaciones Móviles"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "3D879FF313F097C1",
+          "dia_nombre": "Miércoles",
+          "periodo_id": "4",
+          "periodo_nombre": "4",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
+          "clase": {
+            "id": "1ED8171CE24BC8A9",
+            "nombre": "TSDSW_Cuarto_A_Matutina",
+            "nombre_corto": "TSDSW_Cuarto_A_Matutina"
+          },
+          "materia": {
+            "id": "FFA39D16151A3369",
+            "nombre": "DESARROLLO DE APLICACIONES MOVILES",
+            "nombre_corto": "Desarrolo de Aplicaciones Móviles"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "3D879FF313F097C1",
+          "dia_nombre": "Miércoles",
+          "periodo_id": "5",
+          "periodo_nombre": "5",
+          "hora_inicio": "11:00",
+          "hora_fin": "12:00",
+          "clase": {
+            "id": "1ED8171CE24BC8A9",
+            "nombre": "TSDSW_Cuarto_A_Matutina",
+            "nombre_corto": "TSDSW_Cuarto_A_Matutina"
+          },
+          "materia": {
+            "id": "FFA39D16151A3369",
+            "nombre": "DESARROLLO DE APLICACIONES MOVILES",
+            "nombre_corto": "Desarrolo de Aplicaciones Móviles"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "CC758ABCC351E2BC",
+          "dia_nombre": "Jueves",
+          "periodo_id": "4",
+          "periodo_nombre": "4",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
+          "clase": {
+            "id": "BE489F3110718464",
+            "nombre": "DSW_Primero_A_Matutina",
+            "nombre_corto": "DSW_Primero_A_Matutina"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "CC758ABCC351E2BC",
+          "dia_nombre": "Jueves",
+          "periodo_id": "5",
+          "periodo_nombre": "5",
+          "hora_inicio": "11:00",
+          "hora_fin": "12:00",
+          "clase": {
+            "id": "BE489F3110718464",
+            "nombre": "DSW_Primero_A_Matutina",
+            "nombre_corto": "DSW_Primero_A_Matutina"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "CC758ABCC351E2BC",
+          "dia_nombre": "Jueves",
+          "periodo_id": "11",
+          "periodo_nombre": "11",
+          "hora_inicio": "17:00",
+          "hora_fin": "18:00",
+          "clase": {
+            "id": "A61B12AA49FEAA67",
+            "nombre": "DSW_Primero_A_Nocturna",
+            "nombre_corto": "DSW_Primero_A_Nocturna"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "CC758ABCC351E2BC",
+          "dia_nombre": "Jueves",
+          "periodo_id": "12",
+          "periodo_nombre": "12",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:00",
+          "clase": {
+            "id": "A61B12AA49FEAA67",
+            "nombre": "DSW_Primero_A_Nocturna",
+            "nombre_corto": "DSW_Primero_A_Nocturna"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "9A2C38651237222F",
+          "dia_nombre": "Viernes",
+          "periodo_id": "1",
+          "periodo_nombre": "1",
+          "hora_inicio": "7:00",
+          "hora_fin": "8:00",
+          "clase": {
+            "id": "BE489F3110718464",
+            "nombre": "DSW_Primero_A_Matutina",
+            "nombre_corto": "DSW_Primero_A_Matutina"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "9A2C38651237222F",
+          "dia_nombre": "Viernes",
+          "periodo_id": "2",
+          "periodo_nombre": "2",
+          "hora_inicio": "8:00",
+          "hora_fin": "9:00",
+          "clase": {
+            "id": "BE489F3110718464",
+            "nombre": "DSW_Primero_A_Matutina",
+            "nombre_corto": "DSW_Primero_A_Matutina"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        },
+        {
+          "dia_id": "9A2C38651237222F",
+          "dia_nombre": "Viernes",
+          "periodo_id": "3",
+          "periodo_nombre": "3",
+          "hora_inicio": "9:00",
+          "hora_fin": "10:00",
+          "clase": {
+            "id": "BE489F3110718464",
+            "nombre": "DSW_Primero_A_Matutina",
+            "nombre_corto": "DSW_Primero_A_Matutina"
+          },
+          "materia": {
+            "id": "6830533CC4A4CD61",
+            "nombre": "FUNDAMENTOS DE PROGRAMACIÓN",
+            "nombre_corto": "Fundamentos de Programación"
+          },
+          "aula": null
+        }
+      ]
+    }
+  ]
+}
