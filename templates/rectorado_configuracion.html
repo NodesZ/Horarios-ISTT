@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - ISTT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5F7FA;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0097A7 0%, #00838F 100%);
+            border-radius: 10px;
+            border: 2px solid #F5F7FA;
+            transition: all 0.3s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00838F 0%, #006064 100%);
+            box-shadow: 0 0 10px rgba(0, 151, 167, 0.3);
+        }
+
+        * {
+            scrollbar-color: #0097A7 #F5F7FA;
+            scrollbar-width: thin;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #F5F7FA;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0097A7 0%, #00838F 100%);
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .btn-header {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            white-space: nowrap;
+            min-height: 40px;
+        }
+
+        .btn-header:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .btn-header .btn-text {
+            display: inline;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .container {
+            padding: 30px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .config-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .config-card h2 {
+            color: #263238;
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .config-card h2 svg {
+            flex-shrink: 0;
+        }
+
+        .config-card .subtitle {
+            color: #78909C;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+            background: #FAFAFA;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0097A7;
+            background: white;
+        }
+
+        .form-group .hint {
+            font-size: 12px;
+            color: #78909C;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        .current-value {
+            background: #F5F7FA;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #546E7A;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .current-value strong {
+            color: #263238;
+        }
+
+        .btn-primary {
+            background: #0097A7;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            min-height: 44px;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #00838F;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 151, 167, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            background: #B0BEC5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary svg {
+            flex-shrink: 0;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            animation: slideDown 0.3s ease;
+            word-break: break-word;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .alert-error {
+            background: #FFEBEE;
+            color: #C62828;
+            border-left: 4px solid #F44336;
+        }
+
+        .alert-warning {
+            background: #FFF3E0;
+            color: #E65100;
+            border-left: 4px solid #FF9800;
+        }
+
+        .alert svg {
+            flex-shrink: 0;
+        }
+
+        .divider {
+            height: 1px;
+            background: #E0E0E0;
+            margin: 30px 0;
+        }
+
+        .security-notice {
+            background: #E3F2FD;
+            border: 1px solid #90CAF9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #1565C0;
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .security-notice svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .password-strength {
+            height: 4px;
+            background: #E0E0E0;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background 0.3s;
+            border-radius: 2px;
+        }
+
+        .strength-weak { background: #F44336; width: 33%; }
+        .strength-medium { background: #FF9800; width: 66%; }
+        .strength-strong { background: #4CAF50; width: 100%; }
+
+        .password-requirements {
+            font-size: 12px;
+            color: #78909C;
+            margin-top: 8px;
+            padding-left: 5px;
+            list-style: none;
+        }
+
+        .password-requirements li {
+            margin: 3px 0;
+        }
+
+        .password-requirements li.met {
+            color: #4CAF50;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0097A7;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+            min-height: 40px;
+        }
+
+        .back-link:hover {
+            color: #00838F;
+        }
+
+        .back-link svg {
+            flex-shrink: 0;
+        }
+
+        /* ========== MEDIA QUERIES - RESPONSIVIDAD ========== */
+
+        /* Tablets */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .header-title h1 {
+                font-size: 15px;
+            }
+
+            .header-title p {
+                font-size: 10px;
+            }
+
+            .header-actions {
+                gap: 6px;
+            }
+
+            .btn-header {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .btn-header .btn-text {
+                display: none;
+            }
+
+            .container {
+                padding: 20px 12px;
+            }
+
+            .config-card {
+                padding: 20px 16px;
+                margin-bottom: 20px;
+            }
+
+            .config-card h2 {
+                font-size: 19px;
+            }
+
+            .config-card .subtitle {
+                font-size: 13px;
+            }
+
+            .security-notice {
+                padding: 12px;
+                font-size: 12px;
+            }
+
+            .form-group {
+                margin-bottom: 18px;
+            }
+
+            .form-group label {
+                font-size: 13px;
+            }
+
+            .form-group input {
+                padding: 11px 13px;
+                font-size: 15px;
+            }
+
+            .form-group .hint {
+                font-size: 11px;
+            }
+
+            .btn-primary {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+
+            .divider {
+                margin: 24px 0;
+            }
+
+            .back-link {
+                font-size: 13px;
+                margin-bottom: 16px;
+            }
+
+            .alert {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* Móviles */
+        @media (max-width: 480px) {
+            .header {
+                padding: 8px 10px;
+                gap: 8px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-container {
+                gap: 8px;
+            }
+
+            .header-title h1 {
+                font-size: 13px;
+            }
+
+            .header-title p {
+                display: none;
+            }
+
+            .btn-header {
+                padding: 6px 8px;
+                min-height: 36px;
+            }
+
+            .icon {
+                width: 18px;
+                height: 18px;
+            }
+
+            .container {
+                padding: 15px 10px;
+            }
+
+            .config-card {
+                padding: 16px 14px;
+                margin-bottom: 16px;
+                border-radius: 10px;
+            }
+
+            .config-card h2 {
+                font-size: 17px;
+                gap: 8px;
+            }
+
+            .config-card h2 svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .config-card .subtitle {
+                font-size: 12px;
+                margin-bottom: 20px;
+            }
+
+            .security-notice {
+                padding: 10px;
+                font-size: 11px;
+                gap: 8px;
+            }
+
+            .security-notice svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            .form-group input {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .btn-primary {
+                padding: 11px 20px;
+                font-size: 13px;
+            }
+
+            .btn-primary svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .password-requirements {
+                font-size: 11px;
+            }
+
+            .divider {
+                margin: 20px 0;
+            }
+
+            .back-link {
+                font-size: 12px;
+                min-height: 36px;
+            }
+
+            .back-link svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .alert {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+        }
+
+        /* Móviles muy pequeños */
+        @media (max-width: 360px) {
+            .header {
+                padding: 6px 8px;
+            }
+
+            .logo {
+                width: 35px;
+                height: 35px;
+            }
+
+            .header-title h1 {
+                font-size: 12px;
+            }
+
+            .btn-header {
+                padding: 5px 6px;
+            }
+
+            .config-card {
+                padding: 14px 12px;
+            }
+
+            .config-card h2 {
+                font-size: 16px;
+            }
+
+            .form-group input {
+                font-size: 14px;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 769px) {
+            .btn-primary {
+                width: auto;
+            }
+
+            .btn-header .btn-text {
+                display: inline;
+            }
+        }
+
+        /* Landscape móviles */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 6px 10px;
+            }
+
+            .logo {
+                width: 35px;
+                height: 35px;
+            }
+
+            .header-title h1 {
+                font-size: 13px;
+            }
+
+            .config-card {
+                padding: 16px;
+            }
+
+            .security-notice {
+                padding: 8px 10px;
+            }
+
+            .form-group {
+                margin-bottom: 14px;
+            }
+
+            .divider {
+                margin: 16px 0;
+            }
+        }
+
+        /* Prevenir zoom en inputs en iOS */
+        @supports (-webkit-touch-callout: none) {
+            input, select, textarea {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icono.png') }}" alt="ISTT Logo">
+            </div>
+            <div class="header-title">
+                <h1>INSTITUTO SUPERIOR TECNOLÓGICO TENA</h1>
+                <p>Configuración de Rectorado</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="/rectorado" class="btn-header">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="btn-text">Inicio</span>
+            </a>
+            <a href="/logout" class="btn-header">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span class="btn-text">Salir</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="/rectorado" class="back-link">
+            <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Volver al Dashboard
+        </a>
+
+        <div id="alertContainer"></div>
+
+        <!-- Sección 1: Actualizar Perfil -->
+        <div class="config-card">
+            <h2>
+                <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Información del Perfil
+            </h2>
+            <p class="subtitle">Actualiza tu usuario, nombre completo y cargo institucional</p>
+
+            <div class="security-notice">
+                <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <div>
+                    <strong>Importante:</strong> Necesitas ingresar tu contraseña actual para confirmar cualquier cambio en tu perfil.
+                </div>
+            </div>
+
+            <form id="formActualizarPerfil">
+                <div class="form-group">
+                    <label>Usuario (Login)</label>
+                    <input type="text" id="nuevoUsuario" name="usuario" 
+                           value="{{ datos_actuales['usuario'] }}" 
+                           placeholder="Ingresa el nuevo usuario" required>
+                    <div class="hint">Mínimo 3 caracteres. Este será tu nombre de usuario para iniciar sesión.</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="nuevoNombre" name="nombre" 
+                           value="{{ datos_actuales['nombre'] }}" 
+                           placeholder="Ingresa tu nombre completo" required>
+                    <div class="hint">Tu nombre completo tal como debe aparecer en los documentos.</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cargo Institucional</label>
+                    <input type="text" id="nuevoCargo" name="cargo" 
+                           value="{{ datos_actuales['cargo'] }}" 
+                           placeholder="Ingresa tu cargo" required>
+                    <div class="hint">Tu cargo o posición en la institución (ej: Rector, Vicerrector, etc.).</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Contraseña Actual (para confirmar cambios)</label>
+                    <input type="password" id="passwordConfirmarPerfil" name="password_actual" 
+                           placeholder="Ingresa tu contraseña actual" required autocomplete="current-password">
+                    <div class="hint">Por seguridad, necesitamos verificar tu identidad.</div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn-primary" id="btnGuardarPerfil">
+                        <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Sección 2: Cambiar Contraseña -->
+        <div class="config-card">
+            <h2>
+                <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                Cambiar Contraseña
+            </h2>
+            <p class="subtitle">Actualiza tu contraseña de acceso al sistema</p>
+
+            <div class="security-notice">
+                <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <div>
+                    <strong>Recomendación de seguridad:</strong> Usa una contraseña fuerte con al menos 8 caracteres, combinando letras mayúsculas, minúsculas, números y símbolos.
+                </div>
+            </div>
+
+            <form id="formCambiarPassword">
+                <div class="form-group">
+                    <label>Contraseña Actual</label>
+                    <input type="password" id="passwordActual" name="password_actual" 
+                           placeholder="Ingresa tu contraseña actual" required autocomplete="current-password">
+                </div>
+
+                <div class="form-group">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" id="passwordNueva" name="password_nueva" 
+                           placeholder="Ingresa tu nueva contraseña" required autocomplete="new-password">
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <ul class="password-requirements" id="passwordRequirements">
+                        <li id="req-length">• Mínimo 6 caracteres</li>
+                        <li id="req-different">• Diferente a la contraseña actual</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirmar Nueva Contraseña</label>
+                    <input type="password" id="passwordConfirmar" name="password_confirmar" 
+                           placeholder="Confirma tu nueva contraseña" required autocomplete="new-password">
+                    <div class="hint" id="matchHint"></div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn-primary" id="btnCambiarPassword">
+                        <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                        </svg>
+                        Cambiar Contraseña
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ========== UTILIDADES ==========
+        
+        function mostrarAlerta(mensaje, tipo) {
+            tipo = tipo || 'success';
+            const container = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-' + tipo;
+            
+            const icon = tipo === 'success' 
+                ? '<svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+                : tipo === 'error'
+                ? '<svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>'
+                : '<svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+            
+            alert.innerHTML = icon + '<span>' + mensaje + '</span>';
+            container.appendChild(alert);
+            
+            setTimeout(function() {
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-10px)';
+                alert.style.transition = 'all 0.3s ease';
+                setTimeout(function() { 
+                    if (alert.parentNode) {
+                        alert.remove(); 
+                    }
+                }, 300);
+            }, 5000);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deshabilitarBoton(boton, texto) {
+            texto = texto || 'Procesando...';
+            boton.disabled = true;
+            boton.setAttribute('data-original-text', boton.innerHTML);
+            boton.innerHTML = '<div class="loading"></div> ' + texto;
+        }
+
+        function habilitarBoton(boton) {
+            boton.disabled = false;
+            boton.innerHTML = boton.getAttribute('data-original-text');
+        }
+
+        // ========== ACTUALIZAR PERFIL ==========
+        
+        document.getElementById('formActualizarPerfil').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btnGuardar = document.getElementById('btnGuardarPerfil');
+            const usuario = document.getElementById('nuevoUsuario').value.trim();
+            const nombre = document.getElementById('nuevoNombre').value.trim();
+            const cargo = document.getElementById('nuevoCargo').value.trim();
+            const passwordActual = document.getElementById('passwordConfirmarPerfil').value;
+            
+            if (!usuario || !nombre || !cargo || !passwordActual) {
+                mostrarAlerta('Por favor, completa todos los campos', 'error');
+                return;
+            }
+            
+            if (usuario.length < 3) {
+                mostrarAlerta('El usuario debe tener al menos 3 caracteres', 'error');
+                return;
+            }
+            
+            if (nombre.length < 3) {
+                mostrarAlerta('El nombre debe tener al menos 3 caracteres', 'error');
+                return;
+            }
+            
+            deshabilitarBoton(btnGuardar, 'Guardando...');
+            
+            try {
+                const response = await fetch('/rectorado/actualizar_perfil', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        usuario: usuario,
+                        nombre: nombre,
+                        cargo: cargo,
+                        password_actual: passwordActual
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    mostrarAlerta('✓ ' + data.message, 'success');
+                    document.getElementById('passwordConfirmarPerfil').value = '';
+                    
+                    const headerTitle = document.querySelector('.header-title p');
+                    if (headerTitle) {
+                        headerTitle.textContent = data.nuevo_nombre + ' - ' + data.nuevo_cargo;
+                    }
+                    
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    mostrarAlerta(data.error || 'Error al actualizar perfil', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarAlerta('Error de conexión. Intenta nuevamente.', 'error');
+            } finally {
+                habilitarBoton(btnGuardar);
+            }
+        });
+
+        // ========== CAMBIAR CONTRASEÑA ==========
+        
+        const passwordNueva = document.getElementById('passwordNueva');
+        const passwordConfirmar = document.getElementById('passwordConfirmar');
+        const strengthBar = document.getElementById('strengthBar');
+        const matchHint = document.getElementById('matchHint');
+        
+        passwordNueva.addEventListener('input', function() {
+            const password = this.value;
+            const length = password.length;
+            
+            strengthBar.className = 'password-strength-bar';
+            if (length >= 8) {
+                strengthBar.classList.add('strength-strong');
+            } else if (length >= 6) {
+                strengthBar.classList.add('strength-medium');
+            } else if (length > 0) {
+                strengthBar.classList.add('strength-weak');
+            }
+            
+            const reqLength = document.getElementById('req-length');
+            if (length >= 6) {
+                reqLength.classList.add('met');
+                reqLength.innerHTML = '✓ Mínimo 6 caracteres';
+            } else {
+                reqLength.classList.remove('met');
+                reqLength.innerHTML = '• Mínimo 6 caracteres';
+            }
+            
+            if (passwordConfirmar.value) {
+                verificarCoincidencia();
+            }
+        });
+        
+        passwordConfirmar.addEventListener('input', verificarCoincidencia);
+        
+        function verificarCoincidencia() {
+            const nueva = passwordNueva.value;
+            const confirmar = passwordConfirmar.value;
+            
+            if (!confirmar) {
+                matchHint.textContent = '';
+                matchHint.style.color = '';
+                return;
+            }
+            
+            if (nueva === confirmar) {
+                matchHint.textContent = '✓ Las contraseñas coinciden';
+                matchHint.style.color = '#4CAF50';
+            } else {
+                matchHint.textContent = '✗ Las contraseñas no coinciden';
+                matchHint.style.color = '#F44336';
+            }
+        }
+        
+        document.getElementById('formCambiarPassword').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btnCambiar = document.getElementById('btnCambiarPassword');
+            const passwordActual = document.getElementById('passwordActual').value;
+            const passwordNueva = document.getElementById('passwordNueva').value;
+            const passwordConfirmar = document.getElementById('passwordConfirmar').value;
+            
+            if (!passwordActual || !passwordNueva || !passwordConfirmar) {
+                mostrarAlerta('Por favor, completa todos los campos', 'error');
+                return;
+            }
+            
+            if (passwordNueva.length < 6) {
+                mostrarAlerta('La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+            
+            if (passwordNueva !== passwordConfirmar) {
+                mostrarAlerta('Las contraseñas nuevas no coinciden', 'error');
+                return;
+            }
+            
+            if (passwordActual === passwordNueva) {
+                mostrarAlerta('La nueva contraseña debe ser diferente a la actual', 'error');
+                return;
+            }
+            
+            deshabilitarBoton(btnCambiar, 'Cambiando...');
+            
+            try {
+                const response = await fetch('/rectorado/cambiar_password_propio', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        password_actual: passwordActual,
+                        password_nueva: passwordNueva,
+                        password_confirmar: passwordConfirmar
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    mostrarAlerta('✓ ' + data.message, 'success');
+                    document.getElementById('formCambiarPassword').reset();
+                    strengthBar.className = 'password-strength-bar';
+                    matchHint.textContent = '';
+                    document.getElementById('req-length').classList.remove('met');
+                    document.getElementById('req-length').innerHTML = '• Mínimo 6 caracteres';
+                    
+                    setTimeout(function() {
+                        mostrarAlerta('Por seguridad, serás redirigido al login...', 'warning');
+                        setTimeout(function() {
+                            window.location.href = '/logout';
+                        }, 2000);
+                    }, 2000);
+                } else {
+                    mostrarAlerta(data.error || 'Error al cambiar contraseña', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarAlerta('Error de conexión. Intenta nuevamente.', 'error');
+            } finally {
+                habilitarBoton(btnCambiar);
+            }
+        });
+
+        // ========== PREVENIR ZOOM EN DOBLE TAP (iOS) ==========
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>

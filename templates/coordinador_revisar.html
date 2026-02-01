@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisar Horario - Coordinador</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0097A7 0%, #00838F 100%);
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            flex: 1;
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-header {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-header:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .btn-aprobar {
+            background: #4CAF50;
+        }
+
+        .btn-aprobar:hover {
+            background: #388E3C;
+        }
+
+        .btn-rechazar {
+            background: #EF5350;
+        }
+
+        .btn-rechazar:hover {
+            background: #E53935;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        .info-docente {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .info-docente h3 {
+            font-size: 18px;
+            color: #263238;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+        }
+
+        .info-docente p {
+            font-size: 14px;
+            color: #78909C;
+            word-wrap: break-word;
+        }
+
+        .observaciones-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #263238;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #0097A7;
+        }
+
+        .historial-section {
+            background: #F5F7FA;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+
+        .historial-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 12px;
+        }
+
+        .historial-item {
+            background: white;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid #0097A7;
+        }
+
+        .historial-item.inactiva {
+            opacity: 0.6;
+            border-left-color: #BDBDBD;
+        }
+
+        .historial-header {
+            font-size: 12px;
+            color: #78909C;
+            margin-bottom: 6px;
+            word-wrap: break-word;
+        }
+
+        .historial-texto {
+            font-size: 13px;
+            color: #263238;
+            word-wrap: break-word;
+        }
+
+        .horario-container {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .institution-name {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .teacher-name {
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            color: #000;
+            margin-bottom: 16px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            min-width: 800px;
+        }
+
+        .schedule-table thead th {
+            border: 2px solid #000;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #000;
+            vertical-align: middle;
+            height: 65px;
+        }
+
+        .schedule-table thead th:first-child {
+            background: white;
+            border: 1px solid #ccc;
+            width: 7%;
+            min-width: 50px;
+        }
+
+        .schedule-table thead th.header-green {
+            background: #00695C;
+        }
+
+        .schedule-table thead th.header-yellow {
+            background: #FFFF00;
+        }
+
+        .schedule-table tbody th {
+            border: 2px solid #000;
+            padding: 12px 6px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            width: 7%;
+            min-width: 50px;
+            color: #000;
+        }
+
+        .schedule-table tbody th.day-green {
+            background: #00695C;
+        }
+
+        .schedule-table tbody th.day-yellow {
+            background: #FFFF00;
+        }
+
+        .schedule-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+            background: white;
+            font-size: 12px;
+            line-height: 1.3;
+            height: 75px;
+            min-height: 75px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .schedule-table td:hover {
+            background: #FFF9C4 !important;
+        }
+
+        .schedule-table td.observada {
+            background: #FFEBEE !important;
+            border: 2px solid #EF5350 !important;
+            cursor: default;
+        }
+
+        .schedule-table td.observada:hover {
+            background: #FFEBEE !important;
+        }
+
+        .schedule-table td.celda-resaltada {
+            background: #FFF9C4 !important;
+            border: 3px solid #FF9800 !important;
+            box-shadow: 0 0 15px rgba(255, 152, 0, 0.6);
+            animation: pulso 0.5s ease-in-out 3;
+        }
+
+        @keyframes pulso {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .schedule-table td.observada::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 12px;
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EF5350' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
+        }
+
+        .btn-eliminar-obs {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 24px;
+            height: 24px;
+            background: #EF5350;
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            line-height: 1;
+            padding: 0;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .btn-eliminar-obs:hover {
+            background: #D32F2F;
+            transform: scale(1.15);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+        }
+
+        .btn-eliminar-obs:active {
+            transform: scale(1.05);
+        }
+
+        .schedule-table td.observada .btn-eliminar-obs {
+            display: flex;
+        }
+
+        .lesson-subject {
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+            display: block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .lesson-class {
+            font-weight: normal;
+            color: #000;
+            display: block;
+            font-size: 10px;
+            margin-bottom: 4px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .activity-description {
+            font-weight: normal;
+            color: #666;
+            display: block;
+            font-size: 9px;
+            margin-top: 3px;
+            line-height: 1.2;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .activity-hours {
+            font-weight: 600;
+            color: #0097A7;
+            display: block;
+            font-size: 11px;
+            margin-top: 4px;
+            background: #E0F7FA;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .color-1 { background-color: #fff9cc; }
+        .color-2 { background-color: #e6f4ea; }
+        .color-3 { background-color: #ffe6f0; }
+        .color-4 { background-color: #e6f2ff; }
+        .color-5 { background-color: #fff0e6; }
+        .color-6 { background-color: #f0e6ff; }
+        .color-7 { background-color: #e6fff9; }
+        .color-8 { background-color: #ffffe6; }
+        .color-complementaria { background-color: #ffe0b2; }
+
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 350px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid #0097A7;
+            pointer-events: auto;
+            min-width: 280px;
+        }
+
+        .toast.success {
+            border-left-color: #4CAF50;
+        }
+
+        .toast.error {
+            border-left-color: #EF5350;
+        }
+
+        .toast.warning {
+            border-left-color: #FF9800;
+        }
+
+        .toast.info {
+            border-left-color: #2196F3;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        .toast.hiding {
+            animation: slideOut 0.3s ease;
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast-message {
+            flex: 1;
+            font-size: 13px;
+            color: #263238;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #78909C;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-close:hover {
+            color: #263238;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 12px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #0097A7;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-modal {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-guardar {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-cancelar {
+            background: #E0E0E0;
+            color: #263238;
+        }
+
+        .modal-confirmar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-confirmar.active {
+            display: flex;
+        }
+
+        .modal-confirmar-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-confirmar-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+        }
+
+        .modal-confirmar-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 10px;
+        }
+
+        .modal-confirmar-message {
+            font-size: 14px;
+            color: #78909C;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-confirmar-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-modal-confirmar {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 120px;
+        }
+
+        .btn-confirmar-si {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-confirmar-si:hover {
+            background: #388E3C;
+        }
+
+        .btn-confirmar-no {
+            background: #E0E0E0;
+            color: #263238;
+        }
+
+        .btn-confirmar-no:hover {
+            background: #BDBDBD;
+        }
+
+        .btn-confirmar-rechazar {
+            background: #EF5350;
+            color: white;
+        }
+
+        .btn-confirmar-rechazar:hover {
+            background: #E53935;
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 10px;
+            }
+
+            .header-title h1 {
+                font-size: 14px;
+            }
+
+            .header-title p {
+                font-size: 10px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .btn-header {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .icon {
+                width: 14px;
+                height: 14px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .info-docente {
+                padding: 15px;
+            }
+
+            .info-docente h3 {
+                font-size: 16px;
+            }
+
+            .info-docente p {
+                font-size: 12px;
+            }
+
+            .observaciones-section {
+                padding: 15px;
+            }
+
+            .section-title {
+                font-size: 14px;
+            }
+
+            .form-textarea {
+                font-size: 13px;
+                min-height: 80px;
+            }
+
+            .horario-container {
+                padding: 12px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-actions {
+                justify-content: stretch;
+            }
+
+            .btn-modal {
+                flex: 1;
+            }
+
+            .toast-container {
+                top: 20px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                max-width: calc(100% - 32px);
+                width: auto;
+                align-items: stretch;
+            }
+            
+            .toast {
+                width: auto;
+                min-width: 280px;
+                max-width: 100%;
+                padding: 14px 16px;
+                font-size: 13px;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            }
+
+            .toast-message {
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            .toast-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .modal-confirmar-content {
+                padding: 24px 20px;
+            }
+
+            .modal-confirmar-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .modal-confirmar-title {
+                font-size: 18px;
+            }
+
+            .modal-confirmar-message {
+                font-size: 13px;
+            }
+
+            .modal-confirmar-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-modal-confirmar {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .btn-header {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .header-title h1 {
+                font-size: 12px;
+            }
+
+            .institution-name {
+                font-size: 12px;
+            }
+
+            .teacher-name {
+                font-size: 13px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .btn-modal {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body data-horario-id="{{ horario_id }}">
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="header">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icono.png') }}" alt="ISTT Logo">
+            </div>
+            <div class="header-title">
+                <h1>INSTITUTO SUPERIOR TECNOLÓGICO TENA</h1>
+                <p>Revisión de Horario - Coordinador</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-header btn-aprobar" id="btnAprobar">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Aprobar
+            </button>
+            <button class="btn-header btn-rechazar" id="btnRechazar">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                Rechazar
+            </button>
+            <button class="btn-header" id="btnVolver">← Volver</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info-docente">
+            <h3>{{ horario_info.docente_nombre }}</h3>
+            <p>{{ horario_info.docente_cargo }} - {{ horario_info.nombre_archivo }}</p>
+        </div>
+
+        <div class="observaciones-section">
+            <div class="section-title">
+                <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                Observaciones
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Observación General</label>
+                <textarea id="observacionGeneral" class="form-textarea" placeholder="Escribe una observación general sobre el horario..."></textarea>
+            </div>
+
+            <p style="font-size: 13px; color: #78909C; margin-bottom: 16px;">
+                <strong>Nota:</strong> Haz clic en las casillas del horario para marcar observaciones específicas.
+            </p>
+
+            {% if historial_observaciones %}
+            <div class="historial-section">
+                <div class="historial-title">Historial de Observaciones</div>
+                {% for obs in historial_observaciones %}
+                <div class="historial-item {% if not obs.activa %}inactiva{% endif %}">
+                    <div class="historial-header">
+                        {{ obs.revisor_nombre }} - {{ obs.fecha[:16] }}
+                        {% if not obs.activa %} (Resuelta){% endif %}
+                    </div>
+                    {% if obs.observacion_general %}
+                    <div class="historial-texto"><strong>Observación General:</strong> {{ obs.observacion_general }}</div>
+                    {% endif %}
+                    {% if obs.especificas %}
+                    <ul style="margin-left: 20px; margin-top: 8px; font-size: 12px; color: #78909C;">
+                        {% for esp in obs.especificas %}
+                        <li style="cursor: pointer; padding: 4px; border-radius: 4px; transition: background 0.2s;" 
+                            onmouseover="this.style.background='#FFE0B2'" 
+                            onmouseout="this.style.background='transparent'"
+                            onclick="resaltarCelda('{{ esp.dia_id }}', '{{ esp.periodo_id }}')">
+                            {{ esp.dia_nombre }}, Período {{ esp.periodo_id }}: {{ esp.comentario }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+                    </div>
+
+        {% for profesor in horario.profesores %}
+        <div class="horario-container">
+            <div class="institution-name">{{ horario.institucion }}</div>
+            <div class="teacher-name">Profesor {{ profesor.nombre }}</div>
+
+            <div class="table-wrapper">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            {% for periodo in horario.periodos %}
+                            <th class="{{ 'header-green' if loop.index0 % 2 == 0 else 'header-yellow' }}">
+                                <span style="display: block; font-size: 15px;">{{ periodo.name }}</span>
+                                {% if periodo.starttime and periodo.endtime %}
+                                <span style="display: block; font-size: 9px; font-weight: normal; margin-top: 4px;">{{ periodo.starttime }} - {{ periodo.endtime }}</span>
+                                {% endif %}
+                            </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fila in profesor.matriz_procesada %}
+                        <tr>
+                            <th class="{{ 'day-green' if loop.index0 % 2 == 0 else 'day-yellow' }}">
+                                {{ fila.dia.short }}
+                            </th>
+                            {% for celda in fila.celdas %}
+                                {% if celda.tipo == 'clase' %}
+                                    <td class="has-class {{ celda.color }}" 
+                                        colspan="{{ celda.colspan }}"
+                                        data-dia="{{ celda.dia_id }}" 
+                                        data-periodo="{{ celda.periodo_id }}">
+                                        <span class="lesson-subject">{{ celda.materia }}</span>
+                                        {% if celda.clase %}
+                                        <span class="lesson-class">{{ celda.clase }}</span>
+                                        {% endif %}
+                                    </td>
+                                {% elif celda.tipo == 'actividad' %}
+                                    <td class="color-complementaria" 
+                                        colspan="{{ celda.colspan }}"
+                                        data-dia="{{ celda.dia_id }}" 
+                                        data-periodo="{{ celda.periodo_id }}"
+                                        data-activity-code="{{ celda.codigo }}">
+                                        <span class="lesson-subject">{{ celda.codigo }}</span>
+                                        <span class="activity-description"></span>
+                                        {% if celda.colspan > 1 %}
+                                        <span class="activity-hours">{{ celda.colspan }} horas</span>
+                                        {% endif %}
+                                    </td>
+                                {% else %}
+                                    <td data-dia="{{ celda.dia_id }}" 
+                                        data-periodo="{{ celda.periodo_id }}">
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="modal" id="observacionModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Agregar Observación</h3>
+            <p style="font-size: 13px; color: #78909C; margin-bottom: 12px;">
+                Día <span id="modalDia"></span>, Período <span id="modalPeriodo"></span>
+            </p>
+            <textarea id="modalComentario" class="modal-input" rows="4" placeholder="Escribe la observación específica..."></textarea>
+            <div class="modal-actions">
+                <button class="btn-modal btn-guardar" id="btnGuardarObs">Guardar</button>
+                <button class="btn-modal btn-cancelar" id="btnCancelarObs">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-confirmar" id="modalConfirmar">
+        <div class="modal-confirmar-content">
+            <svg class="modal-confirmar-icon" viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <h3 class="modal-confirmar-title" id="confirmarTitulo"></h3>
+            <p class="modal-confirmar-message" id="confirmarMensaje"></p>
+            <div class="modal-confirmar-actions">
+                <button class="btn-modal-confirmar btn-confirmar-si" id="btnConfirmarSi"></button>
+                <button class="btn-modal-confirmar btn-confirmar-no" id="btnConfirmarNo">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const horarioId = document.body.getAttribute('data-horario-id');
+        const observacionesEspecificas = [];
+        let celdaActual = null;
+        let activityDescriptions = {};
+        let accionConfirmada = null;
+
+        function mostrarConfirmacion(titulo, mensaje, textoBoton, callback, esRechazo = false) {
+            document.getElementById('confirmarTitulo').textContent = titulo;
+            document.getElementById('confirmarMensaje').textContent = mensaje;
+            const btnSi = document.getElementById('btnConfirmarSi');
+            btnSi.textContent = textoBoton;
+            
+            if (esRechazo) {
+                btnSi.className = 'btn-modal-confirmar btn-confirmar-rechazar';
+            } else {
+                btnSi.className = 'btn-modal-confirmar btn-confirmar-si';
+            }
+            
+            accionConfirmada = callback;
+            document.getElementById('modalConfirmar').classList.add('active');
+        }
+
+        function cerrarConfirmacion() {
+            document.getElementById('modalConfirmar').classList.remove('active');
+            accionConfirmada = null;
+        }
+
+        function showToast(message, type, duration) {
+            if (!type) type = 'info';
+            if (!duration) {
+                if (type === 'error' || type === 'warning') {
+                    duration = 5000;
+                } else {
+                    duration = 4000;
+                }
+            }
+            
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            
+            var icons = {
+                success: '<svg viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+                error: '<svg viewBox="0 0 24 24" fill="none" stroke="#EF5350" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',
+                warning: '<svg viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+                info: '<svg viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>'
+            };
+            
+            toast.innerHTML = '<div class="toast-icon">' + icons[type] + '</div><div class="toast-message">' + message + '</div><button class="toast-close" onclick="closeToast(this)">×</button>';
+            
+            container.appendChild(toast);
+            
+            setTimeout(function() {
+                closeToast(toast.querySelector('.toast-close'));
+            }, duration);
+        }
+
+        function closeToast(button) {
+            var toast = button.parentElement;
+            toast.classList.add('hiding');
+            setTimeout(function() {
+                toast.remove();
+            }, 300);
+        }
+
+        async function cargarActividadesDisponibles() {
+            try {
+                const response = await fetch('/api/actividades_complementarias');
+                if (response.ok) {
+                    const data = await response.json();
+                    data.actividades.forEach(function(act) {
+                        activityDescriptions[act.codigo] = act.descripcion;
+                    });
+                    
+                    document.querySelectorAll('td[data-activity-code]').forEach(function(celda) {
+                        const code = celda.getAttribute('data-activity-code');
+                        const descElement = celda.querySelector('.activity-description');
+                        if (descElement && activityDescriptions[code]) {
+                            descElement.textContent = activityDescriptions[code];
+                        }
+                    });
+                } else {
+                    showToast('Error al cargar actividades complementarias', 'error');
+                }
+            } catch (error) {
+                showToast('Error de conexión al cargar actividades', 'error');
+            }
+        }
+
+        function marcarObservacion(celda) {
+            celdaActual = celda;
+            const dia_id = celda.getAttribute('data-dia');
+            const periodo = celda.getAttribute('data-periodo');
+            
+            // ✅ CORRECCIÓN: Buscar el nombre del día en la tabla DOM
+            let dia_nombre = dia_id;
+            
+            // Buscar la fila que contiene esta celda
+            const fila = celda.closest('tr');
+            if (fila) {
+                // Buscar el <th> de la primera columna que tiene el nombre del día
+                const thDia = fila.querySelector('th');
+                if (thDia) {
+                    dia_nombre = thDia.textContent.trim();
+                }
+            }
+            
+            document.getElementById('modalDia').textContent = dia_nombre;
+            document.getElementById('modalPeriodo').textContent = periodo;
+            document.getElementById('modalComentario').value = '';
+            document.getElementById('observacionModal').classList.add('active');
+        }
+
+        function cerrarModal() {
+            document.getElementById('observacionModal').classList.remove('active');
+            celdaActual = null;
+        }
+
+        function guardarObservacionEspecifica() {
+            const comentario = document.getElementById('modalComentario').value.trim();
+            if (!comentario) {
+                showToast('Por favor escribe una observación', 'warning');
+                return;
+            }
+
+            const dia = celdaActual.getAttribute('data-dia');
+            const periodo = celdaActual.getAttribute('data-periodo');
+
+            observacionesEspecificas.push({
+                dia_id: dia,
+                periodo_id: periodo,
+                comentario: comentario
+            });
+
+            celdaActual.classList.add('observada');
+            
+            // Remover botón X existente si hay
+            const btnExistente = celdaActual.querySelector('.btn-eliminar-obs');
+            if (btnExistente) {
+                btnExistente.remove();
+            }
+            
+            // Agregar botón X para eliminar
+            const btnEliminar = document.createElement('button');
+            btnEliminar.className = 'btn-eliminar-obs';
+            btnEliminar.innerHTML = '×';
+            btnEliminar.setAttribute('title', 'Eliminar observación');
+            btnEliminar.setAttribute('data-dia', dia);
+            btnEliminar.setAttribute('data-periodo', periodo);
+            btnEliminar.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                const diaId = this.getAttribute('data-dia');
+                const periodoId = this.getAttribute('data-periodo');
+                eliminarObservacion(diaId, periodoId);
+            });
+            celdaActual.appendChild(btnEliminar);
+            
+            showToast('Observación agregada correctamente', 'success');
+            cerrarModal();
+        }
+
+        function eliminarObservacion(dia, periodo) {
+            console.log('Eliminando observación:', dia, periodo);
+            
+            // Buscar la celda con estos atributos
+            const celda = document.querySelector(`td[data-dia="${dia}"][data-periodo="${periodo}"]`);
+            
+            if (!celda) {
+                console.error('No se encontró la celda');
+                showToast('Error al eliminar observación', 'error');
+                return;
+            }
+            
+            // Buscar y eliminar del array
+            const index = observacionesEspecificas.findIndex(obs => 
+                obs.dia_id === dia && obs.periodo_id === periodo
+            );
+            
+            console.log('Índice encontrado:', index);
+            
+            if (index !== -1) {
+                observacionesEspecificas.splice(index, 1);
+                console.log('Observación eliminada del array');
+            }
+            
+            // Quitar estilos y botón
+            celda.classList.remove('observada');
+            const btnEliminar = celda.querySelector('.btn-eliminar-obs');
+            if (btnEliminar) {
+                btnEliminar.remove();
+                console.log('Botón eliminado');
+            }
+            
+            showToast('Observación eliminada', 'info');
+        }
+
+        async function aprobarHorario() {
+            // VALIDACIÓN AGREGADA: Verificar que no haya observaciones
+            const obsGeneral = document.getElementById('observacionGeneral').value.trim();
+            
+            if (obsGeneral || observacionesEspecificas.length > 0) {
+                showToast('No se puede aprobar un horario con observaciones. Debes eliminar todas las observaciones antes de aprobar.', 'error', 6000);
+                return;
+            }
+
+            mostrarConfirmacion(
+                '¿Aprobar Horario?',
+                'El horario se enviará a Rectorado para aprobación final.',
+                'Aprobar',
+                async function() {
+                    cerrarConfirmacion();
+
+                    try {
+                        const response = await fetch('/coordinador/aprobar/' + horarioId, {
+                            method: 'POST'
+                        });
+
+                        if (response.ok) {
+                            showToast('Horario aprobado exitosamente y enviado a Rectorado', 'success', 3000);
+                            setTimeout(function() {
+                                window.location.href = '/coordinador';
+                            }, 3000);
+                        } else {
+                            showToast('Error al aprobar el horario', 'error');
+                        }
+                    } catch (error) {
+                        showToast('Error de conexión. Intenta nuevamente', 'error');
+                    }
+                }
+            );
+        }
+
+        async function rechazarHorario() {
+            const obsGeneral = document.getElementById('observacionGeneral').value.trim();
+            
+            if (!obsGeneral && observacionesEspecificas.length === 0) {
+                showToast('Debes agregar al menos una observación antes de rechazar', 'warning');
+                return;
+            }
+
+            mostrarConfirmacion(
+                '¿Rechazar Horario?',
+                'Se devolverá al docente con las observaciones.',
+                'Rechazar',
+                async function() {
+                    cerrarConfirmacion();
+                    await guardarObservaciones();
+
+                    try {
+                        const response = await fetch('/coordinador/rechazar/' + horarioId, {
+                            method: 'POST'
+                        });
+
+                        if (response.ok) {
+                            showToast('Horario rechazado. Se ha notificado al docente', 'success', 3000);
+                            setTimeout(function() {
+                                window.location.href = '/coordinador';
+                            }, 3000);
+                        } else {
+                            showToast('Error al rechazar el horario', 'error');
+                        }
+                    } catch (error) {
+                        showToast('Error de conexión. Intenta nuevamente', 'error');
+                    }
+                },
+                true
+            );
+        }
+
+        async function guardarObservaciones() {
+            const obsGeneral = document.getElementById('observacionGeneral').value.trim();
+
+            try {
+                const response = await fetch('/coordinador/guardar_observaciones/' + horarioId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        observacion_general: obsGeneral,
+                        observaciones_especificas: observacionesEspecificas
+                    })
+                });
+
+                if (!response.ok) {
+                    showToast('Error al guardar observaciones', 'error');
+                }
+
+                return await response.json();
+            } catch (error) {
+                showToast('Error de conexión al guardar observaciones', 'error');
+            }
+        }
+
+        function resaltarCelda(diaId, periodoId) {
+            // Remover resaltados anteriores
+            document.querySelectorAll('.celda-resaltada').forEach(function(celda) {
+                celda.classList.remove('celda-resaltada');
+            });
+            
+            // Buscar y resaltar la celda
+            const celda = document.querySelector('td[data-dia="' + diaId + '"][data-periodo="' + periodoId + '"]');
+            if (celda) {
+                celda.classList.add('celda-resaltada');
+                celda.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Remover el resaltado después de 3 segundos
+                setTimeout(function() {
+                    celda.classList.remove('celda-resaltada');
+                }, 3000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarActividadesDisponibles();
+
+            document.getElementById('btnAprobar').addEventListener('click', aprobarHorario);
+            document.getElementById('btnRechazar').addEventListener('click', rechazarHorario);
+            document.getElementById('btnVolver').addEventListener('click', function() {
+                window.location.href = '/coordinador';
+            });
+
+            document.getElementById('btnGuardarObs').addEventListener('click', guardarObservacionEspecifica);
+            document.getElementById('btnCancelarObs').addEventListener('click', cerrarModal);
+
+            document.getElementById('btnConfirmarSi').addEventListener('click', function() {
+                if (accionConfirmada) {
+                    accionConfirmada();
+                }
+            });
+            
+            document.getElementById('btnConfirmarNo').addEventListener('click', cerrarConfirmacion);
+
+            document.querySelectorAll('.schedule-table td').forEach(function(celda) {
+                celda.addEventListener('click', function(e) {
+                    // No abrir modal si se hizo click en el botón de eliminar
+                    if (e.target.classList.contains('btn-eliminar-obs')) {
+                        return;
+                    }
+                    marcarObservacion(this);
+                });
+            });
+
+            document.getElementById('observacionModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    cerrarModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandeja - ISTT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5F7FA;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0097A7 0%, #00838F 100%);
+            border-radius: 10px;
+            border: 2px solid #F5F7FA;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00838F 0%, #006064 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #F5F7FA;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0097A7 0%, #00838F 100%);
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            min-height: 40px;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-back {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-back:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 300px;
+            max-width: 85vw;
+            height: 100vh;
+            background: #FFFFFF;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            padding: 24px 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header h2 {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+            min-height: 0;
+        }
+
+        .menu-item {
+            padding: 14px 20px;
+            color: #263238;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 4px 12px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background: #F0F4F8;
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .user-section {
+            border-top: 1px solid #E1E8ED;
+            background: #FAFBFC;
+            flex-shrink: 0;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .user-info {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            min-height: 76px;
+        }
+
+        .user-info:hover {
+            background: #F0F4F8;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border: 3px solid #E1F5FE;
+            box-shadow: 0 2px 8px rgba(0,188,212,0.25);
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            color: #263238;
+            font-size: 14px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .user-role {
+            color: #78909C;
+            font-size: 12px;
+            margin-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .user-arrow {
+            color: #90A4AE;
+            font-size: 12px;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .user-arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .user-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #F5F8FA;
+        }
+
+        .user-dropdown.active {
+            max-height: 250px;
+        }
+
+        .dropdown-item {
+            padding: 14px 20px;
+            color: #263238;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+            background: #E3F2FD;
+        }
+
+        .dropdown-item.logout {
+            color: #FFFFFF;
+            background: #EF5350;
+            margin-top: 8px;
+        }
+
+        .dropdown-item.logout:hover {
+            background: #E53935;
+        }
+
+        .logout-icon {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .container {
+            padding: 20px 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 24px;
+            color: #263238;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .horario-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .horario-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .horario-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .horario-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .horario-nombre {
+            font-size: 16px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+
+        .horario-meta {
+            font-size: 13px;
+            color: #78909C;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .revision-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .status-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+        
+        .aprobado-badge {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #4CAF50;
+        }
+        
+        .rechazado-badge {
+            background: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #EF5350;
+        }
+        
+        .revision-badge {
+            background: #FFF3E0;
+            color: #E65100;
+            border: 1px solid #FF9800;
+        }
+        
+        .revisor-nombre {
+            font-size: 11px;
+            color: #78909C;
+            font-style: italic;
+        }
+        
+        .estado-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .estado-borrador {
+            background: #E0E0E0;
+            color: #616161;
+        }
+
+        .estado-revision {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .estado-rechazado {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .estado-aprobado {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .horario-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-action {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+            min-width: auto;
+            max-width: fit-content;
+        }
+
+        .btn-corregir {
+            background: #0097A7;
+            color: white;
+        }
+
+        .btn-corregir:hover {
+            background: #00838F;
+        }
+
+        .btn-descargar {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.3);
+        }
+
+        .btn-descargar:hover {
+            background: linear-gradient(135deg, #45a049 0%, #388E3C 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76,175,80,0.4);
+        }
+
+        .btn-descargar:disabled {
+            background: #BDBDBD;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-descargar-hored {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(25,118,210,0.3);
+        }
+
+        .btn-descargar-hored:hover {
+            background: linear-gradient(135deg, #1565C0 0%, #0D47A1 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(25,118,210,0.4);
+        }
+
+        .btn-eliminar {
+            background: #EF5350;
+            color: white;
+        }
+
+        .btn-eliminar:hover {
+            background: #E53935;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #78909C;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #263238;
+            margin-bottom: 10px;
+        }
+
+        .modal-message {
+            font-size: 14px;
+            color: #78909C;
+            margin-bottom: 20px;
+            word-break: break-word;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-modal {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .btn-confirmar-eliminar {
+            background: #EF5350;
+            color: white;
+        }
+
+        .btn-cancelar {
+            background: #E0E0E0;
+            color: #263238;
+        }
+
+        .warning-badge {
+            display: inline-block;
+            background: #FFF3E0;
+            color: #E65100;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 10px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            min-width: 300px;
+            max-width: 500px;
+        }
+
+        .toast.success {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .toast.error {
+            border-left: 4px solid #EF5350;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .toast-icon.success {
+            color: #4CAF50;
+        }
+
+        .toast-icon.error {
+            color: #EF5350;
+        }
+
+        .toast-message {
+            flex: 1;
+            color: #263238;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: #78909C;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .toast-close:hover {
+            background: #F5F5F5;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        .toast.hiding {
+            animation: slideOut 0.3s ease;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                padding: 20px 12px;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .horario-actions {
+                flex-direction: column;
+            }
+
+            .btn-action {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .header-title h1 {
+                font-size: 14px;
+            }
+
+            .header-title p {
+                font-size: 10px;
+            }
+
+            .btn-back {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 15px 10px;
+            }
+
+            .page-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .horario-item {
+                padding: 15px;
+            }
+
+            .horario-nombre {
+                font-size: 15px;
+            }
+
+            .horario-meta {
+                font-size: 12px;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .modal-content {
+                padding: 24px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .revision-status {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .status-badge {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+
+                .status-icon {
+                    width: 12px;
+                    height: 12px;
+                }
+
+                .revisor-nombre {
+                    font-size: 10px;
+                }
+
+            .header {
+                padding: 8px 10px;
+                gap: 8px;
+            }
+
+            .menu-btn {
+                font-size: 20px;
+                min-width: 36px;
+                min-height: 36px;
+                padding: 4px 8px;
+            }
+
+            .logo {
+                width: 38px;
+                height: 38px;
+            }
+
+            .logo-container {
+                gap: 8px;
+            }
+
+            .header-title h1 {
+                font-size: 12px;
+            }
+
+            .header-title p {
+                font-size: 9px;
+            }
+
+            .btn-back {
+                padding: 5px 8px;
+                font-size: 11px;
+            }
+
+            .container {
+                padding: 12px 8px;
+            }
+
+            .page-title {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            .horario-item {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .horario-nombre {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+
+            .horario-meta {
+                font-size: 11px;
+                gap: 6px;
+            }
+
+            .estado-badge {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            .btn-action {
+                padding: 9px 12px;
+                font-size: 12px;
+                gap: 5px;
+            }
+
+            .icon {
+                width: 14px;
+                height: 14px;
+            }
+
+            .sidebar {
+                width: 260px;
+            }
+
+            .sidebar-header {
+                padding: 20px 16px;
+            }
+
+            .sidebar-header h2 {
+                font-size: 16px;
+            }
+
+            .menu-item {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+
+            .user-info {
+                padding: 14px 16px;
+                min-height: 70px;
+            }
+
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 15px;
+            }
+
+            .user-name {
+                font-size: 13px;
+            }
+
+            .user-role {
+                font-size: 11px;
+            }
+
+            .dropdown-item {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+
+            .modal-content {
+                padding: 20px 16px;
+            }
+
+            .modal-title {
+                font-size: 16px;
+            }
+
+            .modal-message {
+                font-size: 13px;
+            }
+
+            .btn-modal {
+                padding: 9px 18px;
+                font-size: 13px;
+            }
+
+            .warning-badge {
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+
+            .empty-state {
+                padding: 40px 15px;
+            }
+
+            .empty-state svg {
+                width: 60px;
+                height: 60px;
+            }
+
+            .empty-state h3 {
+                font-size: 16px;
+            }
+
+            .empty-state p {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header-title h1 {
+                font-size: 11px;
+            }
+
+            .header-title p {
+                display: none;
+            }
+
+            .btn-back {
+                padding: 4px 6px;
+                font-size: 10px;
+            }
+
+            .page-title {
+                font-size: 16px;
+            }
+
+            .horario-nombre {
+                font-size: 13px;
+            }
+
+            .btn-action {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+
+            .sidebar {
+                width: 240px;
+            }
+        }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 6px 10px;
+            }
+
+            .logo {
+                width: 35px;
+                height: 35px;
+            }
+
+            .header-title h1 {
+                font-size: 12px;
+            }
+
+            .header-title p {
+                display: none;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .sidebar-header {
+                padding: 16px;
+            }
+
+            .user-info {
+                padding: 12px 16px;
+                min-height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icono.png') }}" alt="ISTT Logo">
+            </div>
+            <div class="header-title">
+                <h1>INSTITUTO SUPERIOR TECNOLÓGICO TENA</h1>
+                <p>Bandeja de Horarios</p>
+            </div>
+        </div>
+        <button class="btn-back" onclick="window.location.href='/dashboard'">← Volver</button>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menú Principal</h2>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="/bandeja" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                </svg>
+                <span>Bandeja de Horarios</span>
+            </a>
+            <a href="/dashboard" class="menu-item">
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Cargar Horario</span>
+            </a>
+        </div>
+
+        <div class="user-section">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">{{ nombre[0] if nombre else 'U' }}</div>
+                <div class="user-details">
+                    <div class="user-name">{{ nombre }}</div>
+                    <div class="user-role">{{ cargo }}</div>
+                </div>
+                <span class="user-arrow" id="userArrow">▼</span>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <a href="/cambiar_password" class="dropdown-item">
+                    <svg class="logout-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>Cambiar Contraseña</span>
+                </a>
+                <a href="/logout" class="dropdown-item logout">
+                    <svg class="logout-icon" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Cerrar sesión</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <h2 class="page-title">Mis Horarios</h2>
+
+        {% if horarios %}
+            {% for horario in horarios %}
+            <div class="horario-item">
+                <div class="horario-header">
+                    <div class="horario-info">
+                        <div class="horario-nombre">{{ horario.nombre_archivo }}</div>
+                        <div class="horario-meta">
+                            <span class="meta-item">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span class="fecha-local" data-fecha="{{ horario.fecha_carga }}">{{ horario.fecha_carga[:16] }}</span>
+                            </span>
+                            
+                            {# Mostrar estado de Coordinador si el horario ha pasado por esa etapa #}
+                            {% if horario.estado not in ['borrador'] %}
+                            <span class="meta-item revision-status">
+                                <strong>Coordinador:</strong>
+                                {% if horario.estado == 'rechazado_coordinador' %}
+                                    <span class="status-badge rechazado-badge">
+                                        <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </span>
+                                    {% if horario.coordinador_nombre %}
+                                        <span class="revisor-nombre">{{ horario.coordinador_nombre }}</span>
+                                    {% endif %}
+                                {% elif horario.estado == 'revision_coordinador' %}
+                                    <span class="status-badge revision-badge">
+                                        <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                    </span>
+                                {% elif horario.estado in ['revision_rectorado', 'rechazado_rectorado', 'aprobado'] %}
+                                    <span class="status-badge aprobado-badge">
+                                        <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </span>
+                                    {% if horario.coordinador_nombre %}
+                                        <span class="revisor-nombre">{{ horario.coordinador_nombre }}</span>
+                                    {% endif %}
+                                {% endif %}
+                            </span>
+                            {% endif %}
+                            
+                            {# Mostrar estado de Rectorado solo si el horario ha llegado a esa etapa #}
+                            {% if horario.estado in ['revision_rectorado', 'rechazado_rectorado', 'aprobado'] %}
+                            <span class="meta-item revision-status">
+                                <strong>Rectorado:</strong>
+                                {% if horario.estado == 'aprobado' %}
+                                    <span class="status-badge aprobado-badge">
+                                        <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </span>
+                                    {% if horario.rectorado_nombre %}
+                                        <span class="revisor-nombre">{{ horario.rectorado_nombre }}</span>
+                                    {% endif %}
+                                {% elif horario.estado == 'rechazado_rectorado' %}
+                                    <span class="status-badge rechazado-badge">
+                                        <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </span>
+                                    {% if horario.rectorado_nombre %}
+                                        <span class="revisor-nombre">{{ horario.rectorado_nombre }}</span>
+                                    {% endif %}
+                                {% elif horario.estado == 'revision_rectorado' %}
+                                    <span class="status-badge revision-badge">
+                                        <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                    </span>
+                                {% endif %}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div>
+                        {% if horario.estado == 'borrador' %}
+                        <span class="estado-badge estado-borrador">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Borrador
+                        </span>
+                        {% elif horario.estado in ['revision_coordinador', 'revision_rectorado'] %}
+                        <span class="estado-badge estado-revision">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            En Revisión
+                        </span>
+                        {% elif horario.estado in ['rechazado_coordinador', 'rechazado_rectorado'] %}
+                        <span class="estado-badge estado-rechazado">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                            Rechazado
+                        </span>
+                        {% elif horario.estado == 'aprobado' %}
+                        <span class="estado-badge estado-aprobado">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            Aprobado
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="horario-actions">
+                    {% if horario.estado in ['borrador', 'rechazado_coordinador', 'rechazado_rectorado'] %}
+                    <button class="btn-action btn-corregir" data-horario-id="{{ horario.id }}" onclick="irAVisualizar(this)">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                        Editar
+                    </button>
+                    {% endif %}
+                    
+                    {% if horario.estado == 'aprobado' %}
+                    <button class="btn-action btn-descargar" data-horario-id="{{ horario.id }}" onclick="descargarPDF(this)">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Descargar PDF
+                    </button>
+                    
+                    <button class="btn-action btn-descargar-hored" data-horario-id="{{ horario.id }}" onclick="descargarHored(this)">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        Descargar .hored
+                    </button>
+                    {% endif %}
+                    
+                    <button class="btn-action btn-eliminar" 
+                            data-horario-id="{{ horario.id }}" 
+                            data-horario-nombre="{{ horario.nombre_archivo }}" 
+                            data-horario-estado="{{ horario.estado }}"
+                            onclick="confirmarEliminar(this)">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                <h3>No hay horarios</h3>
+                <p>Sube tu primer horario desde el panel principal</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="modal" id="modalEliminar">
+        <div class="modal-content">
+            <h3 class="modal-title">¿Eliminar horario?</h3>
+            <p class="modal-message" id="mensajeEliminar"></p>
+            <div id="advertenciaEliminar" style="display: none; margin: 15px 0;">
+                <span class="warning-badge" id="estadoHorario"></span>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal btn-confirmar-eliminar" onclick="eliminarHorario()">Eliminar</button>
+                <button class="btn-modal btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarToast(mensaje, tipo = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${tipo}`;
+            
+            const icono = tipo === 'success' 
+                ? '<svg class="toast-icon success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+                : '<svg class="toast-icon error" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>';
+            
+            toast.innerHTML = `
+                ${icono}
+                <span class="toast-message">${mensaje}</span>
+                <button class="toast-close" onclick="cerrarToast(this)">×</button>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                cerrarToast(toast.querySelector('.toast-close'));
+            }, 5000);
+        }
+
+        function cerrarToast(button) {
+            const toast = button.closest('.toast');
+            if (toast) {
+                toast.classList.add('hiding');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }
+        }
+
+        function convertirFechasALocal() {
+            const elementosFecha = document.querySelectorAll('.fecha-local');
+            
+            elementosFecha.forEach(function(elemento) {
+                const fechaUTC = elemento.getAttribute('data-fecha');
+                if (fechaUTC) {
+                    try {
+                        const fecha = new Date(fechaUTC + ' UTC');
+                        const opciones = {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        };
+                        const fechaLocal = fecha.toLocaleString('es-EC', opciones);
+                        elemento.textContent = fechaLocal;
+                    } catch (error) {
+                        console.error('Error al convertir fecha:', error);
+                        elemento.textContent = fechaUTC.substring(0, 16);
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', convertirFechasALocal);
+
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.getElementById('userDropdown').classList.remove('active');
+            document.getElementById('userArrow').classList.remove('rotated');
+        });
+
+        const userInfo = document.getElementById('userInfo');
+        const userDropdown = document.getElementById('userDropdown');
+        const userArrow = document.getElementById('userArrow');
+
+        userInfo.addEventListener('click', function() {
+            userDropdown.classList.toggle('active');
+            userArrow.classList.toggle('rotated');
+        });
+
+        let horarioIdEliminar = null;
+
+        function confirmarEliminar(button) {
+            horarioIdEliminar = button.getAttribute('data-horario-id');
+            const nombre = button.getAttribute('data-horario-nombre');
+            const estado = button.getAttribute('data-horario-estado');
+            
+            const estadoMensajes = {
+                'borrador': 'Este horario está en estado de borrador.',
+                'revision_coordinador': 'Este horario está en revisión por el coordinador.',
+                'revision_rectorado': 'Este horario está en revisión por rectorado.',
+                'rechazado_coordinador': 'Este horario fue rechazado por el coordinador.',
+                'rechazado_rectorado': 'Este horario fue rechazado por rectorado.',
+                'aprobado': 'Este horario está APROBADO. La eliminación es permanente.'
+            };
+            
+            document.getElementById('mensajeEliminar').textContent = 
+                '¿Estás seguro de eliminar el horario "' + nombre + '"? Esta acción no se puede deshacer.';
+            
+            const advertencia = document.getElementById('advertenciaEliminar');
+            const estadoBadge = document.getElementById('estadoHorario');
+            
+            if (estadoMensajes[estado]) {
+                estadoBadge.textContent = estadoMensajes[estado];
+                advertencia.style.display = 'block';
+            } else {
+                advertencia.style.display = 'none';
+            }
+            
+            document.getElementById('modalEliminar').classList.add('active');
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalEliminar').classList.remove('active');
+            horarioIdEliminar = null;
+        }
+
+        async function eliminarHorario() {
+            if (!horarioIdEliminar) return;
+
+            try {
+                const response = await fetch('/eliminar_horario/' + horarioIdEliminar, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    cerrarModal();
+                    mostrarToast('Horario eliminado exitosamente', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    cerrarModal();
+                    mostrarToast(data.error || 'No se pudo eliminar el horario', 'error');
+                }
+            } catch (error) {
+                cerrarModal();
+                mostrarToast('Error al eliminar el horario. Intenta nuevamente.', 'error');
+            }
+        }
+
+        function descargarPDF(button) {
+            const horarioId = button.getAttribute('data-horario-id');
+            const width = Math.min(1200, window.innerWidth - 40);
+            const height = Math.min(800, window.innerHeight - 40);
+            const left = (screen.width - width) / 2;
+            const top = (screen.height - height) / 2;
+            
+            window.open(
+                '/descargar/' + horarioId, 
+                'DescargarHorario',
+                'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top + ',resizable=yes,scrollbars=yes'
+            );
+        }
+
+        function descargarHored(button) {
+            const horarioId = button.getAttribute('data-horario-id');
+            window.location.href = '/descargar_hored/' + horarioId;
+        }
+
+        function irAVisualizar(button) {
+            const horarioId = button.getAttribute('data-horario-id');
+            window.location.href = '/visualizar?id=' + horarioId;
+        }
+
+        document.querySelectorAll('.menu-item, .dropdown-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
