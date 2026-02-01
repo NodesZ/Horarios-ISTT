@@ -18,13 +18,15 @@ from contextlib import contextmanager
 from pathlib import Path
 import platform
 import secrets
+from flask_session import Session
+
 
 # ============================================================================
 # CONFIGURACIÓN DE LA APLICACIÓN
 # ============================================================================
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or secrets.token_hex(16)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ISTT-HORARIOS-2026-SEGURO')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['DATABASE'] = os.path.join('static', 'horarios.db')
@@ -36,6 +38,13 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=12)
 app.config['DB_TIMEOUT'] = 30.0
 app.config['DB_MAX_RETRIES'] = 5
 app.config['DB_RETRY_DELAY'] = 0.1
+
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_FILE_DIR"] = "/tmp/flask_sessions"
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+
+Session(app)
 
 IS_WINDOWS = platform.system() == 'Windows'
 IS_LINUX = platform.system() == 'Linux'
@@ -375,7 +384,7 @@ def init_db():
                     revisor_id INTEGER NOT NULL,
                     tipo_revisor TEXT NOT NULL CHECK(tipo_revisor IN ('coordinador', 'rectorado')),
                     observacion_general TEXT,
-                    fecha_observacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    fecha_observacion TIMESTAMP DEFAULT (datetime('now', '-5 hours')),
                     activa INTEGER DEFAULT 1,
                     FOREIGN KEY (horario_id) REFERENCES horarios(id),
                     FOREIGN KEY (revisor_id) REFERENCES usuarios(id)
@@ -2075,6 +2084,11 @@ def coordinador_revisar(horario_id):
             
             horario_data = json.loads(horario_row['contenido_json'])
             
+            # ✅ NUEVO: Crear mapeo de dia_id a nombres
+            dias_nombres = {}
+            for dia in horario_data.get('dias', []):
+                dias_nombres[dia['id']] = dia.get('name', dia.get('short', 'Día'))
+            
             c.execute('''
                 SELECT o.*, u.nombre as revisor_nombre, u.rol as revisor_rol
                 FROM observaciones o
@@ -2089,13 +2103,24 @@ def coordinador_revisar(horario_id):
                 c.execute('SELECT * FROM observaciones_especificas WHERE observacion_id = ?', (obs['id'],))
                 especificas = c.fetchall()
                 
+                # ✅ NUEVO: Mapear dia_id a nombre legible
+                especificas_legibles = []
+                for esp in especificas:
+                    dia_nombre = dias_nombres.get(esp['dia_id'], esp['dia_id'])
+                    especificas_legibles.append({
+                        'dia_id': esp['dia_id'],
+                        'dia_nombre': dia_nombre,  # ✅ AGREGADO
+                        'periodo_id': esp['periodo_id'],
+                        'comentario': esp['comentario']
+                    })
+                
                 historial_observaciones.append({
                     'id': obs['id'],
                     'revisor_nombre': obs['revisor_nombre'],
                     'observacion_general': obs['observacion_general'],
                     'fecha': obs['fecha_observacion'],
                     'activa': obs['activa'],
-                    'especificas': [dict(e) for e in especificas]
+                    'especificas': especificas_legibles  # ✅ CAMBIADO
                 })
             
             return horario_row, (horario_data, historial_observaciones)
@@ -2137,8 +2162,8 @@ def coordinador_guardar_observaciones(horario_id):
             c = conn.cursor()
             
             c.execute('''
-                INSERT INTO observaciones (horario_id, revisor_id, tipo_revisor, observacion_general)
-                VALUES (?, ?, 'coordinador', ?)
+                INSERT INTO observaciones (horario_id, revisor_id, tipo_revisor, observacion_general, fecha_observacion)
+                VALUES (?, ?, 'coordinador', ?, datetime('now', '-5 hours'))
             ''', (horario_id, session['usuario_id'], data.get('observacion_general', '')))
             
             observacion_id = c.lastrowid
@@ -2552,6 +2577,11 @@ def rectorado_revisar(horario_id):
             
             horario_data = json.loads(horario_row['contenido_json'])
             
+            # ✅ CREAR MAPEO DE DIA_ID A NOMBRES (IGUAL QUE COORDINADOR)
+            dias_nombres = {}
+            for dia in horario_data.get('dias', []):
+                dias_nombres[dia['id']] = dia.get('name', dia.get('short', 'Día'))
+            
             c.execute('''
                 SELECT o.*, u.nombre as revisor_nombre
                 FROM observaciones o
@@ -2566,12 +2596,23 @@ def rectorado_revisar(horario_id):
                 c.execute('SELECT * FROM observaciones_especificas WHERE observacion_id = ?', (obs['id'],))
                 especificas = c.fetchall()
                 
+                # ✅ MAPEAR DIA_ID A NOMBRE LEGIBLE (IGUAL QUE COORDINADOR)
+                especificas_legibles = []
+                for esp in especificas:
+                    dia_nombre = dias_nombres.get(esp['dia_id'], esp['dia_id'])
+                    especificas_legibles.append({
+                        'dia_id': esp['dia_id'],
+                        'dia_nombre': dia_nombre,  # ✅ ESTE ES EL CAMPO QUE FALTABA
+                        'periodo_id': esp['periodo_id'],
+                        'comentario': esp['comentario']
+                    })
+                
                 observaciones_list.append({
                     'id': obs['id'],
                     'revisor_nombre': obs['revisor_nombre'],
                     'observacion_general': obs['observacion_general'],
                     'fecha': obs['fecha_observacion'],
-                    'especificas': [dict(e) for e in especificas]
+                    'especificas': especificas_legibles  # ✅ USAR LA LISTA CON NOMBRES
                 })
             
             return horario_row, (horario_data, observaciones_list)
@@ -2613,8 +2654,8 @@ def rectorado_guardar_observaciones(horario_id):
             c = conn.cursor()
             
             c.execute('''
-                INSERT INTO observaciones (horario_id, revisor_id, tipo_revisor, observacion_general)
-                VALUES (?, ?, 'rectorado', ?)
+                INSERT INTO observaciones (horario_id, revisor_id, tipo_revisor, observacion_general, fecha_observacion)
+                VALUES (?, ?, 'rectorado', ?, datetime('now', '-5 hours'))
             ''', (horario_id, session['usuario_id'], data.get('observacion_general', '')))
             
             observacion_id = c.lastrowid
@@ -3167,4 +3208,3 @@ if __name__ == '__main__':
         port=int(os.environ.get('PORT', 5000)),
         threaded=True
     )
-
